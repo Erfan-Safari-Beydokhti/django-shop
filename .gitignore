@@ -25,6 +25,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+.idea/
 
 # Django stuff:
 *.log
@@ -36,7 +37,6 @@ media/
 
 # If you use VSCode or PyCharm:
 .vscode/
-.idea/
 
 # OS files
 .DS_Store
