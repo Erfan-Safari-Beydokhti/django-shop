@@ -6,6 +6,6 @@ from django.views.generic import View
 
 class RegisterView(View):
     def get(self, request):
-        pass
+        return render(request,'account_module/register.html')
     def post(self, request):
         pass
