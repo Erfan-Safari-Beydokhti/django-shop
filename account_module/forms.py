@@ -55,17 +55,31 @@ class RegisterForm(forms.ModelForm):
             }),
         }
 
-        def clean_confirm_password(self):
-            password = self.cleaned_data.get('password')
-            confirm_password = self.cleaned_data.get('confirm_password')
-            if password and confirm_password and password == confirm_password:
-                return confirm_password
-            self.add_error('confirm_password', 'Passwords do not match!')
+    def clean_confirm_password(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        confirm_password = cleaned_data.get("confirm_password")
+        if password and confirm_password and password != confirm_password:
+            self.add_error("confirm_password", "Passwords do not match!")
+        return cleaned_data
 
-        def get_birth_date(self):
-            y=int(self.cleaned_data['year'])
-            m=int(self.cleaned_data['month'])
-            d=int(self.cleaned_data['day'])
-            return datetime.date(y,m,d)
+    def save(self, commit=True):
+        user = super(RegisterForm, self).save(commit=False)
+        y=int(self.cleaned_data['year'])
+        m=int(self.cleaned_data['month'])
+        d=int(self.cleaned_data['day'])
+        user.birth_date=datetime.date(y,m,d)
+        user.username=self.cleaned_data['email']
+        user.first_name=self.cleaned_data['first_name']
+        user.last_name=self.cleaned_data['last_name']
+        user.email=self.cleaned_data['email']
+        user.set_password(self.cleaned_data['password'])
+        if commit:
+            user.save()
+        return user
+
+
+
+
 
 
