@@ -11,9 +11,7 @@ class RegisterForm(forms.ModelForm):
     )
     YEAR_CHOICES = [(y, y) for y in range(1950, datetime.datetime.now().year + 1)]
 
-    MONTH_CHOICES = [('1', 'January'), ('2', 'February'), ('3', 'March'), ('4', 'April'), ('5', 'May'), ('6', 'June'),
-                     ('7', 'July'), ('8', 'August'), ('9', 'September'), ('10', 'October'), ('11', 'November'),
-                     ('12', 'December')]
+    MONTH_CHOICES = [(i, datetime.date(2000, i, 1).strftime('%B')) for i in range(1, 13)]
     DAY_CHOICES = [(d, d) for d in range(1, 32)]
 
     confirm_password = forms.CharField(widget=forms.PasswordInput(
@@ -31,7 +29,7 @@ class RegisterForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email','password']
+        fields = ['first_name', 'last_name', 'email', 'password']
         widgets = {
             'first_name': forms.TextInput(attrs={
                 'class': 'input-text input-text--primary-style',
@@ -56,30 +54,22 @@ class RegisterForm(forms.ModelForm):
         }
 
     def clean_confirm_password(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get("password")
-        confirm_password = cleaned_data.get("confirm_password")
+        password = self.cleaned_data.get("password")
+        confirm_password = self.cleaned_data.get("confirm_password")
         if password and confirm_password and password != confirm_password:
-            self.add_error("confirm_password", "Passwords do not match!")
-        return cleaned_data
+            raise forms.ValidationError("Passwords do not match!")
+        return confirm_password
 
     def save(self, commit=True):
-        user = super(RegisterForm, self).save(commit=False)
-        y=int(self.cleaned_data['year'])
-        m=int(self.cleaned_data['month'])
-        d=int(self.cleaned_data['day'])
-        user.birth_date=datetime.date(y,m,d)
-        user.username=self.cleaned_data['email']
-        user.first_name=self.cleaned_data['first_name']
-        user.last_name=self.cleaned_data['last_name']
-        user.email=self.cleaned_data['email']
+        user = super().save(commit=False)
+        y = int(self.cleaned_data['year'])
+        m = int(self.cleaned_data['month'])
+        d = int(self.cleaned_data['day'])
+        user.birth_date = datetime.date(y, m, d)
+
+        user.username = self.cleaned_data['email']
         user.set_password(self.cleaned_data['password'])
+
         if commit:
             user.save()
         return user
-
-
-
-
-
-
