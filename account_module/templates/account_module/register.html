@@ -51,7 +51,7 @@
                                     <div class="l-f-o__pad-box">
                                         <h1 class="gl-h1">PERSONAL INFORMATION</h1>
 
-                                        <form class="l-f-o__form" method="post">
+                                        <form class="l-f-o__form" method="post" action="{% url 'register_view' %}">
                                             {% csrf_token %}
 
                                             <!-- First Name -->

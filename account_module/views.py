@@ -1,6 +1,5 @@
 import datetime
-from audioop import reverse
-
+from django.urls import reverse
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.utils.crypto import get_random_string
@@ -37,9 +36,18 @@ class RegisterView(View):
                 new_user.gender = form.cleaned_data['gender']
                 new_user.save()
 
-                send_email('فعال سازی حساب کاربری',new_user.email,{'user':new_user},'email/active_account.html')
-                return redirect(reverse('home'))
-        context = {'register_form': form}
+                domain = request.get_host()
+                activation_link = f"http://{domain}{reverse('active_code', kwargs={'email_active_code': new_user.active_email_code})}"
+
+
+                send_email(
+                    subject='Activate your account',
+                    to=new_user.email,
+                    context={'user': new_user, 'activation_link': activation_link},
+                    template_name='email/active_account.html'
+                )
+                return redirect(reverse("home"))
+        context = {'form': form}
         return render(request, 'account_module/register.html', context)
 
 

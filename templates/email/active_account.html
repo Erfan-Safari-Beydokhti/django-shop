@@ -59,7 +59,7 @@
         <div class="content">
             <p>Hello {{ user.first_name }},</p>
             <p>Thank you for signing up! Please click the button below to activate your account:</p>
-            <a href="http://127.0.0.1:8000/account/activate/{{ user.active_email_code }}/" class="btn">
+            <a href="{{ activation_link }}" class="btn">
                 Activate Account
             </a>
             <p>If you did not sign up, please ignore this email.</p>
