@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.views.generic import View
 
-from account_module.forms import RegisterForm, LoginForm, ForgotPasswordForm
+from account_module.forms import RegisterForm, LoginForm, ForgotPasswordForm, ResetPasswordForm
 from account_module.models import User
 from utils.email import send_email
 
@@ -126,3 +126,16 @@ class ForgotPasswordView(View):
                 send_email('Password recovery', to=user.email, context={'user': user,'reset_pass':reset_pass_link}, template_name='email/forgot_page.html')
                 return redirect(reverse("home"))
         return render(request, self.template_name, {'form': form})
+
+
+class ResetPasswordView(View):
+    template_name = 'account_module/reset_password.html'
+    def get(self, request, email_active_code):
+        user: User = User.objects.filter(active_email_code__iexact=email_active_code).first()
+        if user is None:
+            return redirect(reverse("home"))
+        form=ResetPasswordForm()
+        return render(request, self.template_name, {'form': form,'user':user})
+
+
+
