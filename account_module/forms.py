@@ -94,5 +94,5 @@ class ForgotPasswordForm(forms.Form):
 
 
 class ResetPasswordForm(forms.Form):
-    password = forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'input-text input-text--primary-style'}),
-    confirm_password = forms.PasswordInput(attrs={'placeholder': 'confirm_password', 'class': 'input-text input-text--primary-style'}),
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'input-text input-text--primary-style'}))
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm_Password', 'class': 'input-text input-text--primary-style'}))

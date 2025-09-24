@@ -122,7 +122,7 @@ class ForgotPasswordView(View):
             user = User.objects.filter(email__iexact=email).first()
             if user is not None:
                 domain = request.get_host()
-                reset_pass_link = f"http://{domain}{reverse('reset_pass', kwargs={'email_active_code': user.active_email_code})}"
+                reset_pass_link = f"http://{domain}{reverse('reset_pass_view', kwargs={'email_active_code': user.active_email_code})}"
                 send_email('Password recovery', to=user.email, context={'user': user,'reset_pass':reset_pass_link}, template_name='email/forgot_page.html')
                 return redirect(reverse("home"))
         return render(request, self.template_name, {'form': form})
@@ -137,5 +137,18 @@ class ResetPasswordView(View):
         form=ResetPasswordForm()
         return render(request, self.template_name, {'form': form,'user':user})
 
+    def post(self,request, email_active_code):
+        form = ResetPasswordForm(request.POST)
+        if form.is_valid():
+            user = User.objects.filter(active_email_code__iexact=email_active_code).first()
+            if user is None:
+                return redirect(reverse("home"))
 
+            new_password = form.cleaned_data.get('password')
+            user.set_password(new_password)
+            user.active_email_code = get_random_string(48)
+            user.is_active = True
+            user.save()
+            return redirect(reverse("login_view"))
+        return render(request, self.template_name, {'form': form})
 
