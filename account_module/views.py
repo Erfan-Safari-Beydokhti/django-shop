@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.views.generic import View
 
-from account_module.forms import RegisterForm
+from account_module.forms import RegisterForm, LoginForm
 from account_module.models import User
 from utils.email import send_email
 
@@ -75,3 +75,10 @@ class ActivateView(View):
         return render(request, '404_dark.html', status=404)
 
 
+class LoginView(View):
+    template_name = 'account_module/login.html'
+    def get(self, request):
+        form = LoginForm()
+        return render(request, self.template_name, {'form': form})
+    def post(self, request):
+        pass
