@@ -81,4 +81,7 @@ class LoginView(View):
         form = LoginForm()
         return render(request, self.template_name, {'form': form})
     def post(self, request):
-        pass
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            remember_me = form.cleaned_data['remember_me']  # True یا False
+            print(remember_me)

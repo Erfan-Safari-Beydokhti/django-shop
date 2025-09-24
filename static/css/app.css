@@ -1568,47 +1568,56 @@ input::-ms-clear {
   cursor: pointer; }
 
 .check-box {
-  position: relative;
-  display: inline-block;
-  white-space: nowrap;
-  line-height: 1; }
-  .check-box__label {
-    position: initial;
-    display: inline-block;
-    font-weight: 600;
-    font-size: 13px;
-    color: #333333;
-    margin-left: 24px;
-    white-space: normal; }
-    .check-box__label:before, .check-box__label:after {
-      content: '';
-      width: 18px;
-      height: 18px;
-      display: block;
-      border: 2px solid transparent;
-      z-index: 0;
-      transition: all .5s ease;
-      position: absolute;
-      left: 0;
-      top: 0; }
-    .check-box__label:before {
-      background-color: #f1f1f1; }
-    .check-box__label:after {
-      -webkit-transform: scale(0.6);
-              transform: scale(0.6); }
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
 
-.check-box input:checked ~ .check-box__state label:before {
-  -webkit-animation: mypulse 1s;
-          animation: mypulse 1s; }
+/* مخفی کردن input واقعی */
+.check-box input[type="checkbox"] {
+    display: none;
+}
 
-.check-box input:checked ~ .check-box__state.check-box__state--primary label:before {
-  border-color: #ff4500;
-  background-color: #ffffff; }
+/* ساختار label سفارشی */
+.check-box__label {
+    position: relative;
+    padding-left: 28px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
 
-.check-box input:checked ~ .check-box__state.check-box__state--primary label:after {
-  -webkit-transform: scale(0.4);
-          transform: scale(0.4);
-  background-color: #ff4500; }
+/* مربع خالی قبل از label */
+.check-box__label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #007bff;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: all 0.2s;
+}
+
+/* وقتی input چک شد */
+.check-box input[type="checkbox"]:checked + .check-box__label::before {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+/* تیک روی مربع */
+.check-box input[type="checkbox"]:checked + .check-box__label::after {
+    content: '✓';
+    position: absolute;
+    left: 2px;
+    top: -2px;
+    font-size: 14px;
+    color: white;
+}
+
 
 .radio-box {
   position: relative;

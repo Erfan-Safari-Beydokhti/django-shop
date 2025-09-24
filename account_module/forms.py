@@ -68,10 +68,15 @@ class RegisterForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    email= forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'input-text' }),validators=[EmailValidator]),
-    password= forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'input-text'}),validators=[validators.MaxLengthValidator(100)])
-    remember_me = forms.BooleanField(required=False,widget=forms.CheckboxInput(attrs={'class': 'check-box__label'}))
-
+    email= forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'input-text input-text--primary-style' }))
+    password= forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'input-text input-text--primary-style'}),validators=[validators.MaxLengthValidator(100)])
+    remember_me = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(attrs={
+            'class': 'check-box__state check-box__state--primary',
+            'id': 'remember-me'
+        })
+    )
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
