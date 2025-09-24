@@ -121,6 +121,8 @@ class ForgotPasswordView(View):
             email = form.cleaned_data['email']
             user = User.objects.filter(email__iexact=email).first()
             if user is not None:
-                send_email('Password recovery', to=user.email, context={'user': user}, 'email/forgot_page.html')
+                domain = request.get_host()
+                reset_pass_link = f"http://{domain}{reverse('reset_pass', kwargs={'email_active_code': user.active_email_code})}"
+                send_email('Password recovery', to=user.email, context={'user': user,'reset_pass':reset_pass_link}, template_name='email/forgot_page.html')
                 return redirect(reverse("home"))
         return render(request, self.template_name, {'form': form})
