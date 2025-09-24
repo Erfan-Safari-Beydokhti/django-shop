@@ -7,10 +7,10 @@ from django.core.validators import EmailValidator
 
 from account_module.models import User
 
-
 import datetime
 from django import forms
 from account_module.models import User
+
 
 class RegisterForm(forms.ModelForm):
     GENDER_CHOICES = (
@@ -53,7 +53,7 @@ class RegisterForm(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
-        if not email :
+        if not email:
             raise forms.ValidationError("Email is required.")
         if User.objects.filter(email__iexact=email).exists():
             raise forms.ValidationError("Email already registered.")
@@ -68,8 +68,11 @@ class RegisterForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    email= forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'input-text input-text--primary-style' }))
-    password= forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'input-text input-text--primary-style'}),validators=[validators.MaxLengthValidator(100)])
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'input-text input-text--primary-style'}))
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'input-text input-text--primary-style'}),
+        validators=[validators.MaxLengthValidator(100)])
     remember_me = forms.BooleanField(
         required=False,
         widget=forms.CheckboxInput(attrs={
@@ -80,6 +83,11 @@ class LoginForm(forms.Form):
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
-        if not email :
+        if not email:
             raise forms.ValidationError("Email is required.")
         return email
+
+
+class ForgotPasswordForm(forms.Form):
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'input-text input-text--primary-style'}))

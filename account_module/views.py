@@ -75,7 +75,6 @@ class ActivateView(View):
                 return redirect(reverse("home"))
         return render(request, '404_dark.html', status=404)
 
-
 class LoginView(View):
     template_name = 'account_module/login.html'
     def get(self, request):
