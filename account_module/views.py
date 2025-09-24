@@ -1,6 +1,7 @@
 import datetime
 from lib2to3.fixes.fix_input import context
 
+from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.crypto import get_random_string
@@ -83,5 +84,23 @@ class LoginView(View):
     def post(self, request):
         form = LoginForm(request.POST)
         if form.is_valid():
-            remember_me = form.cleaned_data['remember_me']  # True یا False
-            print(remember_me)
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            remember_me=form.cleaned_data['remember_me']
+            user = User.objects.filter(email__iexact=email).first()
+            if user is not None:
+                if not user.is_active:
+                    form.add_error("email","this email is not active")
+                else:
+                    if user.check_password(password):
+                        login(request, user)
+                        if remember_me:
+                            request.session.set_expiry(1209600)
+                        else:
+                            request.session.set_expiry(0)
+                        return redirect(reverse("home"))
+                    else:
+                        form.add_error("email","invalid email or password")
+            else:
+                form.add_error("email","invalid email or password")
+        return render(request, self.template_name, {'form': form})
