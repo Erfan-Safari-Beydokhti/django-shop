@@ -91,3 +91,8 @@ class LoginForm(forms.Form):
 class ForgotPasswordForm(forms.Form):
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'input-text input-text--primary-style'}))
+
+
+class ResetPasswordForm(forms.Form):
+    password = forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'input-text input-text--primary-style'}),
+    confirm_password = forms.PasswordInput(attrs={'placeholder': 'confirm_password', 'class': 'input-text input-text--primary-style'}),
