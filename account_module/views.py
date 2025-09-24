@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.views.generic import View
 
-from account_module.forms import RegisterForm, LoginForm
+from account_module.forms import RegisterForm, LoginForm, ForgotPasswordForm
 from account_module.models import User
 from utils.email import send_email
 
@@ -103,3 +103,12 @@ class LoginView(View):
             else:
                 form.add_error("email","invalid email or password")
         return render(request, self.template_name, {'form': form})
+
+
+class ForgotPasswordView(View):
+    template_name = 'account_module/forgot_password.html'
+    def get(self, request):
+        form = ForgotPasswordForm()
+        return render(request, self.template_name, {'form': form})
+    def post(self,request):
+        pass
