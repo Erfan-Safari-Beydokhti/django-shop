@@ -73,3 +73,5 @@ class ActivateView(View):
                 user.save()
                 return redirect(reverse("home"))
         return render(request, '404_dark.html', status=404)
+
+

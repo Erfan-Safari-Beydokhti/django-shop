@@ -1,6 +1,10 @@
 import datetime
+from wsgiref.validate import validator
 
 from django import forms
+from django.core import validators
+from django.core.validators import EmailValidator
+
 from account_module.models import User
 
 
@@ -61,3 +65,16 @@ class RegisterForm(forms.ModelForm):
         if password and confirm_password and password != confirm_password:
             raise forms.ValidationError("Passwords do not match!")
         return confirm_password
+
+
+class LoginForm(forms.Form):
+    email= forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'input-text' }),validators=[EmailValidator]),
+    password= forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'input-text'}),validators=[validators.MaxLengthValidator(100)])
+
+
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if not email :
+            raise forms.ValidationError("Email is required.")
+        return email
