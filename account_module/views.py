@@ -11,7 +11,6 @@ from account_module.forms import RegisterForm, LoginForm, ForgotPasswordForm
 from account_module.models import User
 from utils.email import send_email
 
-
 import datetime
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -61,8 +60,9 @@ class RegisterView(View):
             )
 
             return redirect(reverse("home"))
-        context={'form': form}
-        return render(request,self.template_name, context)
+        context = {'form': form}
+        return render(request, self.template_name, context)
+
 
 class ActivateView(View):
     def get(self, request, email_active_code):
@@ -75,21 +75,24 @@ class ActivateView(View):
                 return redirect(reverse("home"))
         return render(request, '404_dark.html', status=404)
 
+
 class LoginView(View):
     template_name = 'account_module/login.html'
+
     def get(self, request):
         form = LoginForm()
         return render(request, self.template_name, {'form': form})
+
     def post(self, request):
         form = LoginForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            remember_me=form.cleaned_data['remember_me']
+            remember_me = form.cleaned_data['remember_me']
             user = User.objects.filter(email__iexact=email).first()
             if user is not None:
                 if not user.is_active:
-                    form.add_error("email","this email is not active")
+                    form.add_error("email", "this email is not active")
                 else:
                     if user.check_password(password):
                         login(request, user)
@@ -99,16 +102,25 @@ class LoginView(View):
                             request.session.set_expiry(0)
                         return redirect(reverse("home"))
                     else:
-                        form.add_error("email","invalid email or password")
+                        form.add_error("email", "invalid email or password")
             else:
-                form.add_error("email","invalid email or password")
+                form.add_error("email", "invalid email or password")
         return render(request, self.template_name, {'form': form})
 
 
 class ForgotPasswordView(View):
     template_name = 'account_module/forgot_password.html'
+
     def get(self, request):
         form = ForgotPasswordForm()
         return render(request, self.template_name, {'form': form})
-    def post(self,request):
-        pass
+
+    def post(self, request):
+        form = ForgotPasswordForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            user = User.objects.filter(email__iexact=email).first()
+            if user is not None:
+                send_email('Password recovery', to=user.email, context={'user': user}, 'email/forgot_page.html')
+                return redirect(reverse("home"))
+        return render(request, self.template_name, {'form': form})
