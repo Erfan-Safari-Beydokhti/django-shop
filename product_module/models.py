@@ -87,6 +87,17 @@ class Product(models.Model):
             self.slug=unique_slugify(self,self.title)
         super().save(*args, **kwargs)
 
+class ProductGallery(models.Model):
+    product=models.ForeignKey(Product,verbose_name="Product",on_delete=models.CASCADE,related_name="product_galleries")
+    image=models.ImageField(upload_to='images/products_galley',verbose_name="Image",null=True,blank=True)
+
+    def __str__(self):
+        return self.product.title
+
+    class Meta:
+        verbose_name="Product Gallery"
+        verbose_name_plural="Product Galleries"
+
 
 class ProductVisit(models.Model):
     product = models.ForeignKey(Product,verbose_name="Product",on_delete=models.CASCADE,related_name="product_visits")
