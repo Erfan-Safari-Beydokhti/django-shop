@@ -6424,3 +6424,7 @@ input::-ms-clear {
 #js-product-detail-modal-thumbnail:hover .pt-prev, #js-product-detail-modal-thumbnail:hover .pt-next {
   opacity: .8; }
 
+body.config, #app {
+    background-color: #ffffff; /* پس‌زمینه روشن */
+    color: #333333; /* رنگ متن روشن */
+}
