@@ -50,7 +50,6 @@ class ProductBrand(models.Model):
         verbose_name="Product Brand"
         verbose_name_plural="Product Brands"
 
-
 class ProductTag(models.Model):
     title=models.CharField(max_length=100,verbose_name="Title",db_index=True)
 
@@ -60,7 +59,6 @@ class ProductTag(models.Model):
     class Meta:
         verbose_name="Product Tag"
         verbose_name_plural="Product Tags"
-
 
 class Product(models.Model):
     title=models.CharField(max_length=100,verbose_name="Title",db_index=True)
@@ -97,7 +95,6 @@ class ProductGallery(models.Model):
     class Meta:
         verbose_name="Product Gallery"
         verbose_name_plural="Product Galleries"
-
 
 class ProductVisit(models.Model):
     product = models.ForeignKey(Product,verbose_name="Product",on_delete=models.CASCADE,related_name="product_visits")
