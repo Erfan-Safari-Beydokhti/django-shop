@@ -40,7 +40,6 @@ class ProductCategory(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = unique_slugify(self, self.title)
-        print("Saving brand:", self.name, "with slug:", self.slug)
         super().save(*args, **kwargs)
 
 
@@ -56,7 +55,6 @@ class ProductBrand(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = unique_slugify(self, self.title)
-        print("Saving brand:", self.name, "with slug:", self.slug)
         super().save(*args, **kwargs)
 
     class Meta:
