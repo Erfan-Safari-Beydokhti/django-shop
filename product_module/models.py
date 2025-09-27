@@ -80,3 +80,8 @@ class Product(models.Model):
         verbose_name="Product"
         verbose_name_plural="Products"
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug=unique_slugify(self,self.title)
+        super().save(*args, **kwargs)
+
