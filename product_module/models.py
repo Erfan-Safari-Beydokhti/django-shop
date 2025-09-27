@@ -62,8 +62,8 @@ class ProductTag(models.Model):
 
 class Product(models.Model):
     title=models.CharField(max_length=100,verbose_name="Title",db_index=True)
-    category=models.ManyToManyField(ProductCategory,verbose_name="Category",on_delete=models.CASCADE,related_name="product_categories")
-    tag=models.ManyToManyField(ProductTag,verbose_name="Tag",on_delete=models.CASCADE,related_name="product_tags")
+    category=models.ManyToManyField(ProductCategory,verbose_name="Category",related_name="product_categories")
+    tag=models.ManyToManyField(ProductTag,verbose_name="Tag",related_name="product_tags")
     brand=models.ForeignKey(ProductBrand,verbose_name="Brand",on_delete=models.CASCADE,related_name="product_brands",null=True,blank=True)
     image=models.ImageField(upload_to='images/products',verbose_name="Image",null=True,blank=True)
     price=models.DecimalField(max_digits=10,decimal_places=2,verbose_name="Price")
