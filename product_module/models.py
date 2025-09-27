@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.text import slugify
 
+from account_module.models import User
+
 
 # Create your models here.
 
@@ -85,3 +87,15 @@ class Product(models.Model):
             self.slug=unique_slugify(self,self.title)
         super().save(*args, **kwargs)
 
+
+class ProductVisit(models.Model):
+    product = models.ForeignKey(Product,verbose_name="Product",on_delete=models.CASCADE,related_name="product_visits")
+    ip=models.GenericIPAddressField(verbose_name="User-IP",db_index=True)
+    user=models.ForeignKey(User,verbose_name="User",on_delete=models.CASCADE,null=True,blank=True)
+
+    def __str__(self):
+        return f"{self.product.title} / {self.ip}"
+
+    class Meta:
+        verbose_name="Product Visit"
+        verbose_name_plural="Product Visits"
