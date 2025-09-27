@@ -16,3 +16,15 @@ class ProductCategory(models.Model):
     class Meta:
         verbose_name="Product Category"
         verbose_name_plural="Product Categories"
+
+class ProductBrand(models.Model):
+    title=models.CharField(max_length=100,verbose_name="Title",db_index=True)
+    url_title=models.CharField(max_length=150,verbose_name="URL Title",db_index=True)
+    is_active=models.BooleanField(default=True,verbose_name="Active")
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name="Product Brand"
+        verbose_name_plural="Product Brands"

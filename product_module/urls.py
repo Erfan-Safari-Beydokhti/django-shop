@@ -1,4 +1,5 @@
+from django.urls import path
 
-
-
-class ProductCategory(models.Mo)
+urlpatterns = [
+    path('', views.index, name='index'),
+]
