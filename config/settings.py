@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 
     'home_module',
     'account_module',
+    'product_module',
 
 
     'django_render_partial',

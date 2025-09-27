@@ -1,0 +1,4 @@
+
+
+
+class ProductCategory(models.Mo)
