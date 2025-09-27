@@ -28,3 +28,14 @@ class ProductBrand(models.Model):
     class Meta:
         verbose_name="Product Brand"
         verbose_name_plural="Product Brands"
+
+
+class ProductTag(models.Model):
+    title=models.CharField(max_length=100,verbose_name="Title",db_index=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name="Product Tag"
+        verbose_name_plural="Product Tags"
