@@ -1,4 +1,5 @@
 {% extends 'shared/layout.html' %}
+{% load poll_extras %}
 {% load thumbnail %}
 {% block title %}
     Product List
@@ -122,19 +123,19 @@
                                         {% if page_obj.has_previous %}
                                             <li>
 
-                                                <a class="fas fa-angle-left" href="?page={{ page_obj.previous_page_number }}&{{ request.GET.urlencode }}"></a></li>
+                                                <a class="fas fa-angle-left" href="?{% query_transform request page=page_obj.previous_page_number %}"></a></li>
                                         {% endif %}
                                         {% for page in paginator.page_range %}
                                             <li class="{% if page_obj.number == page %}is-active{% endif %} ">
 
-                                                <a href="?page={{ page }}&{{ request.GET.urlencode }}">{{ page }}</a></li>
+                                                <a href="?{% query_transform request page=page%}">{{ page }}</a></li>
                                         {% endfor %}
 
 
                                         {% if page_obj.has_next %}
                                         	<li>
 
-                                            <a class="fas fa-angle-right" href="?page={{ page_obj.next_page_number }}&{{ request.GET.urlencode }}"></a></li>
+                                            <a class="fas fa-angle-right" href="?{% query_transform request page=page_obj.next_page_number %}"></a></li>
                                         {% endif %}
                                     </ul>
                                 {% endif %}
