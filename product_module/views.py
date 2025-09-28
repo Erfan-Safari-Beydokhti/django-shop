@@ -18,7 +18,7 @@ class ProductListView(ListView):
     ordering = ["-price"]
 
 
-def product_category_component(request:HttpRequest):
+def product_categories_component(request:HttpRequest):
     main_categories=ProductCategory.objects.filter(parent=None,is_active=True).prefetch_related('children')
     context={'main_categories':main_categories}
     return render(request,'product_module/component/product_categories_component.html',context)
