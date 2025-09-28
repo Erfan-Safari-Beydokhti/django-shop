@@ -12,4 +12,5 @@ class ProductListView(ListView):
     model = Product
     context_object_name = 'products'
     paginate_by = 4
+    ordering = ["-price"]
 
