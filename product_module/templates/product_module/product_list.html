@@ -7,317 +7,337 @@
 {% endblock %}
 {% block content %}
     <div class="app-content">
+        {% if products %}
+            <!--====== Section 1 ======-->
+            <div class="u-s-p-y-90">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-12">
+                            <div class="shop-p">
+                                <div class="shop-p__toolbar u-s-m-b-30">
+                                    <div class="shop-p__meta-wrap u-s-m-b-60">
 
-        <!--====== Section 1 ======-->
-        <div class="u-s-p-y-90">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-9 col-md-12">
-                        <div class="shop-p">
-                            <div class="shop-p__toolbar u-s-m-b-30">
-                                <div class="shop-p__meta-wrap u-s-m-b-60">
+                                        <span class="shop-p__meta-text-1">FOUND 18 RESULTS</span>
+                                        <div class="shop-p__meta-text-2">
 
-                                    <span class="shop-p__meta-text-1">FOUND 18 RESULTS</span>
-                                    <div class="shop-p__meta-text-2">
+                                            <span>Related Searches:</span>
 
-                                        <span>Related Searches:</span>
+                                            <a class="gl-tag btn--e-brand-shadow" href="#">men's clothing</a>
 
-                                        <a class="gl-tag btn--e-brand-shadow" href="#">men's clothing</a>
+                                            <a class="gl-tag btn--e-brand-shadow" href="#">mobiles & tablets</a>
 
-                                        <a class="gl-tag btn--e-brand-shadow" href="#">mobiles & tablets</a>
+                                            <a class="gl-tag btn--e-brand-shadow" href="#">books & audible</a></div>
+                                    </div>
+                                    <div class="shop-p__tool-style">
+                                        <div class="tool-style__group u-s-m-b-8">
 
-                                        <a class="gl-tag btn--e-brand-shadow" href="#">books & audible</a></div>
+                                            <span class="js-shop-grid-target">Grid</span>
+
+                                            <span class="js-shop-list-target is-active">List</span></div>
+                                        <form>
+                                            <div class="tool-style__form-wrap">
+                                                <div class="u-s-m-b-8"><select
+                                                        class="select-box select-box--transparent-b-2">
+                                                    <option>Show: 8</option>
+                                                    <option selected>Show: 12</option>
+                                                    <option>Show: 16</option>
+                                                    <option>Show: 28</option>
+                                                </select></div>
+                                                <div class="u-s-m-b-8"><select
+                                                        class="select-box select-box--transparent-b-2">
+                                                    <option selected>Sort By: Newest Items</option>
+                                                    <option>Sort By: Latest Items</option>
+                                                    <option>Sort By: Best Selling</option>
+                                                    <option>Sort By: Best Rating</option>
+                                                    <option>Sort By: Lowest Price</option>
+                                                    <option>Sort By: Highest Price</option>
+                                                </select></div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="shop-p__tool-style">
-                                    <div class="tool-style__group u-s-m-b-8">
+                                <div class="shop-p__collection">
+                                    <div class="row is-list-active">
+                                        {% for product in products %}
+                                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                                <div class="product-m">
+                                                    <div class="product-m__thumb">
 
-                                        <span class="js-shop-grid-target">Grid</span>
+                                                        <a class="aspect aspect--bg-grey aspect--square u-d-block"
+                                                           href="product-detail.html">
 
-                                        <span class="js-shop-list-target is-active">List</span></div>
-                                    <form>
-                                        <div class="tool-style__form-wrap">
-                                            <div class="u-s-m-b-8"><select
-                                                    class="select-box select-box--transparent-b-2">
-                                                <option>Show: 8</option>
-                                                <option selected>Show: 12</option>
-                                                <option>Show: 16</option>
-                                                <option>Show: 28</option>
-                                            </select></div>
-                                            <div class="u-s-m-b-8"><select
-                                                    class="select-box select-box--transparent-b-2">
-                                                <option selected>Sort By: Newest Items</option>
-                                                <option>Sort By: Latest Items</option>
-                                                <option>Sort By: Best Selling</option>
-                                                <option>Sort By: Best Rating</option>
-                                                <option>Sort By: Lowest Price</option>
-                                                <option>Sort By: Highest Price</option>
-                                            </select></div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="shop-p__collection">
-                                <div class="row is-list-active">
-                                    {% for product in products %}
-                                        <div class="col-lg-4 col-md-6 col-sm-6">
-                                            <div class="product-m">
-                                                <div class="product-m__thumb">
+                                                            {% thumbnail product.image "600x600" as im %}
+                                                                <img class="aspect__img" src="{{ im.url }}"
+                                                                     width="{{ im.width }}"
+                                                                     height="{{ im.height }}">
+                                                            {% endthumbnail %}
+                                                            <div class="product-m__quick-look">
 
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block"
-                                                       href="product-detail.html">
+                                                                <a class="fas fa-search" data-modal="modal"
+                                                                   data-modal-id="#quick-look" data-tooltip="tooltip"
+                                                                   data-placement="top" title="Quick Look"></a></div>
+                                                            <div class="product-m__add-cart">
 
-                                                        {% thumbnail product.image "600x600" as im %}
-                                                            <img class="aspect__img" src="{{ im.url }}"
-                                                                 width="{{ im.width }}"
-                                                                 height="{{ im.height }}">
-                                                        {% endthumbnail %}
-                                                        <div class="product-m__quick-look">
-
-                                                            <a class="fas fa-search" data-modal="modal"
-                                                               data-modal-id="#quick-look" data-tooltip="tooltip"
-                                                               data-placement="top" title="Quick Look"></a></div>
-                                                        <div class="product-m__add-cart">
-
-                                                            <a class="btn--e-brand" data-modal="modal"
-                                                               data-modal-id="#add-to-cart">Add to Cart</a></div>
-                                                    </a>
-                                                </div>
-                                                <div class="product-m__content">
-                                                    <div class="product-m__category">
-
-                                                        <a href="shop-side-version-2.html">{{ product.category.title }}</a>
+                                                                <a class="btn--e-brand" data-modal="modal"
+                                                                   data-modal-id="#add-to-cart">Add to Cart</a></div>
+                                                        </a>
                                                     </div>
-                                                    <div class="product-m__name">
+                                                    <div class="product-m__content">
+                                                        <div class="product-m__category">
 
-                                                        <a href="product-detail.html">{{ product.title }}</a>
-                                                    </div>
-                                                    <div class="product-m__rating gl-rating-style"><i
-                                                            class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                            class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i
-                                                            class="far fa-star"></i>
-
-                                                        <span class="product-m__review">(23)</span></div>
-                                                    <div class="product-m__price">${{ product.price }}</div>
-                                                    <div class="product-m__hover">
-                                                        <div class="product-m__preview-description">
-
-                                                            <span>{{ product.short_description }}</span>
+                                                            <a href="shop-side-version-2.html">{{ product.category.title }}</a>
                                                         </div>
-                                                        <div class="product-m__wishlist">
+                                                        <div class="product-m__name">
 
-                                                            <a class="far fa-heart" href="#" data-tooltip="tooltip"
-                                                               data-placement="top" title="Add to Wishlist"></a></div>
+                                                            <a href="product-detail.html">{{ product.title }}</a>
+                                                        </div>
+                                                        <div class="product-m__rating gl-rating-style"><i
+                                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                                                class="fas fa-star-half-alt"></i><i
+                                                                class="far fa-star"></i><i
+                                                                class="far fa-star"></i>
+
+                                                            <span class="product-m__review">(23)</span></div>
+                                                        <div class="product-m__price">${{ product.price }}</div>
+                                                        <div class="product-m__hover">
+                                                            <div class="product-m__preview-description">
+
+                                                                <span>{{ product.short_description }}</span>
+                                                            </div>
+                                                            <div class="product-m__wishlist">
+
+                                                                <a class="far fa-heart" href="#" data-tooltip="tooltip"
+                                                                   data-placement="top" title="Add to Wishlist"></a>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    {% endfor %}
-
-
-                                </div>
-                            </div>
-                            <div class="u-s-p-y-60">
-
-                                <!--====== Pagination ======-->
-                                {% if is_paginated %}
-                                    <ul class="shop-p__pagination">
-                                        {% if page_obj.has_previous %}
-                                            <li>
-
-                                                <a class="fas fa-angle-left" href="?{% query_transform request page=page_obj.previous_page_number %}"></a></li>
-                                        {% endif %}
-                                        {% for page in paginator.page_range %}
-                                            <li class="{% if page_obj.number == page %}is-active{% endif %} ">
-
-                                                <a href="?{% query_transform request page=page%}">{{ page }}</a></li>
                                         {% endfor %}
 
 
-                                        {% if page_obj.has_next %}
-                                        	<li>
+                                    </div>
+                                </div>
+                                <div class="u-s-p-y-60">
 
-                                            <a class="fas fa-angle-right" href="?{% query_transform request page=page_obj.next_page_number %}"></a></li>
-                                        {% endif %}
-                                    </ul>
-                                {% endif %}
-                                <!--====== End - Pagination ======-->
+                                    <!--====== Pagination ======-->
+                                    {% if is_paginated %}
+                                        <ul class="shop-p__pagination">
+                                            {% if page_obj.has_previous %}
+                                                <li>
+
+                                                    <a class="fas fa-angle-left"
+                                                       href="?{% query_transform request page=page_obj.previous_page_number %}"></a>
+                                                </li>
+                                            {% endif %}
+                                            {% for page in paginator.page_range %}
+                                                <li class="{% if page_obj.number == page %}is-active{% endif %} ">
+
+                                                    <a href="?{% query_transform request page=page %}">{{ page }}</a>
+                                                </li>
+                                            {% endfor %}
+
+
+                                            {% if page_obj.has_next %}
+                                                <li>
+
+                                                    <a class="fas fa-angle-right"
+                                                       href="?{% query_transform request page=page_obj.next_page_number %}"></a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    {% endif %}
+                                    <!--====== End - Pagination ======-->
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-12">
-                        <div class="shop-w-master">
-                            <h1 class="shop-w-master__heading u-s-m-b-30"><i class="fas fa-filter u-s-m-r-8"></i>
+                        <div class="col-lg-3 col-md-12">
+                            <div class="shop-w-master">
+                                <h1 class="shop-w-master__heading u-s-m-b-30"><i class="fas fa-filter u-s-m-r-8"></i>
 
-                                <span>FILTERS</span></h1>
-                            <div class="shop-w-master__sidebar sidebar--bg-snow">
-                                {% render_partial "product_module.views.product_categories_component" %}
-                                <div class="u-s-m-b-30">
-                                    <div class="shop-w">
-                                        <div class="shop-w__intro-wrap">
-                                            <h1 class="shop-w__h">RATING</h1>
+                                    <span>FILTERS</span></h1>
+                                <div class="shop-w-master__sidebar sidebar--bg-snow">
+                                    {% render_partial "product_module.views.product_categories_component" %}
+                                    <div class="u-s-m-b-30">
+                                        <div class="shop-w">
+                                            <div class="shop-w__intro-wrap">
+                                                <h1 class="shop-w__h">RATING</h1>
 
-                                            <span class="fas fa-minus shop-w__toggle" data-target="#s-rating"
-                                                  data-toggle="collapse"></span>
+                                                <span class="fas fa-minus shop-w__toggle" data-target="#s-rating"
+                                                      data-toggle="collapse"></span>
+                                            </div>
+                                            <div class="shop-w__wrap collapse show" id="s-rating">
+                                                <ul class="shop-w__list gl-scroll">
+                                                    <li>
+                                                        <div class="rating__check">
+
+                                                            <input type="checkbox">
+                                                            <div class="rating__check-star-wrap"><i
+                                                                    class="fas fa-star"></i><i
+                                                                    class="fas fa-star"></i><i
+                                                                    class="fas fa-star"></i><i
+                                                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                                                            </div>
+                                                        </div>
+
+                                                        <span class="shop-w__total-text">(2)</span>
+                                                    </li>
+                                                    <li>
+                                                        <div class="rating__check">
+
+                                                            <input type="checkbox">
+                                                            <div class="rating__check-star-wrap"><i
+                                                                    class="fas fa-star"></i><i
+                                                                    class="fas fa-star"></i><i
+                                                                    class="fas fa-star"></i><i
+                                                                    class="fas fa-star"></i><i class="far fa-star"></i>
+
+                                                                <span>& Up</span></div>
+                                                        </div>
+
+                                                        <span class="shop-w__total-text">(8)</span>
+                                                    </li>
+                                                    <li>
+                                                        <div class="rating__check">
+
+                                                            <input type="checkbox">
+                                                            <div class="rating__check-star-wrap"><i
+                                                                    class="fas fa-star"></i><i
+                                                                    class="fas fa-star"></i><i
+                                                                    class="fas fa-star"></i><i
+                                                                    class="far fa-star"></i><i class="far fa-star"></i>
+
+                                                                <span>& Up</span></div>
+                                                        </div>
+
+                                                        <span class="shop-w__total-text">(10)</span>
+                                                    </li>
+                                                    <li>
+                                                        <div class="rating__check">
+
+                                                            <input type="checkbox">
+                                                            <div class="rating__check-star-wrap"><i
+                                                                    class="fas fa-star"></i><i
+                                                                    class="fas fa-star"></i><i
+                                                                    class="far fa-star"></i><i
+                                                                    class="far fa-star"></i><i class="far fa-star"></i>
+
+                                                                <span>& Up</span></div>
+                                                        </div>
+
+                                                        <span class="shop-w__total-text">(12)</span>
+                                                    </li>
+                                                    <li>
+                                                        <div class="rating__check">
+
+                                                            <input type="checkbox">
+                                                            <div class="rating__check-star-wrap"><i
+                                                                    class="fas fa-star"></i><i
+                                                                    class="far fa-star"></i><i
+                                                                    class="far fa-star"></i><i
+                                                                    class="far fa-star"></i><i class="far fa-star"></i>
+
+                                                                <span>& Up</span></div>
+                                                        </div>
+
+                                                        <span class="shop-w__total-text">(1)</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <div class="shop-w__wrap collapse show" id="s-rating">
-                                            <ul class="shop-w__list gl-scroll">
-                                                <li>
-                                                    <div class="rating__check">
+                                    </div>
+                                    <div class="u-s-m-b-30">
+                                        <div class="shop-w">
+                                            <div class="shop-w__intro-wrap">
+                                                <h1 class="shop-w__h">PRICE</h1>
 
-                                                        <input type="checkbox">
-                                                        <div class="rating__check-star-wrap"><i class="fas fa-star"></i><i
-                                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                                                <span class="fas fa-minus shop-w__toggle" data-target="#s-price"
+                                                      data-toggle="collapse"></span>
+                                            </div>
+                                            <div class="shop-w__wrap collapse show" id="s-price">
+                                                <form class="shop-w__form-p">
+                                                    <div class="shop-w__form-p-wrap">
+                                                        <div>
+
+                                                            <label for="price-min"></label>
+
+                                                            <input class="input-text input-text--primary-style"
+                                                                   type="text"
+                                                                   id="price-min" placeholder="Min"></div>
+                                                        <div>
+
+                                                            <label for="price-max"></label>
+
+                                                            <input class="input-text input-text--primary-style"
+                                                                   type="text"
+                                                                   id="price-max" placeholder="Max"></div>
+                                                        <div>
+
+                                                            <button class="btn btn--icon fas fa-angle-right btn--e-transparent-platinum-b-2"
+                                                                    type="submit"></button>
                                                         </div>
                                                     </div>
-
-                                                    <span class="shop-w__total-text">(2)</span>
-                                                </li>
-                                                <li>
-                                                    <div class="rating__check">
-
-                                                        <input type="checkbox">
-                                                        <div class="rating__check-star-wrap"><i class="fas fa-star"></i><i
-                                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                                class="fas fa-star"></i><i class="far fa-star"></i>
-
-                                                            <span>& Up</span></div>
-                                                    </div>
-
-                                                    <span class="shop-w__total-text">(8)</span>
-                                                </li>
-                                                <li>
-                                                    <div class="rating__check">
-
-                                                        <input type="checkbox">
-                                                        <div class="rating__check-star-wrap"><i class="fas fa-star"></i><i
-                                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                                class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                            <span>& Up</span></div>
-                                                    </div>
-
-                                                    <span class="shop-w__total-text">(10)</span>
-                                                </li>
-                                                <li>
-                                                    <div class="rating__check">
-
-                                                        <input type="checkbox">
-                                                        <div class="rating__check-star-wrap"><i class="fas fa-star"></i><i
-                                                                class="fas fa-star"></i><i class="far fa-star"></i><i
-                                                                class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                            <span>& Up</span></div>
-                                                    </div>
-
-                                                    <span class="shop-w__total-text">(12)</span>
-                                                </li>
-                                                <li>
-                                                    <div class="rating__check">
-
-                                                        <input type="checkbox">
-                                                        <div class="rating__check-star-wrap"><i class="fas fa-star"></i><i
-                                                                class="far fa-star"></i><i class="far fa-star"></i><i
-                                                                class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                            <span>& Up</span></div>
-                                                    </div>
-
-                                                    <span class="shop-w__total-text">(1)</span>
-                                                </li>
-                                            </ul>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="u-s-m-b-30">
-                                    <div class="shop-w">
-                                        <div class="shop-w__intro-wrap">
-                                            <h1 class="shop-w__h">PRICE</h1>
+                                    <div class="u-s-m-b-30">
+                                        <div class="shop-w">
+                                            <div class="shop-w__intro-wrap">
+                                                <h1 class="shop-w__h">MANUFACTURER</h1>
 
-                                            <span class="fas fa-minus shop-w__toggle" data-target="#s-price"
-                                                  data-toggle="collapse"></span>
-                                        </div>
-                                        <div class="shop-w__wrap collapse show" id="s-price">
-                                            <form class="shop-w__form-p">
-                                                <div class="shop-w__form-p-wrap">
-                                                    <div>
+                                                <span class="fas fa-minus shop-w__toggle" data-target="#s-manufacturer"
+                                                      data-toggle="collapse"></span>
+                                            </div>
+                                            <div class="shop-w__wrap collapse show" id="s-manufacturer">
+                                                <ul class="shop-w__list-2">
+                                                    <li>
+                                                        <div class="list__content">
 
-                                                        <label for="price-min"></label>
+                                                            <input type="checkbox" checked>
 
-                                                        <input class="input-text input-text--primary-style" type="text"
-                                                               id="price-min" placeholder="Min"></div>
-                                                    <div>
+                                                            <span>Calvin Klein</span></div>
 
-                                                        <label for="price-max"></label>
+                                                        <span class="shop-w__total-text">(23)</span>
+                                                    </li>
+                                                    <li>
+                                                        <div class="list__content">
 
-                                                        <input class="input-text input-text--primary-style" type="text"
-                                                               id="price-max" placeholder="Max"></div>
-                                                    <div>
+                                                            <input type="checkbox">
 
-                                                        <button class="btn btn--icon fas fa-angle-right btn--e-transparent-platinum-b-2"
-                                                                type="submit"></button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="u-s-m-b-30">
-                                    <div class="shop-w">
-                                        <div class="shop-w__intro-wrap">
-                                            <h1 class="shop-w__h">MANUFACTURER</h1>
+                                                            <span>Diesel</span></div>
 
-                                            <span class="fas fa-minus shop-w__toggle" data-target="#s-manufacturer"
-                                                  data-toggle="collapse"></span>
-                                        </div>
-                                        <div class="shop-w__wrap collapse show" id="s-manufacturer">
-                                            <ul class="shop-w__list-2">
-                                                <li>
-                                                    <div class="list__content">
+                                                        <span class="shop-w__total-text">(2)</span>
+                                                    </li>
+                                                    <li>
+                                                        <div class="list__content">
 
-                                                        <input type="checkbox" checked>
+                                                            <input type="checkbox">
 
-                                                        <span>Calvin Klein</span></div>
+                                                            <span>Polo</span></div>
 
-                                                    <span class="shop-w__total-text">(23)</span>
-                                                </li>
-                                                <li>
-                                                    <div class="list__content">
+                                                        <span class="shop-w__total-text">(2)</span>
+                                                    </li>
+                                                    <li>
+                                                        <div class="list__content">
 
-                                                        <input type="checkbox">
+                                                            <input type="checkbox">
 
-                                                        <span>Diesel</span></div>
+                                                            <span>Tommy Hilfiger</span></div>
 
-                                                    <span class="shop-w__total-text">(2)</span>
-                                                </li>
-                                                <li>
-                                                    <div class="list__content">
+                                                        <span class="shop-w__total-text">(9)</span>
+                                                    </li>
+                                                    <li>
+                                                        <div class="list__content">
 
-                                                        <input type="checkbox">
+                                                            <input type="checkbox">
 
-                                                        <span>Polo</span></div>
+                                                            <span>Ndoge</span></div>
 
-                                                    <span class="shop-w__total-text">(2)</span>
-                                                </li>
-                                                <li>
-                                                    <div class="list__content">
-
-                                                        <input type="checkbox">
-
-                                                        <span>Tommy Hilfiger</span></div>
-
-                                                    <span class="shop-w__total-text">(9)</span>
-                                                </li>
-                                                <li>
-                                                    <div class="list__content">
-
-                                                        <input type="checkbox">
-
-                                                        <span>Ndoge</span></div>
-
-                                                    <span class="shop-w__total-text">(3)</span>
-                                                </li>
-                                            </ul>
+                                                        <span class="shop-w__total-text">(3)</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -326,8 +346,13 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!--====== End - Section 1 ======-->
+            <!--====== End - Section 1 ======-->
+            {% else %}
+            <div class="alert alert-warning">
+                    <p>هیچ محصولی یافت نشد</p>
+                </div>
+        {% endif %}
+
     </div>
     <!--====== End - App Content ======-->
 {% endblock %}

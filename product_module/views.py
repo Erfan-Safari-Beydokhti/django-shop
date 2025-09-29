@@ -1,3 +1,4 @@
+from django.db.models import Prefetch
 from django.http import HttpRequest
 from django.shortcuts import render
 from django.views.generic import ListView
@@ -22,6 +23,6 @@ class ProductListView(ListView):
             query=query.filter(category__slug__iexact=category_name)
         return query
 def product_categories_component(request:HttpRequest):
-    main_categories=ProductCategory.objects.filter(parent=None,is_active=True).prefetch_related('children')
+    main_categories=ProductCategory.objects.filter(parent=None,is_active=True).prefetch_related(Prefetch('children',queryset=ProductCategory.objects.filter(is_active=True)))
     context={'main_categories':main_categories}
     return render(request,'product_module/component/product_categories_component.html',context)
