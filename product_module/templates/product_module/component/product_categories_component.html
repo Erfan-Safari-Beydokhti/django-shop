@@ -8,54 +8,39 @@
         </div>
         <div class="shop-w__wrap collapse show" id="s-category">
             {% for main_category in main_categories %}
+
+
                 <ul class="shop-w__category-list gl-scroll">
-
-                {% if main_category.children.exists %}
-                    <li class="has-list">
-
-                    <a href="#">{{ main_category.title }}</a>
-
-                    <span class="category-list__text u-s-m-l-6">(23)</span>
-
-                    <span class="js-shop-category-span is-expanded fas fa-plus u-s-m-l-6"></span>
-                    <ul style="display:block">
-                    {% for sub_category in main_categories.children.all %}
+                    {% if main_category.children.exists %}
                         <li class="has-list">
 
-                            <a href="#">3D Printer & Supplies</a>
+                            <a href="">{{ main_category.title }}</a>
 
-                            <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                            <ul>
-                                <li>
+                            <span class="category-list__text u-s-m-l-6">(23)</span>
 
-                                    <a href="#">3d Printer</a></li>
-                                <li>
+                            <span class="js-shop-category-span is-expanded fas fa-plus u-s-m-l-6"></span>
+                            <ul style="display:block">
+                                {% for sub_category in main_category.children.all %}
 
-                                    <a href="#">3d Printing Pen</a></li>
-                                <li>
+                                    <li class="has-list">
+                                        <a href="#">3D Printer & Supplies</a>
+                                    </li>
 
-                                    <a href="#">3d Printing Accessories</a></li>
-                                <li>
 
-                                    <a href="#">3d Printer Module Board</a></li>
+                                {% endfor %}
                             </ul>
+                    {% else %}
+                        <li>
+
+                            <a href="#">{{ main_category.title }}</a>
+
+                            <span class="category-list__text u-s-m-l-6">(0)</span>
                         </li>
-                    {% endfor %}
+                    {% endif %}
 
-                {% else %}
-                    <li>
-
-                        <a href="#">{{ main_category.title }}</a>
-
-                        <span class="category-list__text u-s-m-l-6">(0)</span></li>
-                {% endif %}
             </ul>
-            </li>
-
             {% endfor %}
 
-
-            </ul>
-        </div>
     </div>
+</div>
 </div>
