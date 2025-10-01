@@ -34,7 +34,7 @@
 
                             <a href="{% url 'product-category-list-view' cat=main_category.slug %}">{{ main_category.title }}</a>
 
-                            <span class="category-list__text u-s-m-l-6">(0)</span>
+                            <span class="category-list__text u-s-m-l-6">({{ main_category.products_count }})</span>
                         </li>
                     {% endif %}
 
