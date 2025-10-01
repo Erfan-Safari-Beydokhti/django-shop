@@ -5,7 +5,7 @@ from django.http import HttpRequest
 from django.shortcuts import render
 from django.views.generic import ListView
 
-from product_module.models import Product, ProductCategory
+from product_module.models import Product, ProductCategory, ProductBrand
 
 
 # Create your views here.
@@ -34,3 +34,8 @@ def product_categories_component(request:HttpRequest):
     main_categories=ProductCategory.objects.annotate(products_count=Count("product_categories")).filter(parent=None,is_active=True).prefetch_related(Prefetch('children',queryset=ProductCategory.objects.filter(is_active=True)))
     context={'main_categories':main_categories}
     return render(request,'product_module/component/product_categories_component.html',context)
+
+def product_brands_component(request:HttpRequest):
+    brand=ProductBrand.objects.filter(is_active=True)
+    context={'brand':brand}
+    return render(request,'product_module/component/product_brands_component.html',context)
