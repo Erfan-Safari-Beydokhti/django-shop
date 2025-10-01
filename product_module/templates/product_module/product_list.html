@@ -254,8 +254,8 @@
                                                 <span class="fas fa-minus shop-w__toggle" data-target="#s-price"
                                                       data-toggle="collapse"></span>
                                             </div>
-                                            <div class="shop-w__wrap collapse show" id="s-price">
-                                                <form class="shop-w__form-p">
+                                            <div class="shop-w__wrap collapse show" id="s-price" >
+                                                <form class="shop-w__form-p" method="get" action="">
                                                     <div class="shop-w__form-p-wrap">
                                                         <div>
 
@@ -263,14 +263,14 @@
 
                                                             <input class="input-text input-text--primary-style"
                                                                    type="text"
-                                                                   id="price-min" placeholder="Min"></div>
+                                                                   id="price-min" placeholder="Min" value="{{ request.GET.price_min }}" name="price_min"></div>
                                                         <div>
 
                                                             <label for="price-max"></label>
 
                                                             <input class="input-text input-text--primary-style"
                                                                    type="text"
-                                                                   id="price-max" placeholder="Max"></div>
+                                                                   id="price-max" placeholder="Max" name="price_max" value="{{ request.GET.price_max }}"></div>
                                                         <div>
 
                                                             <button class="btn btn--icon fas fa-angle-right btn--e-transparent-platinum-b-2"

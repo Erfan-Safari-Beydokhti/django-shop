@@ -21,8 +21,14 @@ class ProductListView(ListView):
     def get_queryset(self):
         query=super(ProductListView, self).get_queryset()
         category_name=self.kwargs.get('cat')
+        price_min=self.request.GET.get('price_min')
+        price_max=self.request.GET.get('price_max')
         if category_name is not None:
             query=query.filter(category__slug__iexact=category_name)
+        if price_min is not None:
+            query=query.filter(price__gte=price_min)
+        if price_max is not None:
+            query=query.filter(price__lte=price_max)
         return query
 def product_categories_component(request:HttpRequest):
     main_categories=ProductCategory.objects.annotate(products_count=Count("product_categories")).filter(parent=None,is_active=True).prefetch_related(Prefetch('children',queryset=ProductCategory.objects.filter(is_active=True)))
