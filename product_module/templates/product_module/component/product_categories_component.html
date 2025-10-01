@@ -16,7 +16,7 @@
 
                             <a href="{% url 'product-category-list-view' cat=main_category.slug %}">{{ main_category.title }}</a>
 
-                            <span class="category-list__text u-s-m-l-6">(23)</span>
+                            <span class="category-list__text u-s-m-l-6">({{ main_category.products_count }})</span>
 
                             <span class="js-shop-category-span is-expanded fas fa-plus u-s-m-l-6"></span>
                             <ul style="display:block">
