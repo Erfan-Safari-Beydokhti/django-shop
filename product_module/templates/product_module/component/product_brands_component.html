@@ -3,57 +3,20 @@
         <div class="shop-w__intro-wrap">
             <h1 class="shop-w__h">BRAND</h1>
 
-            <span class="fas fa-minus shop-w__toggle" data-target="#s-manufacturer"
+            <span class="fas fa-minus shop-w__toggle" data-target="#s-brand"
                   data-toggle="collapse"></span>
         </div>
-        <div class="shop-w__wrap collapse show" id="s-manufacturer">
-            <ul class="shop-w__list-2">
+        <div class="shop-w__wrap collapse show" id="s-brand">
+            {% for brand in brand %}
+            	<ul class="shop-w__category-list gl-scroll">
                 <li>
-                    <div class="list__content">
+                    <a href="{% url 'product-brand-list-view' brand=brand.slug %}">{{ brand.title }}</a>
 
-                        <input type="checkbox" checked>
-
-                        <span>Calvin Klein</span></div>
-
-                    <span class="shop-w__total-text">(23)</span>
-                </li>
-                <li>
-                    <div class="list__content">
-
-                        <input type="checkbox">
-
-                        <span>Diesel</span></div>
-
-                    <span class="shop-w__total-text">(2)</span>
-                </li>
-                <li>
-                    <div class="list__content">
-
-                        <input type="checkbox">
-
-                        <span>Polo</span></div>
-
-                    <span class="shop-w__total-text">(2)</span>
-                </li>
-                <li>
-                    <div class="list__content">
-
-                        <input type="checkbox">
-
-                        <span>Tommy Hilfiger</span></div>
-
-                    <span class="shop-w__total-text">(9)</span>
-                </li>
-                <li>
-                    <div class="list__content">
-
-                        <input type="checkbox">
-
-                        <span>Ndoge</span></div>
-
-                    <span class="shop-w__total-text">(3)</span>
+                    <span class="category-list__text u-s-m-l-6">({{ brand.products_count }})</span>
                 </li>
             </ul>
+            {% endfor %}
+
         </div>
     </div>
 </div>
