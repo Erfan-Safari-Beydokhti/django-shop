@@ -3,7 +3,7 @@ from itertools import product
 from django.db.models import Prefetch, Count
 from django.http import HttpRequest
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from product_module.models import Product, ProductCategory, ProductBrand
 
@@ -34,6 +34,10 @@ class ProductListView(ListView):
             query = query.filter(brand__slug__iexact=brand_name)
         return query
 
+class ProductDetailView(DetailView):
+    template_name = 'product_module/product_detail.html'
+    model = Product
+    context_object_name = 'product'
 
 def product_categories_component(request: HttpRequest):
     main_categories = ProductCategory.objects.annotate(products_count=Count("product_categories")).filter(parent=None,
