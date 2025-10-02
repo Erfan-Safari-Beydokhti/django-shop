@@ -20,16 +20,13 @@
                                 <ul class="pd-breadcrumb__list">
                                     <li class="has-separator">
 
-                                        <a href="index.hml">Home</a></li>
+                                        <a href="{% url 'home' %}">Home</a></li>
                                     <li class="has-separator">
 
-                                        <a href="shop-side-version-2.html">Electronics</a></li>
-                                    <li class="has-separator">
+                                        <a href="{% url 'product-list-view' %}">Products list</a></li>
+                                    <li class="">
 
-                                        <a href="shop-side-version-2.html">DSLR Cameras</a></li>
-                                    <li class="is-marked">
-
-                                        <a href="shop-side-version-2.html">Nikon Cameras</a></li>
+                                        <a href="{% url 'product-detail-view' slug=product.slug %}">{{product.title}}</a></li>
                                 </ul>
                             </div>
                             <!--====== End - Product Breadcrumb ======-->
@@ -137,13 +134,7 @@
 
                                             <a data-click-scroll="#view-review">23 Reviews</a></span></div>
                                 </div>
-                                <div class="u-s-m-b-15">
-                                    <div class="pd-detail__inline">
 
-                                        <span class="pd-detail__stock">200 in stock</span>
-
-                                        <span class="pd-detail__left">Only 2 left</span></div>
-                                </div>
                                 <div class="u-s-m-b-15">
 
                                     <span class="pd-detail__preview-desc">{{ product.short_description }}</span>
