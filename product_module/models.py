@@ -128,8 +128,8 @@ class ProductVisit(models.Model):
         verbose_name_plural = "Product Visits"
 
 class WishList(models.Model):
-    user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, verbose_name="Product", on_delete=models.CASCADE,)
+    user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE,related_name='wish_list')
+    product = models.ForeignKey(Product, verbose_name="Product", on_delete=models.CASCADE,related_name='wishlist_set')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Create at")
 
     class Meta:
