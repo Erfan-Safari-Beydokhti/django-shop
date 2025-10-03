@@ -26,7 +26,8 @@
                                         <a href="{% url 'product-list-view' %}">Products list</a></li>
                                     <li class="">
 
-                                        <a href="{% url 'product-detail-view' slug=product.slug %}">{{product.title}}</a></li>
+                                        <a href="{% url 'product-detail-view' slug=product.slug %}">{{ product.title }}</a>
+                                    </li>
                                 </ul>
                             </div>
                             <!--====== End - Product Breadcrumb ======-->
@@ -115,14 +116,14 @@
                             <div class="pd-detail">
                                 <div>
 
-                                    <span class="pd-detail__name">{{ product.title}}</span></div>
+                                    <span class="pd-detail__name">{{ product.title }}</span></div>
                                 <div>
                                     <div class="pd-detail__inline">
 
                                         <span class="pd-detail__price">${{ product.price }}</span>
 
-{#                                        <span class="pd-detail__discount">(76% OFF)</span>#}
-{#                                        <del class="pd-detail__del">$28.97</del>#}
+                                        {#                                        <span class="pd-detail__discount">(76% OFF)</span>#}
+                                        {#                                        <del class="pd-detail__del">$28.97</del>#}
                                     </div>
                                 </div>
                                 <div class="u-s-m-b-15">
@@ -144,34 +145,38 @@
 
                                         <span class="pd-detail__click-wrap"><i class="far fa-heart u-s-m-r-6"></i>
 
-                                            <a href="signin.html">Add to Wishlist</a>
+                                            {% if user.is_authenticated %}
+                                                <a href="{% url 'add_to_wishlist' product_id=product.id %}">Add to Wishlist</a>
+                                            {% else %}
+                                                <a href="{% url 'login_view' %}?next={{ request.path }}">Add to Wishlist</a>
+                                            {% endif %}
 
-                                            <span class="pd-detail__click-count">(222)</span></span></div>
+                                            <span class="pd-detail__click-count">{{ product.wishlist_set.count }}</span></span></div>
                                 </div>
-{#                                <div class="u-s-m-b-15">#}
-{#                                    <ul class="pd-social-list">#}
-{#                                        <li>#}
-{##}
-{#                                            <a class="s-fb--color-hover" href="#"><i class="fab fa-facebook-f"></i></a>#}
-{#                                        </li>#}
-{#                                        <li>#}
-{##}
-{#                                            <a class="s-tw--color-hover" href="#"><i class="fab fa-twitter"></i></a>#}
-{#                                        </li>#}
-{#                                        <li>#}
-{##}
-{#                                            <a class="s-insta--color-hover" href="#"><i#}
-{#                                                    class="fab fa-instagram"></i></a></li>#}
-{#                                        <li>#}
-{##}
-{#                                            <a class="s-wa--color-hover" href="#"><i class="fab fa-whatsapp"></i></a>#}
-{#                                        </li>#}
-{#                                        <li>#}
-{##}
-{#                                            <a class="s-gplus--color-hover" href="#"><i#}
-{#                                                    class="fab fa-google-plus-g"></i></a></li>#}
-{#                                    </ul>#}
-{#                                </div>#}
+                                {#                                <div class="u-s-m-b-15">#}
+                                {#                                    <ul class="pd-social-list">#}
+                                {#                                        <li>#}
+                                {##}
+                                {#                                            <a class="s-fb--color-hover" href="#"><i class="fab fa-facebook-f"></i></a>#}
+                                {#                                        </li>#}
+                                {#                                        <li>#}
+                                {##}
+                                {#                                            <a class="s-tw--color-hover" href="#"><i class="fab fa-twitter"></i></a>#}
+                                {#                                        </li>#}
+                                {#                                        <li>#}
+                                {##}
+                                {#                                            <a class="s-insta--color-hover" href="#"><i#}
+                                {#                                                    class="fab fa-instagram"></i></a></li>#}
+                                {#                                        <li>#}
+                                {##}
+                                {#                                            <a class="s-wa--color-hover" href="#"><i class="fab fa-whatsapp"></i></a>#}
+                                {#                                        </li>#}
+                                {#                                        <li>#}
+                                {##}
+                                {#                                            <a class="s-gplus--color-hover" href="#"><i#}
+                                {#                                                    class="fab fa-google-plus-g"></i></a></li>#}
+                                {#                                    </ul>#}
+                                {#                                </div>#}
                                 <div class="u-s-m-b-15">
                                     <form class="pd-detail__form">
                                         <div class="pd-detail-inline-2">
@@ -242,16 +247,13 @@
                                     <div class="tab-pane fade show active" id="pd-desc">
                                         <div class="pd-tab__desc">
                                             <div class="u-s-m-b-15">
-                                                <p>{{ product.description}}</p>
+                                                <p>{{ product.description }}</p>
                                             </div>
 
 
                                         </div>
                                     </div>
                                     <!--====== End - Tab 1 ======-->
-
-
-
 
 
                                     <!--====== Tab 2 ======-->
