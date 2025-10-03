@@ -1,11 +1,12 @@
 from itertools import product
 
+from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch, Count
 from django.http import HttpRequest
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 
-from product_module.models import Product, ProductCategory, ProductBrand
+from product_module.models import Product, ProductCategory, ProductBrand,WishList
 
 
 # Create your views here.
@@ -51,3 +52,9 @@ def product_brands_component(request: HttpRequest):
     brand = ProductBrand.objects.annotate(products_count=Count("product_brands")).filter(is_active=True)
     context = {'brand': brand}
     return render(request, 'product_module/component/product_brands_component.html', context)
+
+@login_required
+def add_to_wishlist(request: HttpRequest,product_id):
+    product=get_object_or_404(Product,id=product_id)
+    WishList.objects.create(user=request.user,product=product)
+    return redirect('product-detail-view',slug=product.slug)
