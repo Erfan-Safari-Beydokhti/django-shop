@@ -151,32 +151,9 @@
                                                 <a href="{% url 'login_view' %}?next={{ request.path }}">Add to Wishlist</a>
                                             {% endif %}
 
-                                            <span class="pd-detail__click-count">{{ product.wishlist_set.count }}</span></span></div>
+                                            <span class="pd-detail__click-count">({{ product.wishlist_set.count }})</span></span></div>
                                 </div>
-                                {#                                <div class="u-s-m-b-15">#}
-                                {#                                    <ul class="pd-social-list">#}
-                                {#                                        <li>#}
-                                {##}
-                                {#                                            <a class="s-fb--color-hover" href="#"><i class="fab fa-facebook-f"></i></a>#}
-                                {#                                        </li>#}
-                                {#                                        <li>#}
-                                {##}
-                                {#                                            <a class="s-tw--color-hover" href="#"><i class="fab fa-twitter"></i></a>#}
-                                {#                                        </li>#}
-                                {#                                        <li>#}
-                                {##}
-                                {#                                            <a class="s-insta--color-hover" href="#"><i#}
-                                {#                                                    class="fab fa-instagram"></i></a></li>#}
-                                {#                                        <li>#}
-                                {##}
-                                {#                                            <a class="s-wa--color-hover" href="#"><i class="fab fa-whatsapp"></i></a>#}
-                                {#                                        </li>#}
-                                {#                                        <li>#}
-                                {##}
-                                {#                                            <a class="s-gplus--color-hover" href="#"><i#}
-                                {#                                                    class="fab fa-google-plus-g"></i></a></li>#}
-                                {#                                    </ul>#}
-                                {#                                </div>#}
+
                                 <div class="u-s-m-b-15">
                                     <form class="pd-detail__form">
                                         <div class="pd-detail-inline-2">
