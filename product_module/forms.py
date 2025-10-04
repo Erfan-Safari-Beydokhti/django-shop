@@ -9,4 +9,5 @@ class ReviewForm(forms.ModelForm):
         fields = ["text", "rating"]
         widgets = {
             'text': forms.Textarea(attrs={'class': 'input-text input-text--primary-style',"placeholder":"Enter review text ..."}),
+            'rating':forms.RadioSelect(attrs={'class':''}),
         }

@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils.text import slugify
 
@@ -143,22 +144,10 @@ class WishList(models.Model):
 
 
 class ProductReview(models.Model):
-    RATING_CHOICES = [
-        (1.0, "1"),
-        (1.5, "1.5"),
-        (2.0, "2.0"),
-        (2.5, "2.5"),
-        (3.0, "3.0"),
-        (3.5, "3.5"),
-        (4.0, "4.0"),
-        (4.5, "4.5"),
-        (5.0, "5.0"),
-
-    ]
     product = models.ForeignKey(Product, verbose_name="Product", on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE, related_name='reviews')
     text = models.TextField(verbose_name="Review")
-    rating = models.DecimalField(max_digits=2, decimal_places=1, null=True, blank=True, verbose_name="Rating",choices=RATING_CHOICES)
+    rating = models.DecimalField(max_digits=2, decimal_places=1, null=True, blank=True, verbose_name="Rating",validators=[MinValueValidator(1), MaxValueValidator(5)])
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Create at")
 
     def __str__(self):

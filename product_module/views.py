@@ -5,9 +5,10 @@ from django.db.models import Prefetch, Count
 from django.http import HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
+from pyexpat.errors import messages
 
 from product_module.forms import ReviewForm
-from product_module.models import Product, ProductCategory, ProductBrand,WishList
+from product_module.models import Product, ProductCategory, ProductBrand, WishList, ProductReview
 
 
 # Create your views here.
@@ -36,10 +37,12 @@ class ProductListView(ListView):
             query = query.filter(brand__slug__iexact=brand_name)
         return query
 
+
 class ProductDetailView(DetailView):
     template_name = 'product_module/product_detail.html'
     model = Product
     context_object_name = 'product'
+
 
 def product_categories_component(request: HttpRequest):
     main_categories = ProductCategory.objects.annotate(products_count=Count("product_categories")).filter(parent=None,
@@ -54,24 +57,22 @@ def product_brands_component(request: HttpRequest):
     context = {'brand': brand}
     return render(request, 'product_module/component/product_brands_component.html', context)
 
+
 @login_required
-def add_to_wishlist(request: HttpRequest,product_id):
-    product=get_object_or_404(Product,id=product_id)
-    WishList.objects.create(user=request.user,product=product)
-    return redirect('product-detail-view',slug=product.slug)
+def add_to_wishlist(request: HttpRequest, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    WishList.objects.create(user=request.user, product=product)
+    return redirect('product-detail-view', slug=product.slug)
 
 
 @login_required
-def add_review(request: HttpRequest,product_id):
-    product=get_object_or_404(Product,id=product_id)
+def add_review(request: HttpRequest, product_id):
+    product = get_object_or_404(Product, id=product_id)
     if request.method == 'POST':
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.user = request.user
-            review.product = product
-            review.save()
-            return redirect('product-detail-view',slug=product.slug)
-    else:
-        form = ReviewForm()
-    return render(request,'product_module/product_detail.html',{"product":product,"form":form})
+        rating = request.POST.get("rating")
+        text = request.POST.get("text")
+
+        if rating and text:
+            ProductReview.objects.create(user=request.user, product=product, rating=rating, text=text)
+        return redirect('product-detail-view', slug=product.slug)
+    return redirect('product-detail-view', slug=product.slug)
