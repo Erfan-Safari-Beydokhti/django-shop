@@ -6,6 +6,7 @@ from django.http import HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 
+from product_module.forms import ReviewForm
 from product_module.models import Product, ProductCategory, ProductBrand,WishList
 
 
@@ -58,3 +59,18 @@ def add_to_wishlist(request: HttpRequest,product_id):
     product=get_object_or_404(Product,id=product_id)
     WishList.objects.create(user=request.user,product=product)
     return redirect('product-detail-view',slug=product.slug)
+
+
+def add_review(request: HttpRequest,product_id):
+    product=get_object_or_404(Product,id=product_id)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.product = product
+            review.save()
+            return redirect('product-detail-view',slug=product.slug)
+    else:
+        form = ReviewForm()
+    return render(request,'product_module/product_detail.html',{"product":product,"form":form})
