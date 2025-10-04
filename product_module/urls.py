@@ -7,4 +7,5 @@ urlpatterns = [
     path('brand/<str:brand>/', ProductListView.as_view(), name='product-brand-list-view'),
     path('wishlist/add/<int:product_id>', add_to_wishlist, name='add_to_wishlist'),
     path('<slug:slug>/', ProductDetailView.as_view(), name='product-detail-view'),
+    path('product/<int:product_id/add_review>',add_review, name='product-review-view'),
 ]
