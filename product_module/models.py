@@ -139,3 +139,13 @@ class WishList(models.Model):
 
     def __str__(self):
         return f"{self.user} / {self.product}"
+
+class ProductReview(models.Model):
+    product = models.ForeignKey(Product, verbose_name="Product", on_delete=models.CASCADE,related_name='reviews')
+    user=models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE,related_name='reviews')
+    text = models.TextField(verbose_name="Review")
+    rating = models.DecimalField(max_digits=2,decimal_places=1,null=True,blank=True,verbose_name="Rating")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Create at")
+
+    def __str__(self):
+        return f"{self.user} / {self.product}"
