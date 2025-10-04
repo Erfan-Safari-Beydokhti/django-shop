@@ -151,7 +151,8 @@
                                                 <a href="{% url 'login_view' %}?next={{ request.path }}">Add to Wishlist</a>
                                             {% endif %}
 
-                                            <span class="pd-detail__click-count">({{ product.wishlist_set.count }})</span></span></div>
+                                            <span class="pd-detail__click-count">({{ product.wishlist_set.count }})</span></span>
+                                    </div>
                                 </div>
 
                                 <div class="u-s-m-b-15">
@@ -557,22 +558,6 @@
                                                                 *</label><textarea
                                                                 class="text-area text-area--primary-style"
                                                                 id="reviewer-text"></textarea></div>
-                                                        <div>
-                                                            <p class="u-s-m-b-30">
-
-                                                                <label class="gl-label" for="reviewer-name">NAME
-                                                                    *</label>
-
-                                                                <input class="input-text input-text--primary-style"
-                                                                       type="text" id="reviewer-name"></p>
-                                                            <p class="u-s-m-b-30">
-
-                                                                <label class="gl-label" for="reviewer-email">EMAIL
-                                                                    *</label>
-
-                                                                <input class="input-text input-text--primary-style"
-                                                                       type="text" id="reviewer-email"></p>
-                                                        </div>
                                                     </div>
                                                     <div>
 

@@ -61,6 +61,7 @@ def add_to_wishlist(request: HttpRequest,product_id):
     return redirect('product-detail-view',slug=product.slug)
 
 
+@login_required
 def add_review(request: HttpRequest,product_id):
     product=get_object_or_404(Product,id=product_id)
     if request.method == 'POST':
