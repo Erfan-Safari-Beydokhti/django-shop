@@ -1,13 +1,9 @@
-from itertools import product
-
 from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch, Count
 from django.http import HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
-from pyexpat.errors import messages
 
-from product_module.forms import ReviewForm
 from product_module.models import Product, ProductCategory, ProductBrand, WishList, ProductReview
 
 
@@ -71,8 +67,12 @@ def add_review(request: HttpRequest, product_id):
     if request.method == 'POST':
         rating = request.POST.get("rating")
         text = request.POST.get("text")
+        try:
+            rating = float(rating)
+        except (TypeError, ValueError):
+            return redirect('product-detail-view', slug=product.slug)
 
-        if rating and text:
+        if 1<=rating<=5 and text:
             ProductReview.objects.create(user=request.user, product=product, rating=rating, text=text)
         return redirect('product-detail-view', slug=product.slug)
     return redirect('product-detail-view', slug=product.slug)
