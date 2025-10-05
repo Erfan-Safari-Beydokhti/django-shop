@@ -154,9 +154,15 @@
                                     </div>
                                 </div>
                                 <div class="u-s-m-b-15">
-                                    <div class="pd-detail__rating gl-rating-style"><i class="fas fa-star"></i><i
-                                            class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                            class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                    <div class="pd-detail__rating gl-rating-style">
+                                        {% for star in product.rating_ranges.0 %}
+                                            <i
+                                                    class="fas fa-star"></i>
+                                        {% endfor %}
+                                        {% for review in product.rating_ranges.1 %}
+                                            <i class="far fa-star"></i>
+                                        {% endfor %}
+
 
                                         <span class="pd-detail__review u-s-m-l-4">
 
@@ -244,7 +250,7 @@
 
                                             <a class="nav-link" id="view-review" data-toggle="tab" href="#pd-rev">REVIEWS
 
-                                                <span>(23)</span></a></li>
+                                                <span>({{ review_count }})</span></a></li>
                                     </ul>
                                 </div>
                                 <div class="tab-content">
@@ -268,11 +274,17 @@
                                             <div class="u-s-m-b-30">
                                                 <div class="pd-tab__rev-score">
                                                     <div class="u-s-m-b-8">
-                                                        <h2>{{ review_count }} Reviews - 4.6 (Overall)</h2>
+                                                        <h2>{{ review_count }} Reviews - {{ product.rating_ranges.2 }}
+                                                            (Overall)</h2>
                                                     </div>
-                                                    <div class="gl-rating-style-2 u-s-m-b-8"><i class="fas fa-star"></i><i
-                                                            class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                            class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                                    <div class="gl-rating-style-2 u-s-m-b-8">
+                                                        {% for star in product.rating_ranges.0 %}
+                                                            <i
+                                                                    class="fas fa-star"></i>
+                                                        {% endfor %}
+                                                        {% for review in product.rating_ranges.1 %}
+                                                            <i class="far fa-star"></i>
+                                                        {% endfor %}
                                                     </div>
                                                     <div class="u-s-m-b-8">
                                                         <h4>We want to hear from you!</h4>
@@ -298,29 +310,29 @@
                                                         </select></div>
                                                     </div>
                                                     {% for review in reviews %}
-                                                    	 <div class="rev-f1__review">
-                                                        <div class="review-o u-s-m-b-15">
-                                                            <div class="review-o__info u-s-m-b-8">
+                                                        <div class="rev-f1__review">
+                                                            <div class="review-o u-s-m-b-15">
+                                                                <div class="review-o__info u-s-m-b-8">
 
-                                                                <span class="review-o__name">{{ review.user}}</span>
+                                                                    <span class="review-o__name">{{ review.user }}</span>
 
-                                                                <span class="review-o__date">{{ review.created_at}}</span>
+                                                                    <span class="review-o__date">{{ review.created_at }}</span>
+                                                                </div>
+                                                                <div class="review-o__rating gl-rating-style u-s-m-b-8">
+                                                                    {% for star in review.stars %}
+                                                                        <i
+                                                                                class="fas fa-star"></i>
+                                                                    {% endfor %}
+                                                                    {% for review in review.empty_start %}
+                                                                        <i class="far fa-star"></i>
+                                                                    {% endfor %}
+
+
+                                                                    <span>({{ review.rating }})</span></div>
+                                                                <p class="review-o__text">{{ review.text }}</p>
                                                             </div>
-                                                            <div class="review-o__rating gl-rating-style u-s-m-b-8">
-                                                                {% for star in review.stars %}
-                                                                	<i
-                                                                    class="fas fa-star"></i>
-                                                                {% endfor %}
-                                                                {% for review in review.empty_start %}
-                                                                    <i class="far fa-star"></i>
-                                                                {% endfor %}
 
-
-                                                                <span>({{ review.rating}})</span></div>
-                                                            <p class="review-o__text">{{ review.text }}</p>
                                                         </div>
-
-                                                    </div>
                                                     {% endfor %}
 
                                                 </form>

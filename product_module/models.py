@@ -1,5 +1,8 @@
+from itertools import product
+
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from django.db.models import Avg
 from django.utils.text import slugify
 
 from account_module.models import User
@@ -101,6 +104,11 @@ class Product(models.Model):
             self.slug = unique_slugify(self, self.title)
         super().save(*args, **kwargs)
 
+    def rating_ranges(self):
+        avg = ProductReview.objects.filter(product=self, is_accepted=True).aggregate(Avg('rating'))['rating__avg'] or 0
+        avg_int = int(round(avg))
+        empty = 5 - avg_int
+        return range(avg_int), range(empty),avg_int
 
 class ProductGallery(models.Model):
     product = models.ForeignKey(Product, verbose_name="Product", on_delete=models.CASCADE,
@@ -158,6 +166,6 @@ class ProductReview(models.Model):
         return f"{self.user} / {self.product}"
 
     def stars(self):
-        return range(self.rating)
+        return range(self.rating or 0)
     def empty_start(self):
-        return range(5-self.rating)
+        return range(5-(self.rating or 0 ))
