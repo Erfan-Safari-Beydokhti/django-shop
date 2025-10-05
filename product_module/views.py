@@ -40,6 +40,11 @@ class ProductDetailView(DetailView):
     model = Product
     context_object_name = 'product'
 
+    def get_context_data(self, **kwargs):
+        context = super(ProductDetailView, self).get_context_data(**kwargs)
+        product = self.get_object()
+        context['review']=ProductReview.objects.filter(product_id=product.id,is_accepted=True).order_by('-created_at')
+        return context
 
 def product_categories_component(request: HttpRequest):
     main_categories = ProductCategory.objects.annotate(products_count=Count("product_categories")).filter(parent=None,
