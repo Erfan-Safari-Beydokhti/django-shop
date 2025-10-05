@@ -6,30 +6,30 @@
 {% endblock %}
 {% block content %}
     {% if messages %}
-    <div class="u-s-m-b-20">
-        {% for message in messages %}
-            <div class="gl-alert gl-alert--{{ message.tags }} u-s-m-b-10">
-                <div class="gl-alert__icon">
-                    {% if message.tags == 'success' %}
-                        <i class="fas fa-check-circle"></i>
-                    {% elif message.tags == 'error' %}
-                        <i class="fas fa-exclamation-triangle"></i>
-                    {% elif message.tags == 'warning' %}
-                        <i class="fas fa-exclamation-circle"></i>
-                    {% else %}
-                        <i class="fas fa-info-circle"></i>
-                    {% endif %}
+        <div class="u-s-m-b-20">
+            {% for message in messages %}
+                <div class="gl-alert gl-alert--{{ message.tags }} u-s-m-b-10">
+                    <div class="gl-alert__icon">
+                        {% if message.tags == 'success' %}
+                            <i class="fas fa-check-circle"></i>
+                        {% elif message.tags == 'error' %}
+                            <i class="fas fa-exclamation-triangle"></i>
+                        {% elif message.tags == 'warning' %}
+                            <i class="fas fa-exclamation-circle"></i>
+                        {% else %}
+                            <i class="fas fa-info-circle"></i>
+                        {% endif %}
+                    </div>
+                    <div class="gl-alert__content">
+                        <span class="gl-alert__text">{{ message }}</span>
+                    </div>
+                    <button class="gl-alert__close js-dismiss-alert" type="button">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
-                <div class="gl-alert__content">
-                    <span class="gl-alert__text">{{ message }}</span>
-                </div>
-                <button class="gl-alert__close js-dismiss-alert" type="button">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        {% endfor %}
-    </div>
-{% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
 
     <!--====== Main App ======-->
     <div id="app">
@@ -160,7 +160,8 @@
 
                                         <span class="pd-detail__review u-s-m-l-4">
 
-                                            <a data-click-scroll="#view-review">{{ review_count }} Reviews</a></span></div>
+                                            <a data-click-scroll="#view-review">{{ review_count }} Reviews</a></span>
+                                    </div>
                                 </div>
 
                                 <div class="u-s-m-b-15">
@@ -284,7 +285,8 @@
                                                 <form class="pd-tab__rev-f1">
                                                     <div class="rev-f1__group">
                                                         <div class="u-s-m-b-15">
-                                                            <h2>{{ review_count }} Review(s) for Man Ruched Floral Applique Tee</h2>
+                                                            <h2>{{ review_count }} Review(s) for Man Ruched Floral
+                                                                Applique Tee</h2>
                                                         </div>
                                                         <div class="u-s-m-b-15">
 
@@ -295,68 +297,32 @@
                                                             <option>Sort by: Worst Rating</option>
                                                         </select></div>
                                                     </div>
-                                                    <div class="rev-f1__review">
+                                                    {% for review in reviews %}
+                                                    	 <div class="rev-f1__review">
                                                         <div class="review-o u-s-m-b-15">
                                                             <div class="review-o__info u-s-m-b-8">
 
-                                                                <span class="review-o__name">John Doe</span>
+                                                                <span class="review-o__name">{{ review.user}}</span>
 
-                                                                <span class="review-o__date">27 Feb 2018 10:57:43</span>
+                                                                <span class="review-o__date">{{ review.created_at}}</span>
                                                             </div>
-                                                            <div class="review-o__rating gl-rating-style u-s-m-b-8"><i
-                                                                    class="fas fa-star"></i><i
-                                                                    class="fas fa-star"></i><i
-                                                                    class="fas fa-star"></i><i
-                                                                    class="fas fa-star"></i><i class="far fa-star"></i>
+                                                            <div class="review-o__rating gl-rating-style u-s-m-b-8">
+                                                                {% for star in review.stars %}
+                                                                	<i
+                                                                    class="fas fa-star"></i>
+                                                                {% endfor %}
+                                                                {% for review in review.empty_start %}
+                                                                    <i class="far fa-star"></i>
+                                                                {% endfor %}
 
-                                                                <span>(4)</span></div>
-                                                            <p class="review-o__text">Lorem Ipsum is simply dummy text
-                                                                of the printing and typesetting industry. Lorem Ipsum
-                                                                has been the industry's standard dummy text ever since
-                                                                the 1500s, when an unknown printer took a galley of type
-                                                                and scrambled it to make a type specimen book.</p>
+
+                                                                <span>({{ review.rating}})</span></div>
+                                                            <p class="review-o__text">{{ review.text }}</p>
                                                         </div>
-                                                        <div class="review-o u-s-m-b-15">
-                                                            <div class="review-o__info u-s-m-b-8">
 
-                                                                <span class="review-o__name">John Doe</span>
-
-                                                                <span class="review-o__date">27 Feb 2018 10:57:43</span>
-                                                            </div>
-                                                            <div class="review-o__rating gl-rating-style u-s-m-b-8"><i
-                                                                    class="fas fa-star"></i><i
-                                                                    class="fas fa-star"></i><i
-                                                                    class="fas fa-star"></i><i
-                                                                    class="fas fa-star"></i><i class="far fa-star"></i>
-
-                                                                <span>(4)</span></div>
-                                                            <p class="review-o__text">Lorem Ipsum is simply dummy text
-                                                                of the printing and typesetting industry. Lorem Ipsum
-                                                                has been the industry's standard dummy text ever since
-                                                                the 1500s, when an unknown printer took a galley of type
-                                                                and scrambled it to make a type specimen book.</p>
-                                                        </div>
-                                                        <div class="review-o u-s-m-b-15">
-                                                            <div class="review-o__info u-s-m-b-8">
-
-                                                                <span class="review-o__name">John Doe</span>
-
-                                                                <span class="review-o__date">27 Feb 2018 10:57:43</span>
-                                                            </div>
-                                                            <div class="review-o__rating gl-rating-style u-s-m-b-8"><i
-                                                                    class="fas fa-star"></i><i
-                                                                    class="fas fa-star"></i><i
-                                                                    class="fas fa-star"></i><i
-                                                                    class="fas fa-star"></i><i class="far fa-star"></i>
-
-                                                                <span>(4)</span></div>
-                                                            <p class="review-o__text">Lorem Ipsum is simply dummy text
-                                                                of the printing and typesetting industry. Lorem Ipsum
-                                                                has been the industry's standard dummy text ever since
-                                                                the 1500s, when an unknown printer took a galley of type
-                                                                and scrambled it to make a type specimen book.</p>
-                                                        </div>
                                                     </div>
+                                                    {% endfor %}
+
                                                 </form>
                                             </div>
 
@@ -428,7 +394,7 @@
                                                                         <div class="radio-box">
 
                                                                             <input type="radio" id="star-1"
-                                                                                   name="rating" value="1.0">
+                                                                                   name="rating" value="1">
                                                                             <div class="radio-box__state radio-box__state--primary">
 
                                                                                 <label class="radio-box__label"
@@ -443,7 +409,7 @@
                                                                         <div class="radio-box">
 
                                                                             <input type="radio" id="star-2"
-                                                                                   name="rating" value="2.0">
+                                                                                   name="rating" value="2">
                                                                             <div class="radio-box__state radio-box__state--primary">
 
                                                                                 <label class="radio-box__label"
@@ -458,7 +424,7 @@
                                                                         <div class="radio-box">
 
                                                                             <input type="radio" id="star-3"
-                                                                                   name="rating" value="3.0">
+                                                                                   name="rating" value="3">
                                                                             <div class="radio-box__state radio-box__state--primary">
 
                                                                                 <label class="radio-box__label"
@@ -473,7 +439,7 @@
                                                                         <div class="radio-box">
 
                                                                             <input type="radio" id="star-4"
-                                                                                   name="rating" value="4.0">
+                                                                                   name="rating" value="4">
                                                                             <div class="radio-box__state radio-box__state--primary">
 
                                                                                 <label class="radio-box__label"
@@ -488,7 +454,7 @@
                                                                         <div class="radio-box">
 
                                                                             <input type="radio" id="star-5"
-                                                                                   name="rating" value="5.0">
+                                                                                   name="rating" value="5">
                                                                             <div class="radio-box__state radio-box__state--primary">
 
                                                                                 <label class="radio-box__label"

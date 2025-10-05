@@ -159,3 +159,5 @@ class ProductReview(models.Model):
 
     def stars(self):
         return range(self.rating)
+    def empty_start(self):
+        return range(5-self.rating)
