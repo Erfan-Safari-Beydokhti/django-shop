@@ -149,6 +149,10 @@ class ProductReview(models.Model):
     text = models.TextField(verbose_name="Review")
     rating = models.DecimalField(max_digits=2, decimal_places=1, null=True, blank=True, verbose_name="Rating",validators=[MinValueValidator(1), MaxValueValidator(5)])
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Create at")
-
+    is_accepted = models.BooleanField(default=False, verbose_name="Accepted")
+    class Meta:
+        verbose_name = "Product Review"
+        verbose_name_plural = "Product Reviews"
+        unique_together = ("user", "product")
     def __str__(self):
         return f"{self.user} / {self.product}"

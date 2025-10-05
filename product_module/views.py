@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch, Count
 from django.http import HttpRequest
@@ -64,15 +65,34 @@ def add_to_wishlist(request: HttpRequest, product_id):
 @login_required
 def add_review(request: HttpRequest, product_id):
     product = get_object_or_404(Product, id=product_id)
+
     if request.method == 'POST':
         rating = request.POST.get("rating")
         text = request.POST.get("text")
+
         try:
             rating = float(rating)
         except (TypeError, ValueError):
+            messages.error(request, "Invalid rating value.")
             return redirect('product-detail-view', slug=product.slug)
 
-        if 1<=rating<=5 and text:
-            ProductReview.objects.create(user=request.user, product=product, rating=rating, text=text)
+        if not (1 <= rating <= 5):
+            messages.error(request, "Rating must be between 1 and 5.")
+            return redirect('product-detail-view', slug=product.slug)
+
+        if ProductReview.objects.filter(user=request.user, product=product).exists():
+            messages.warning(request, "You have already submitted a review for this product.")
+            return redirect('product-detail-view', slug=product.slug)
+
+
+        ProductReview.objects.create(
+            user=request.user,
+            product=product,
+            rating=rating,
+            text=text
+        )
+
+        messages.success(request, "Your review has been submitted successfully!")
         return redirect('product-detail-view', slug=product.slug)
+
     return redirect('product-detail-view', slug=product.slug)

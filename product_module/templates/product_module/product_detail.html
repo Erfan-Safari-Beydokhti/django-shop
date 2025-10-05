@@ -5,6 +5,32 @@
     detail
 {% endblock %}
 {% block content %}
+    {% if messages %}
+    <div class="u-s-m-b-20">
+        {% for message in messages %}
+            <div class="gl-alert gl-alert--{{ message.tags }} u-s-m-b-10">
+                <div class="gl-alert__icon">
+                    {% if message.tags == 'success' %}
+                        <i class="fas fa-check-circle"></i>
+                    {% elif message.tags == 'error' %}
+                        <i class="fas fa-exclamation-triangle"></i>
+                    {% elif message.tags == 'warning' %}
+                        <i class="fas fa-exclamation-circle"></i>
+                    {% else %}
+                        <i class="fas fa-info-circle"></i>
+                    {% endif %}
+                </div>
+                <div class="gl-alert__content">
+                    <span class="gl-alert__text">{{ message }}</span>
+                </div>
+                <button class="gl-alert__close js-dismiss-alert" type="button">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
     <!--====== Main App ======-->
     <div id="app">
         <!--====== App Content ======-->
@@ -335,8 +361,10 @@
                                             </div>
 
 
-                                                <div class="u-s-m-b-30">
-                                                <form class="pd-tab__rev-f2" action="{% url 'product-review-view' product_id=product.id %}" method="post">
+                                            <div class="u-s-m-b-30">
+                                                <form class="pd-tab__rev-f2"
+                                                      action="{% url 'product-review-view' product_id=product.id %}"
+                                                      method="post">
                                                     {% csrf_token %}
                                                     <h2 class="u-s-m-b-15">Add a Review</h2>
 
