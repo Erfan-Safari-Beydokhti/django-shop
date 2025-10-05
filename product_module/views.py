@@ -44,6 +44,7 @@ class ProductDetailView(DetailView):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         product = self.get_object()
         context['review']=ProductReview.objects.filter(product_id=product.id,is_accepted=True).order_by('-created_at')
+        context['review_count']=ProductReview.objects.filter(product_id=product.id,is_accepted=True).count()
         return context
 
 def product_categories_component(request: HttpRequest):
