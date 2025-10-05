@@ -77,13 +77,17 @@ def add_review(request: HttpRequest, product_id):
         text = request.POST.get("text")
 
         try:
-            rating = float(rating)
+            rating = int(rating)
         except (TypeError, ValueError):
             messages.error(request, "Invalid rating value.")
             return redirect('product-detail-view', slug=product.slug)
 
         if not (1 <= rating <= 5):
             messages.error(request, "Rating must be between 1 and 5.")
+            return redirect('product-detail-view', slug=product.slug)
+
+        if not text.strip():
+            messages.error(request, "Please write your review text.")
             return redirect('product-detail-view', slug=product.slug)
 
         if ProductReview.objects.filter(user=request.user, product=product).exists():
