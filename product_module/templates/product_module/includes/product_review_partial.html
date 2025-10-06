@@ -1,0 +1,47 @@
+<form class="pd-tab__rev-f1">
+                                                    <div class="rev-f1__group">
+                                                        <div class="u-s-m-b-15">
+                                                            <h2>{{ reviews_count }} Review(s) for Man Ruched Floral
+                                                                Applique Tee</h2>
+                                                        </div>
+                                                        <div class="u-s-m-b-15">
+
+                                                            <label for="sort-review"></label><select
+                                                                class="select-box select-box--primary-style"
+                                                                id="sort-review" name="sort"
+                                                                onchange="this.form.submit()">
+                                                            <option value="best" {% if sort == 'best' %}
+                                                                    selected{% endif %}>Sort by: Best Rating
+                                                            </option>
+                                                            <option value="worse" {% if sort == 'worse' %}
+                                                                    selected{% endif %}>Sort by: Worst Rating
+                                                            </option>
+                                                        </select></div>
+                                                    </div>
+                                                    {% for review in reviews %}
+                                                        <div class="rev-f1__review">
+                                                            <div class="review-o u-s-m-b-15">
+                                                                <div class="review-o__info u-s-m-b-8">
+
+                                                                    <span class="review-o__name">{{ review.user }}</span>
+
+                                                                    <span class="review-o__date">{{ review.created_at }}</span>
+                                                                </div>
+                                                                <div class="review-o__rating gl-rating-style u-s-m-b-8">
+                                                                    {% for star in review.stars %}
+                                                                        <i
+                                                                                class="fas fa-star"></i>
+                                                                    {% endfor %}
+                                                                    {% for review in review.empty_start %}
+                                                                        <i class="far fa-star"></i>
+                                                                    {% endfor %}
+
+
+                                                                    <span>({{ review.rating }})</span></div>
+                                                                <p class="review-o__text">{{ review.text }}</p>
+                                                            </div>
+
+                                                        </div>
+                                                    {% endfor %}
+
+                                                </form>

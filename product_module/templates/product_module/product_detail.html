@@ -64,7 +64,6 @@
                             <div class="pd u-s-m-b-30">
                                 <div class="slider-fouc pd-wrap">
                                     <div id="pd-o-initiate">
-                                        {# تصویر اصلی محصول #}
                                         {% if product.image %}
                                             {% thumbnail product.image "600x600" as im %}
                                                 <div class="pd-o-img-wrap" data-src="{{ im.url }}">
@@ -77,7 +76,6 @@
                                             {% endthumbnail %}
                                         {% endif %}
 
-                                        {# تصاویر گالری محصول #}
                                         {% for img in product.product_galleries.all %}
                                             {% thumbnail img.image "600x600" as im %}
                                                 <div class="pd-o-img-wrap" data-src="{{ im.url }}">
@@ -166,7 +164,7 @@
 
                                         <span class="pd-detail__review u-s-m-l-4">
 
-                                            <a data-click-scroll="#view-review">{{ review_count }} Reviews</a></span>
+                                            <a data-click-scroll="#view-review">{{ reviews_count }} Reviews</a></span>
                                     </div>
                                 </div>
 
@@ -250,7 +248,7 @@
 
                                             <a class="nav-link" id="view-review" data-toggle="tab" href="#pd-rev">REVIEWS
 
-                                                <span>({{ review_count }})</span></a></li>
+                                                <span>({{ reviews_count }})</span></a></li>
                                     </ul>
                                 </div>
                                 <div class="tab-content">
@@ -274,7 +272,7 @@
                                             <div class="u-s-m-b-30">
                                                 <div class="pd-tab__rev-score">
                                                     <div class="u-s-m-b-8">
-                                                        <h2>{{ review_count }} Reviews - {{ product.rating_ranges.2 }}
+                                                        <h2>{{ reviews_count }} Reviews - {{ product.rating_ranges.2 }}
                                                             (Overall)</h2>
                                                     </div>
                                                     <div class="gl-rating-style-2 u-s-m-b-8">
@@ -293,49 +291,8 @@
                                                     <span class="gl-text">Tell us what you think about this item</span>
                                                 </div>
                                             </div>
-                                            <div class="u-s-m-b-30">
-                                                <form class="pd-tab__rev-f1">
-                                                    <div class="rev-f1__group">
-                                                        <div class="u-s-m-b-15">
-                                                            <h2>{{ review_count }} Review(s) for Man Ruched Floral
-                                                                Applique Tee</h2>
-                                                        </div>
-                                                        <div class="u-s-m-b-15">
-
-                                                            <label for="sort-review"></label><select
-                                                                class="select-box select-box--primary-style"
-                                                                id="sort-review" name="sort" onchange="this.form.submit()">
-                                                            <option value="best" {% if sort == 'best' %} selected{% endif %}>Sort by: Best Rating</option>
-                                                            <option value="worse" {% if sort == 'worse' %} selected{% endif %}>Sort by: Worst Rating</option>
-                                                        </select></div>
-                                                    </div>
-                                                    {% for review in reviews %}
-                                                        <div class="rev-f1__review">
-                                                            <div class="review-o u-s-m-b-15">
-                                                                <div class="review-o__info u-s-m-b-8">
-
-                                                                    <span class="review-o__name">{{ review.user }}</span>
-
-                                                                    <span class="review-o__date">{{ review.created_at }}</span>
-                                                                </div>
-                                                                <div class="review-o__rating gl-rating-style u-s-m-b-8">
-                                                                    {% for star in review.stars %}
-                                                                        <i
-                                                                                class="fas fa-star"></i>
-                                                                    {% endfor %}
-                                                                    {% for review in review.empty_start %}
-                                                                        <i class="far fa-star"></i>
-                                                                    {% endfor %}
-
-
-                                                                    <span>({{ review.rating }})</span></div>
-                                                                <p class="review-o__text">{{ review.text }}</p>
-                                                            </div>
-
-                                                        </div>
-                                                    {% endfor %}
-
-                                                </form>
+                                            <div class="u-s-m-b-30" id="review_area">
+                                                {% include 'product_module/includes/product_review_partial.html' %}
                                             </div>
 
 
@@ -496,9 +453,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!--====== End - Tab 2 ======-->
                                 </div>
                             </div>
-                            <!--====== End - Tab 2 ======-->
                         </div>
                     </div>
                 </div>
