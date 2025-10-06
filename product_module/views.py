@@ -1,3 +1,5 @@
+from importlib.metadata import requires
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch, Count
@@ -43,8 +45,17 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         product = self.get_object()
-        context['reviews']=ProductReview.objects.filter(product_id=product.id,is_accepted=True).order_by('-created_at')
-        context['review_count']=ProductReview.objects.filter(product_id=product.id,is_accepted=True).count()
+        sort= self.request.GET.get('sort','best')
+        reviews_qs = ProductReview.objects.filter(product_id=product.id,is_accepted=True)
+
+        if sort == 'worse':
+            reviews_qs = reviews_qs.order_by('rating')
+        else:
+            reviews_qs = reviews_qs.order_by('-rating')
+
+        context['reviews'] = reviews_qs
+        context['reviews_count'] = reviews_qs.count()
+        context['sort'] = sort
         return context
 
 def product_categories_component(request: HttpRequest):
