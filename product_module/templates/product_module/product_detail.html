@@ -304,9 +304,9 @@
 
                                                             <label for="sort-review"></label><select
                                                                 class="select-box select-box--primary-style"
-                                                                id="sort-review">
-                                                            <option selected>Sort by: Best Rating</option>
-                                                            <option>Sort by: Worst Rating</option>
+                                                                id="sort-review" name="sort">
+                                                            <option value="best" {% if sort == 'best' %} selected{% endif %}>Sort by: Best Rating</option>
+                                                            <option value="worse" {% if sort == 'worse' %} selected{% endif %}>Sort by: Worst Rating</option>
                                                         </select></div>
                                                     </div>
                                                     {% for review in reviews %}
