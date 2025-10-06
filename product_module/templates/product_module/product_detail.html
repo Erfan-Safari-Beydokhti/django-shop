@@ -304,7 +304,7 @@
 
                                                             <label for="sort-review"></label><select
                                                                 class="select-box select-box--primary-style"
-                                                                id="sort-review" name="sort">
+                                                                id="sort-review" name="sort" onchange="this.form.submit()">
                                                             <option value="best" {% if sort == 'best' %} selected{% endif %}>Sort by: Best Rating</option>
                                                             <option value="worse" {% if sort == 'worse' %} selected{% endif %}>Sort by: Worst Rating</option>
                                                         </select></div>
