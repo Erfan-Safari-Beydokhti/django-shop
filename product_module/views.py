@@ -3,8 +3,9 @@ from importlib.metadata import requires
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch, Count
-from django.http import HttpRequest
+from django.http import HttpRequest, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView
 
 from product_module.models import Product, ProductCategory, ProductBrand, WishList, ProductReview
@@ -117,3 +118,16 @@ def add_review(request: HttpRequest, product_id):
         return redirect('product-detail-view', slug=product.slug)
 
     return redirect('product-detail-view', slug=product.slug)
+
+def product_reviews_component(request, product_id):
+    sort = request.GET.get('sort', 'best')
+    product = get_object_or_404(Product, id=product_id)
+    reviews_qs = ProductReview.objects.filter(product_id=product.id, is_accepted=True)
+
+    if sort == 'worse':
+        reviews_qs = reviews_qs.order_by('rating')
+    else:
+        reviews_qs = reviews_qs.order_by('-rating')
+
+    context = {'reviews': reviews_qs, 'sort': sort, 'reviews_count': reviews_qs.count(), 'product': product}
+    return render(request, 'product_module/includes/product_review_partial.html', context)
