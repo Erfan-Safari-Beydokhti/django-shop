@@ -4,7 +4,7 @@ from product_module.models import ProductReview
 class ReviewService:
     @staticmethod
     def get_review_context(product,sort='best'):
-        reviews_qs=ProductReview.objects.filter(product_id=product.id,is_active=True)
+        reviews_qs=ProductReview.objects.filter(product_id=product.id,is_accepted=True)
 
         if sort=='worse':
             reviews_qs=reviews_qs.order_by('rating')
