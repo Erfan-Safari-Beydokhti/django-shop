@@ -1,3 +1,5 @@
+from lib2to3.fixes.fix_input import context
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch, Count
@@ -6,6 +8,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 from product_module.models import Product, ProductCategory, ProductBrand, WishList, ProductReview, ProductVisit
 from utils.http_service import get_user_ip
+from utils.review_service import ReviewService
+
 
 # Create your views here.
 
@@ -42,8 +46,8 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         product = self.get_object()
-        sort= self.request.GET.get('sort','best')
-        reviews_qs = ProductReview.objects.filter(product_id=product.id,is_accepted=True)
+        sort = self.request.GET.get('sort', 'best')
+        reviews_qs = ProductReview.objects.filter(product_id=product.id, is_accepted=True)
 
         if sort == 'worse':
             reviews_qs = reviews_qs.order_by('rating')
@@ -54,17 +58,17 @@ class ProductDetailView(DetailView):
         context['reviews_count'] = reviews_qs.count()
         context['sort'] = sort
 
-
         user_ip = get_user_ip(self.request)
-        user_id=None
+        user_id = None
         if self.request.user.is_authenticated:
-            user_id=self.request.user.id
-        has_been_visit=ProductVisit.objects.filter(ip__iexact=user_ip,product_id=product.id).exists()
+            user_id = self.request.user.id
+        has_been_visit = ProductVisit.objects.filter(ip__iexact=user_ip, product_id=product.id).exists()
         if not has_been_visit:
-            new_visit=ProductVisit(product_id=product.id,ip=user_ip,user_id=user_id)
+            new_visit = ProductVisit(product_id=product.id, ip=user_ip, user_id=user_id)
             new_visit.save()
 
         return context
+
 
 def product_categories_component(request: HttpRequest):
     main_categories = ProductCategory.objects.annotate(products_count=Count("product_categories")).filter(parent=None,
@@ -113,7 +117,6 @@ def add_review(request: HttpRequest, product_id):
             messages.warning(request, "You have already submitted a review for this product.")
             return redirect('product-detail-view', slug=product.slug)
 
-
         ProductReview.objects.create(
             user=request.user,
             product=product,
@@ -126,15 +129,10 @@ def add_review(request: HttpRequest, product_id):
 
     return redirect('product-detail-view', slug=product.slug)
 
+
 def product_reviews_component(request, product_id):
     sort = request.GET.get('sort', 'best')
     product = get_object_or_404(Product, id=product_id)
-    reviews_qs = ProductReview.objects.filter(product_id=product.id, is_accepted=True)
-
-    if sort == 'worse':
-        reviews_qs = reviews_qs.order_by('rating')
-    else:
-        reviews_qs = reviews_qs.order_by('-rating')
-
-    context = {'reviews': reviews_qs, 'sort': sort, 'reviews_count': reviews_qs.count(), 'product': product}
+    context = ReviewService.get_review_context(product, sort)
+    context["product"] = product
     return render(request, 'product_module/includes/product_review_partial.html', context)
