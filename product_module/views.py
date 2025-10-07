@@ -47,17 +47,10 @@ class ProductDetailView(DetailView):
         context = super(ProductDetailView, self).get_context_data(**kwargs)
         product = self.get_object()
         sort = self.request.GET.get('sort', 'best')
-        reviews_qs = ProductReview.objects.filter(product_id=product.id, is_accepted=True)
 
-        if sort == 'worse':
-            reviews_qs = reviews_qs.order_by('rating')
-        else:
-            reviews_qs = reviews_qs.order_by('-rating')
+        review_context=ReviewService.get_review_context(product,sort)
 
-        context['reviews'] = reviews_qs
-        context['reviews_count'] = reviews_qs.count()
-        context['sort'] = sort
-
+        context.update(review_context)
         user_ip = get_user_ip(self.request)
         user_id = None
         if self.request.user.is_authenticated:
