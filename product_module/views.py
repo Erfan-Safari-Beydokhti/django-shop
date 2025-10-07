@@ -1,3 +1,4 @@
+from itertools import product
 from lib2to3.fixes.fix_input import context
 
 from django.contrib import messages
