@@ -1,13 +1,9 @@
-from importlib.metadata import requires
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch, Count
-from django.http import HttpRequest, JsonResponse
+from django.http import HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
-from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView
-
 from product_module.models import Product, ProductCategory, ProductBrand, WishList, ProductReview
 
 
@@ -57,6 +53,7 @@ class ProductDetailView(DetailView):
         context['reviews'] = reviews_qs
         context['reviews_count'] = reviews_qs.count()
         context['sort'] = sort
+
         return context
 
 def product_categories_component(request: HttpRequest):
