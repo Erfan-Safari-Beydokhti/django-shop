@@ -4,8 +4,8 @@ from django.db.models import Prefetch, Count
 from django.http import HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
-from product_module.models import Product, ProductCategory, ProductBrand, WishList, ProductReview
-
+from product_module.models import Product, ProductCategory, ProductBrand, WishList, ProductReview, ProductVisit
+from utils.http_service import get_user_ip
 
 # Create your views here.
 
@@ -53,6 +53,16 @@ class ProductDetailView(DetailView):
         context['reviews'] = reviews_qs
         context['reviews_count'] = reviews_qs.count()
         context['sort'] = sort
+
+
+        user_ip = get_user_ip(self.request)
+        user_id=None
+        if self.request.user.is_authenticated:
+            user_id=self.request.user.id
+        has_been_visit=ProductVisit.objects.filter(ip__iexact=user_ip,product_id=product.id).exists()
+        if not has_been_visit:
+            new_visit=ProductVisit(product_id=product.id,ip=user_ip,user_id=user_id)
+            new_visit.save()
 
         return context
 
