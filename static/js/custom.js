@@ -14,7 +14,7 @@ window.SortProductList = function () {
     $.get('/products/products-sort/partial/', { sort: sort })
         .then(res => {
             $("#products_list").html(res.html);
-            document.getElementById("products_list")
+            document.getElementById("related_product")
                 .scrollIntoView({ behavior: "smooth" });
         })
         .catch(err => console.error("Error sorting:", err));
