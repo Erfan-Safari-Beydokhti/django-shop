@@ -10,6 +10,7 @@ window.SortProductReviews = function(product_id) {
 
 window.SortProductList=function (){
     var sort = $("#sort_product").val();
+    $.get('products-sort/partial/',{sort:sort})
 
 
 }
