@@ -10,6 +10,7 @@ from django.views.generic import ListView, DetailView
 from product_module.models import Product, ProductCategory, ProductBrand, WishList, ProductReview, ProductVisit
 from utils.http_service import get_user_ip
 from utils.review_service import ReviewService
+from utils.product_sort_service import ProductSortService
 
 
 # Create your views here.
@@ -28,7 +29,7 @@ class ProductListView(ListView):
         brand_name = self.kwargs.get('brand')
         price_min = self.request.GET.get('price_min')
         price_max = self.request.GET.get('price_max')
-        sort=request.GET.get('sort','Newest')
+        sort=self.request.GET.get('sort','Newest')
         if category_name is not None:
             query = query.filter(category__slug__iexact=category_name)
         if price_min is not None:
@@ -37,8 +38,12 @@ class ProductListView(ListView):
             query = query.filter(price__lte=price_max)
         if brand_name is not None:
             query = query.filter(brand__slug__iexact=brand_name)
+        query=ProductSortService.get_product_context(sort)
         return query
-
+    def get_context_data(self, **kwargs):
+        context = super(ProductListView, self).get_context_data(**kwargs)
+        context["sort"]=self.request.GET.get("sort","Newest")
+        return context
 
 class ProductDetailView(DetailView):
     template_name = 'product_module/product_detail.html'
