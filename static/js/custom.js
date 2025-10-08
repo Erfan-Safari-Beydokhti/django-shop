@@ -7,3 +7,9 @@ window.SortProductReviews = function(product_id) {
      })
      .catch(err => console.error("Error loading reviews:", err));
 };
+
+window.SortProductList=function (){
+    var sort = $("#sort_product").val();
+
+
+}

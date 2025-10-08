@@ -37,7 +37,7 @@
                                         <form>
                                             <div class="tool-style__form-wrap">
                                                 <div class="u-s-m-b-8"><select
-                                                        class="select-box select-box--transparent-b-2">
+                                                        class="select-box select-box--transparent-b-2" id="sort_product" onchange="SortProductList()">
                                                     <option value="Newest" {% if sort == 'Newest' %}selected{% endif %}>Sort By: Newest Items</option>
                                                     <option value="Latest" {% if sort == 'Latest' %}selected{% endif %}>Sort By: Latest Items</option>
                                                     <option value="Visit" {% if sort == 'Visit' %}selected{% endif %}>Sort By: Most Visit</option>
