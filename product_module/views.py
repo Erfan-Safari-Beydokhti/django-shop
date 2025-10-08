@@ -4,8 +4,9 @@ from lib2to3.fixes.fix_input import context
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch, Count
-from django.http import HttpRequest, request
+from django.http import HttpRequest, request, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView
 from product_module.models import Product, ProductCategory, ProductBrand, WishList, ProductReview, ProductVisit
 from utils.http_service import get_user_ip
@@ -29,7 +30,7 @@ class ProductListView(ListView):
         brand_name = self.kwargs.get('brand')
         price_min = self.request.GET.get('price_min')
         price_max = self.request.GET.get('price_max')
-        sort=self.request.GET.get('sort','Newest')
+
         if category_name is not None:
             query = query.filter(category__slug__iexact=category_name)
         if price_min is not None:
@@ -38,7 +39,7 @@ class ProductListView(ListView):
             query = query.filter(price__lte=price_max)
         if brand_name is not None:
             query = query.filter(brand__slug__iexact=brand_name)
-        query=ProductSortService.get_product_context(sort)
+
         return query
     def get_context_data(self, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
@@ -136,3 +137,10 @@ def product_reviews_component(request, product_id):
     context = ReviewService.get_review_context(product, sort)
     context["product"] = product
     return render(request, 'product_module/includes/product_review_partial.html', context)
+
+def product_sort_partial(request: HttpRequest):
+    sort = request.GET.get('sort', 'best')
+    products=ProductSortService.get_product_context(sort)
+    context={'products':products,'sort':sort}
+    html=render_to_string('product_module/includes/product_sort_partial.html', context,request)
+    return JsonResponse({'html':html})
