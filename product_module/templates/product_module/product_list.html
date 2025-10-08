@@ -38,32 +38,19 @@
                                             <div class="tool-style__form-wrap">
                                                 <div class="u-s-m-b-8"><select
                                                         class="select-box select-box--transparent-b-2">
-                                                    <option>Show: 8</option>
-                                                    <option selected>Show: 12</option>
-                                                    <option>Show: 16</option>
-                                                    <option>Show: 28</option>
-                                                </select></div>
-                                                <div class="u-s-m-b-8"><select
-                                                        class="select-box select-box--transparent-b-2">
-                                                    <option selected>Sort By: Newest Items</option>
-                                                    <option>Sort By: Latest Items</option>
-                                                    <option>Sort By: Best Selling</option>
-                                                    <option>Sort By: Best Rating</option>
-                                                    <option>Sort By: Lowest Price</option>
-                                                    <option>Sort By: Highest Price</option>
+                                                    <option value="Newest" {% if sort == 'Newest' %}selected{% endif %}>Sort By: Newest Items</option>
+                                                    <option value="Latest" {% if sort == 'Latest' %}selected{% endif %}>Sort By: Latest Items</option>
+                                                    <option value="Visit" {% if sort == 'Visit' %}selected{% endif %}>Sort By: Most Visit</option>
+                                                    <option value="Rating" {% if sort == 'Rating' %}selected{% endif %}>Sort By: Best Rating</option>
+                                                    <option value="Lowest_p" {% if sort == 'Lowest_p' %}selected{% endif %}>Sort By: Lowest Price</option>
+                                                    <option value="Highest_p" {% if sort == 'Highest_p' %}selected{% endif %}>Sort By: Highest Price</option>
                                                 </select></div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
-                                <div class="shop-p__collection">
-                                    <div class="row is-list-active">
-                                        {% for product in products %}
-                                            {% include 'product_module/includes/product_item_list.html' %}
-                                        {% endfor %}
-
-
-                                    </div>
+                                <div class="shop-p__collection" id="products_list">
+                                        {% include 'product_module/includes/product_sort_partial.html' %}
                                 </div>
                                 <div class="u-s-p-y-60">
 
