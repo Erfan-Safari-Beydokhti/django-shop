@@ -28,6 +28,7 @@ class ProductListView(ListView):
         brand_name = self.kwargs.get('brand')
         price_min = self.request.GET.get('price_min')
         price_max = self.request.GET.get('price_max')
+
         if category_name is not None:
             query = query.filter(category__slug__iexact=category_name)
         if price_min is not None:
