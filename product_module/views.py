@@ -4,7 +4,7 @@ from lib2to3.fixes.fix_input import context
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch, Count
-from django.http import HttpRequest
+from django.http import HttpRequest, request
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 from product_module.models import Product, ProductCategory, ProductBrand, WishList, ProductReview, ProductVisit
@@ -28,7 +28,7 @@ class ProductListView(ListView):
         brand_name = self.kwargs.get('brand')
         price_min = self.request.GET.get('price_min')
         price_max = self.request.GET.get('price_max')
-
+        sort=request.GET.get('sort','Newest')
         if category_name is not None:
             query = query.filter(category__slug__iexact=category_name)
         if price_min is not None:
