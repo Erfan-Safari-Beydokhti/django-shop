@@ -33,12 +33,12 @@
             </div>
             <div class="product-m__rating gl-rating-style">
                 {% for star in product.rating_ranges.0 %}
-                                            <i
-                                                    class="fas fa-star"></i>
-                                        {% endfor %}
-                                        {% for review in product.rating_ranges.1 %}
-                                            <i class="far fa-star"></i>
-                                        {% endfor %}
+                    <i
+                            class="fas fa-star"></i>
+                {% endfor %}
+                {% for review in product.rating_ranges.1 %}
+                    <i class="far fa-star"></i>
+                {% endfor %}
                 <span class="product-m__review"></span></div>
             <div class="product-m__price">${{ product.price }}</div>
             <div class="product-m__hover">
