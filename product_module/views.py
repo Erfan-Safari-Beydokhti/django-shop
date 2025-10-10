@@ -30,15 +30,20 @@ class ProductListView(ListView):
         brand_name = self.kwargs.get('brand')
         price_min = self.request.GET.get('price_min')
         price_max = self.request.GET.get('price_max')
+        sort = self.request.GET.get('sort')
 
         if category_name is not None:
             query = query.filter(category__slug__iexact=category_name)
+        if brand_name is not None:
+            query = query.filter(brand__slug__iexact=brand_name)
         if price_min is not None:
             query = query.filter(price__gte=price_min)
         if price_max is not None:
             query = query.filter(price__lte=price_max)
-        if brand_name is not None:
-            query = query.filter(brand__slug__iexact=brand_name)
+
+
+        if sort:
+            query = ProductSortService.get_product_context(query, sort)
 
         return query
     def get_context_data(self, **kwargs):
@@ -138,9 +143,3 @@ def product_reviews_component(request, product_id):
     context["product"] = product
     return render(request, 'product_module/includes/product_review_partial.html', context)
 
-def product_sort_partial(request: HttpRequest):
-    sort = request.GET.get('sort', 'best')
-    products=ProductSortService.get_product_context(sort)
-    context={'products':products,'sort':sort}
-    html=render_to_string('product_module/includes/product_sort_partial.html', context,request)
-    return JsonResponse({'html':html})

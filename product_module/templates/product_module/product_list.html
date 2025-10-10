@@ -15,7 +15,7 @@
                         <div class="col-lg-9 col-md-12">
                             <div class="shop-p">
                                 <div class="shop-p__toolbar u-s-m-b-30">
-                                    <div class="shop-p__meta-wrap u-s-m-b-60"  id="related_product">
+                                    <div class="shop-p__meta-wrap u-s-m-b-60" id="related_product">
 
                                         <span class="shop-p__meta-text-1">FOUND 18 RESULTS</span>
                                         <div class="shop-p__meta-text-2">
@@ -34,23 +34,46 @@
                                             <span class="js-shop-grid-target">Grid</span>
 
                                             <span class="js-shop-list-target is-active">List</span></div>
-                                        <form>
+                                        <form method="get" action="" name="sort">
                                             <div class="tool-style__form-wrap">
-                                                <div class="u-s-m-b-8"><select
-                                                        class="select-box select-box--transparent-b-2" id="sort_product" onchange="SortProductList()">
-                                                    <option value="Newest" {% if sort == 'Newest' %}selected{% endif %}>Sort By: Newest Items</option>
-                                                    <option value="Latest" {% if sort == 'Latest' %}selected{% endif %}>Sort By: Latest Items</option>
-                                                    <option value="Visit" {% if sort == 'Visit' %}selected{% endif %}>Sort By: Most Visit</option>
-                                                    <option value="Rating" {% if sort == 'Rating' %}selected{% endif %}>Sort By: Best Rating</option>
-                                                    <option value="Lowest_p" {% if sort == 'Lowest_p' %}selected{% endif %}>Sort By: Lowest Price</option>
-                                                    <option value="Highest_p" {% if sort == 'Highest_p' %}selected{% endif %}>Sort By: Highest Price</option>
-                                                </select></div>
+                                                <div class="u-s-m-b-8">
+                                                    <select
+                                                            class="select-box select-box--transparent-b-2"
+                                                            id="sort_product"
+                                                            name="sort"
+                                                            onchange="this.form.submit()">
+                                                        <option value="Newest"
+                                                                {% if sort == 'Newest' %}selected{% endif %}>
+                                                            Sort By: Newest Items
+                                                        </option>
+                                                        <option value="Latest"
+                                                                {% if sort == 'Latest' %}selected{% endif %}>
+                                                            Sort By: Latest Items
+                                                        </option>
+                                                        <option value="Visit"
+                                                                {% if sort == 'Visit' %}selected{% endif %}>
+                                                            Sort By: Most Visit
+                                                        </option>
+                                                        <option value="Rating"
+                                                                {% if sort == 'Rating' %}selected{% endif %}>
+                                                            Sort By: Best Rating
+                                                        </option>
+                                                        <option value="Lowest_p"
+                                                                {% if sort == 'Lowest_p' %}selected{% endif %}>
+                                                            Sort By: Lowest Price
+                                                        </option>
+                                                        <option value="Highest_p"
+                                                                {% if sort == 'Highest_p' %}selected{% endif %}>
+                                                            Sort By: Highest Price
+                                                        </option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                                 <div class="shop-p__collection" id="products_list">
-                                        {% include 'product_module/includes/product_sort_partial.html' %}
+                                    {% include 'product_module/includes/product_sort_partial.html' %}
                                 </div>
                                 <div class="u-s-p-y-60">
 
@@ -188,7 +211,7 @@
                                                 <span class="fas fa-minus shop-w__toggle" data-target="#s-price"
                                                       data-toggle="collapse"></span>
                                             </div>
-                                            <div class="shop-w__wrap collapse show" id="s-price" >
+                                            <div class="shop-w__wrap collapse show" id="s-price">
                                                 <form class="shop-w__form-p" method="get" action="">
                                                     <div class="shop-w__form-p-wrap">
                                                         <div>
@@ -197,14 +220,17 @@
 
                                                             <input class="input-text input-text--primary-style"
                                                                    type="text"
-                                                                   id="price-min" placeholder="Min" value="{{ request.GET.price_min }}" name="price_min"></div>
+                                                                   id="price-min" placeholder="Min"
+                                                                   value="{{ request.GET.price_min }}" name="price_min">
+                                                        </div>
                                                         <div>
 
                                                             <label for="price-max"></label>
 
                                                             <input class="input-text input-text--primary-style"
                                                                    type="text"
-                                                                   id="price-max" placeholder="Max" name="price_max" value="{{ request.GET.price_max }}"></div>
+                                                                   id="price-max" placeholder="Max" name="price_max"
+                                                                   value="{{ request.GET.price_max }}"></div>
                                                         <div>
 
                                                             <button class="btn btn--icon fas fa-angle-right btn--e-transparent-platinum-b-2"
@@ -223,10 +249,10 @@
                 </div>
             </div>
             <!--====== End - Section 1 ======-->
-            {% else %}
+        {% else %}
             <div class="alert alert-warning">
-                    <p>هیچ محصولی یافت نشد</p>
-                </div>
+                <p>هیچ محصولی یافت نشد</p>
+            </div>
         {% endif %}
 
     </div>
