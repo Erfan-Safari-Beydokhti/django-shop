@@ -95,6 +95,8 @@ def product_brands_component(request: HttpRequest):
 def add_to_wishlist(request: HttpRequest, product_id):
     product = get_object_or_404(Product, id=product_id)
     WishList.objects.create(user=request.user, product=product)
+
+    messages.success(request, "Your Wish has been submitted successfully!")
     return redirect('product-detail-view', slug=product.slug)
 
 
