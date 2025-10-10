@@ -48,8 +48,16 @@
                 </div>
                 <div class="product-m__wishlist">
 
-                    <a class="far fa-heart" href="#" data-tooltip="tooltip"
-                       data-placement="top" title="Add to Wishlist"></a>
+
+                    {% if user.is_authenticated %}
+                        <a class="far fa-heart" href="{% url 'add_to_wishlist' product_id=product.id %}"
+                           data-tooltip="tooltip"
+                           data-placement="top" title="Add to Wishlist"></a>
+                    {% else %}
+                        <a class="far fa-heart" href="{% url 'login_view' %}?next={{ request.path }}"
+                           data-tooltip="tooltip"
+                           data-placement="top" title="Add to Wishlist"></a>
+                    {% endif %}
                 </div>
             </div>
         </div>
