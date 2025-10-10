@@ -41,16 +41,16 @@ class ProductListView(ListView):
         if price_max is not None:
             query = query.filter(price__lte=price_max)
 
-
-
         if sort:
             query = ProductSortService.get_product_context(query, sort)
 
         return query
+
     def get_context_data(self, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
-        context["sort"]=self.request.GET.get("sort","Newest")
+        context["sort"] = self.request.GET.get("sort", "Newest")
         return context
+
 
 class ProductDetailView(DetailView):
     template_name = 'product_module/product_detail.html'
@@ -62,7 +62,7 @@ class ProductDetailView(DetailView):
         product = self.get_object()
         sort = self.request.GET.get('sort', 'best')
 
-        review_context=ReviewService.get_review_context(product,sort)
+        review_context = ReviewService.get_review_context(product, sort)
 
         context.update(review_context)
         user_ip = get_user_ip(self.request)
@@ -94,9 +94,16 @@ def product_brands_component(request: HttpRequest):
 @login_required
 def add_to_wishlist(request: HttpRequest, product_id):
     product = get_object_or_404(Product, id=product_id)
-    WishList.objects.create(user=request.user, product=product)
+    user = request.user
+    wishlist_item, created = WishList.objects.get_or_create(
+        user=user,
+        product=product
+    )
+    if created:
+        messages.success(request, "Your Wish has been submitted successfully!")
+    else:
+        messages.error(request, "Your Wish has been already submitted successfully!")
 
-    messages.success(request, "Your Wish has been submitted successfully!")
     return redirect('product-detail-view', slug=product.slug)
 
 
@@ -145,4 +152,3 @@ def product_reviews_component(request, product_id):
     context = ReviewService.get_review_context(product, sort)
     context["product"] = product
     return render(request, 'product_module/includes/product_review_partial.html', context)
-
