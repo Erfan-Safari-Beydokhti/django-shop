@@ -43,7 +43,7 @@ class ProductListView(ListView):
         if sort:
             query = ProductSortService.get_product_context(query, sort)
         if search:
-            query=query.filter(title__contains=search)
+            query=query.filter(title__icontains=search)
         return query
 
     def get_context_data(self, **kwargs):
@@ -56,6 +56,10 @@ class ProductListView(ListView):
         search = self.request.GET.get('search')
         has_filter = any([category_name, brand_name, price_min, price_max,search])
         context['has_filter'] = has_filter
+
+        if search:
+            related_product=Product.objects.filter(title__icontains=search).values_list('brand__title', flat=True).distinct()[:5]
+            context['related_product'] = related_product
         return context
 
 
