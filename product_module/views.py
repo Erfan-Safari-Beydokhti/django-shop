@@ -31,7 +31,7 @@ class ProductListView(ListView):
         price_min = self.request.GET.get('price_min')
         price_max = self.request.GET.get('price_max')
         sort = self.request.GET.get('sort')
-        rating = self.request.GET.get('rating')
+
         if category_name is not None:
             query = query.filter(category__slug__iexact=category_name)
         if brand_name is not None:
@@ -40,10 +40,8 @@ class ProductListView(ListView):
             query = query.filter(price__gte=price_min)
         if price_max is not None:
             query = query.filter(price__lte=price_max)
-
         if sort:
             query = ProductSortService.get_product_context(query, sort)
-
         return query
 
     def get_context_data(self, **kwargs):
