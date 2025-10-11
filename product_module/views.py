@@ -49,6 +49,13 @@ class ProductListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
         context["sort"] = self.request.GET.get("sort", "Newest")
+        category_name = self.kwargs.get('cat')
+        brand_name = self.kwargs.get('brand')
+        price_min = self.request.GET.get('price_min')
+        price_max = self.request.GET.get('price_max')
+        search = self.request.GET.get('search')
+        has_filter = any([category_name, brand_name, price_min, price_max,search])
+        context['has_filter'] = has_filter
         return context
 
 

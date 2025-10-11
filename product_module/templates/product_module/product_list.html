@@ -16,7 +16,8 @@
                         <div class="col-lg-9 col-md-12">
                             <div class="shop-p">
                                 <div class="shop-p__toolbar u-s-m-b-30">
-                                    <div class="shop-p__meta-wrap u-s-m-b-60" id="related_product">
+                                    {% if has_filter %}
+                                    	<div class="shop-p__meta-wrap u-s-m-b-60" id="related_product">
 
                                         <span class="shop-p__meta-text-1">FOUND {{ page_obj.paginator.count }} RESULTS</span>
                                         <div class="shop-p__meta-text-2">
@@ -29,6 +30,7 @@
 
                                             <a class="gl-tag btn--e-brand-shadow" href="#">books & audible</a></div>
                                     </div>
+                                    {% endif %}
                                     <div class="shop-p__tool-style">
                                         <div class="tool-style__group u-s-m-b-8">
 
