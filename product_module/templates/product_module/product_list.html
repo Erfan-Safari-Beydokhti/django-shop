@@ -24,11 +24,10 @@
 
                                             <span>Related Searches:</span>
 
-                                            <a class="gl-tag btn--e-brand-shadow" href="#">men's clothing</a>
+                                            {% for related_product in related_products %}
+                                            	<a class="gl-tag btn--e-brand-shadow" href="{% url 'product-brand-list-view' brand=related_product %}">{{ related_product.title }}</a>
+                                            {% endfor %}
 
-                                            <a class="gl-tag btn--e-brand-shadow" href="#">mobiles & tablets</a>
-
-                                            <a class="gl-tag btn--e-brand-shadow" href="#">books & audible</a></div>
                                     </div>
                                     {% endif %}
                                     <div class="shop-p__tool-style">

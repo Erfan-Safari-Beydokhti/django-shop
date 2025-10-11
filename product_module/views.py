@@ -59,7 +59,7 @@ class ProductListView(ListView):
 
         if search:
             related_product=Product.objects.filter(title__icontains=search).values_list('brand__title', flat=True).distinct()[:5]
-            context['related_product'] = related_product
+            context['related_products'] = related_product
         return context
 
 
