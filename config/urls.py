@@ -26,6 +26,8 @@ urlpatterns = [
     path('', include('home_module.urls'), name='index-page'),
     path('', include('account_module.urls'), name='account-page'),
     path('products/', include('product_module.urls'), name='product-page'),
+    path('blogs/', include('blog_module.urls'), name='blog-page'),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
