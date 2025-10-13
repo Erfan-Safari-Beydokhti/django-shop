@@ -1,5 +1,7 @@
 from django.db import models
-from product_module.models import unique_slugify
+from utils.unique_slugify_service import unique_slugify
+
+
 # Create your models here.
 
 class BlogCategory(models.Model):
