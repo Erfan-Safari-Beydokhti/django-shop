@@ -33,3 +33,13 @@ class Blog(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,verbose_name='Created at',editable=False)
     is_active = models.BooleanField(default=True, verbose_name='Is active')
 
+
+    class Meta:
+        verbose_name = 'Blog'
+        verbose_name_plural = 'Blogs'
+    def __str__(self):
+        return self.title
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = unique_slugify(self,self.title)
+        super(Blog,self).save(*args, **kwargs)
