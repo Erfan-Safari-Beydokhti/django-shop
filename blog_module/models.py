@@ -51,3 +51,10 @@ class BlogComment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,verbose_name='Created at',editable=False)
     text = models.TextField(verbose_name='Text')
     is_accepted = models.BooleanField(default=False, verbose_name='Is accepted')
+
+    class Meta:
+        verbose_name = 'Blog comment'
+        verbose_name_plural = 'Blog comments'
+    def __str__(self):
+        return f"{self.user}: {self.blog}"
+
