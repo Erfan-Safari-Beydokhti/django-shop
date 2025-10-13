@@ -1,6 +1,7 @@
 {% extends 'shared/layout.html' %}
+{% load poll_extras %}
 {% block title %}
-	blog list
+    blog list
 {% endblock %}
 {% block content %}
 
@@ -18,23 +19,26 @@
                             <nav class="post-center-wrap u-s-p-y-60">
 
                                 <!--====== Pagination ======-->
-                                <ul class="blog-pg">
-                                    <li class="blog-pg--active">
+                                {% if is_paginated %}
+                                    <ul class="blog-pg">
+                                        {% if page_obj.has_previous %}
+                                            <li>
+                                                <a class="fas fa-angle-left"
+                                                   href="?{% query_transform request page=page_obj.previous_page_number %}"></a>
+                                            </li>
+                                        {% endif %}
+                                        {% for page in paginator.page_range %}
+                                            <li class="blog-pg{% if page_obj.number == page %}--active{% endif %}">
 
-                                        <a href="blog-right-sidebar.html">1</a></li>
-                                    <li>
+                                                <a href="?{% query_transform request page=page %}">{{ page }}</a></li>
 
-                                        <a href="blog-right-sidebar.html">2</a></li>
-                                    <li>
-
-                                        <a href="blog-right-sidebar.html">3</a></li>
-                                    <li>
-
-                                        <a href="blog-right-sidebar.html">4</a></li>
-                                    <li>
-
-                                        <a class="fas fa-angle-right" href="blog-right-sidebar.html"></a></li>
-                                </ul>
+                                        {% endfor %}
+                                        {% if page_obj.has_next %}
+                                        	<li>
+                                            <a class="fas fa-angle-right" href="?{% query_transform request page=page_obj.next_page_number %}"></a></li>
+                                        {% endif %}
+                                    </ul>
+                                {% endif %}
                                 <!--====== End - Pagination ======-->
                             </nav>
                         </div>
