@@ -1,3 +1,4 @@
+{% load thumbnail %}
 <div class="bp bp--img u-s-m-b-30">
     <div class="bp__wrap">
         <div class="bp__thumbnail">
@@ -7,7 +8,12 @@
             <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block"
                href="blog-detail.html">
 
-                <img class="aspect__img" src="images/blog/post-2.jpg" alt=""></a>
+                {% thumbnail blog.image "1366x768" as im %}
+                    <img class="aspect__img" src="{{ im.url }}"
+                         width="{{ im.width }}"
+                         height="{{ im.height }}">
+                {% endthumbnail %}
+            </a>
             <!--====== End - Image Code ======-->
         </div>
         <div class="bp__info-wrap">
@@ -19,13 +25,13 @@
 
                                                     <a href="blog-right-sidebar.html">
 
-                                                        <span>25 February 2018</span></a></span></span>
+                                                        <span>{{ blog.created_at}}</span></a></span></span>
 
                 <span class="bp__stat-wrap">
 
                                                 <span class="bp__author">
 
-                                                    <a href="blog-right-sidebar.html">Dayle</a></span></span>
+                                                    <a href="blog-right-sidebar.html">{{ blog.author }}</a></span></span>
 
                 <span class="bp__stat-wrap">
 
@@ -39,17 +45,18 @@
 
                                                 <span class="bp__category">
 
-                                                    <a href="blog-right-sidebar.html">Learning</a>
+                                                    {% for category in blog.selected_categories.all %}
+                                                    	<a href="blog-right-sidebar.html">{{ category.title }}</a>
+                                                    {% endfor %}
 
-                                                    <a href="blog-right-sidebar.html">News</a>
 
-                                                    <a href="blog-right-sidebar.html">Health</a></span></span></div>
+                                                </span></span></div>
 
             <span class="bp__h1">
 
-                                            <a href="blog-detail.html">Life is an extraordinary Adventure</a></span>
+                                            <a href="blog-detail.html">{{ blog.title}}</a></span>
 
-            <span class="bp__h2">A post with the image</span>
+
             <div class="blog-t-w">
 
                 <a class="gl-tag btn--e-transparent-hover-brand-b-2"
@@ -60,9 +67,7 @@
 
                 <a class="gl-tag btn--e-transparent-hover-brand-b-2"
                    href="blog-right-sidebar.html">Place</a></div>
-            <p class="bp__p">Lorem Ipsum is simply dummy text of the printing and
-                typesetting industry. Lorem Ipsum has been the industry's standard dummy
-                text.</p>
+            <p class="bp__p">{{ blog.short_description}}</p>
             <div class="gl-l-r">
                 <div>
 

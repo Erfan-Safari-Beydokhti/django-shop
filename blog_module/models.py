@@ -29,7 +29,7 @@ class Blog(models.Model):
     short_description = models.TextField(verbose_name='Short description',blank=True)
     text = models.TextField(verbose_name='Text',blank=True)
     selected_categories=models.ManyToManyField(BlogCategory,verbose_name='Selected category',related_name='blogs')
-    author = models.ForeignKey(User,on_delete=models.SET_NULL,verbose_name='Author',related_name='blogs',null=True,blank=True,editable=False)
+    author = models.ForeignKey(User,on_delete=models.SET_NULL,verbose_name='Author',related_name='blogs',null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True,verbose_name='Created at',editable=False)
     updated_at = models.DateTimeField(auto_now=True,verbose_name='Updated at',editable=False)
     is_active = models.BooleanField(default=True, verbose_name='Is active')
