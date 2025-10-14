@@ -65,5 +65,14 @@ class BlogTag(models.Model):
     slug = models.SlugField(max_length=200, unique=True, verbose_name='Slug',db_index=True,default='',blank=True)
     is_active = models.BooleanField(default=True, verbose_name='Is active')
 
+    class Meta:
+        verbose_name = 'Blog tag'
+        verbose_name_plural = 'Blog tags'
+    def __str__(self):
+        return self.title
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = unique_slugify(self,self.title)
+        super(BlogTag,self).save(*args, **kwargs)
 
 
