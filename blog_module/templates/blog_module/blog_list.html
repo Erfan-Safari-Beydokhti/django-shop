@@ -1,5 +1,6 @@
 {% extends 'shared/layout.html' %}
 {% load poll_extras %}
+{% load render_partial %}
 {% block title %}
     blog list
 {% endblock %}
@@ -16,7 +17,7 @@
                     <div class="row">
                         <div class="col-lg-9 col-md-8 col-sm-12">
                             {% for blog in blogs %}
-                            	{% include 'blog_module/includes/blog_item_list.html' %}
+                                {% include 'blog_module/includes/blog_item_list.html' %}
                             {% endfor %}
                             <nav class="post-center-wrap u-s-p-y-60">
 
@@ -36,8 +37,10 @@
 
                                         {% endfor %}
                                         {% if page_obj.has_next %}
-                                        	<li>
-                                            <a class="fas fa-angle-right" href="?{% query_transform request page=page_obj.next_page_number %}"></a></li>
+                                            <li>
+                                                <a class="fas fa-angle-right"
+                                                   href="?{% query_transform request page=page_obj.next_page_number %}"></a>
+                                            </li>
                                         {% endif %}
                                     </ul>
                                 {% endif %}
@@ -61,29 +64,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="u-s-m-b-60">
-                                    <div class="blog-w">
-
-                                        <span class="blog-w__h">CATEGORIES</span>
-                                        <ul class="blog-w__list">
-                                            <li>
-
-                                                <a href="blog-right-sidebar.html">Corporate</a></li>
-                                            <li>
-
-                                                <a href="blog-right-sidebar.html">Creative</a></li>
-                                            <li>
-
-                                                <a href="blog-right-sidebar.html">Design</a></li>
-                                            <li>
-
-                                                <a href="blog-right-sidebar.html">News</a></li>
-                                            <li>
-
-                                                <a href="blog-right-sidebar.html">Photography</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                {% render_partial "blog_module.views.blog_categories_component" %}
                                 <div class="u-s-m-b-60">
                                     <div class="blog-w">
 

@@ -1,6 +1,9 @@
+from lib2to3.fixes.fix_input import context
+
+from django.http import HttpRequest
 from django.shortcuts import render
 from django.views.generic import ListView
-
+from django.db.models import Prefetch, Count
 from blog_module.models import Blog, BlogCategory
 
 
@@ -18,4 +21,9 @@ class BlogListView(ListView):
         query=super(BlogListView, self).get_queryset()
         query=query.filter(is_active=True).prefetch_related('selected_categories','author')
         return query
+
+def blog_categories_component(request: HttpRequest):
+    main_categories = BlogCategory.objects.annotate(blog_count=Count('blogs')).filter(is_active=True,parent=None).prefetch_related(Prefetch('children',queryset=BlogCategory.objects.filter(is_active=True)))
+    context={'main_categories':main_categories}
+    return render(request,'blog_module/component/blog_categories_component.html',context)
 

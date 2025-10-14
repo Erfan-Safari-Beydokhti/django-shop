@@ -1,0 +1,46 @@
+<div class="u-s-m-b-30">
+    <div class="shop-w">
+        <div class="shop-w__intro-wrap">
+            <h1 class="shop-w__h">CATEGORY</h1>
+
+            <span class="fas fa-minus shop-w__toggle" data-target="#s-category"
+                  data-toggle="collapse"></span>
+        </div>
+        <div class="shop-w__wrap collapse show" id="s-category">
+            {% for main_category in main_categories %}
+
+
+                <ul class="shop-w__category-list gl-scroll">
+                    {% if main_category.children.exists %}
+                        <li class="has-list">
+
+                            <a href="{% url 'product-category-list-view' cat=main_category.slug %}">{{ main_category.title }}</a>
+
+                            <span class="category-list__text u-s-m-l-6">({{ main_category.blog_count }})</span>
+
+                            <span class="js-shop-category-span is-expanded fas fa-plus u-s-m-l-6"></span>
+                            <ul style="display:block">
+                                {% for sub_category in main_category.children.all %}
+
+                                    <li class="has-list">
+                                        <a href="{% url 'product-category-list-view' cat=sub_category.slug %}">{{ sub_category.title }}</a>
+                                    </li>
+
+
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                        <li>
+
+                            <a href="{% url 'product-category-list-view' cat=main_category.slug %}">{{ main_category.title }}</a>
+
+                            <span class="category-list__text u-s-m-l-6">({{ main_category.blog_count }})</span>
+                        </li>
+                    {% endif %}
+
+                </ul>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
