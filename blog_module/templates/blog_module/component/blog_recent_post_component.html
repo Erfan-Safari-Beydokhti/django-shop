@@ -1,0 +1,24 @@
+{% load poll_extras %}
+<div class="u-s-m-b-60">
+    <div class="blog-w">
+
+        <span class="blog-w__h">RECENT POSTS</span>
+        <ul class="blog-w__b-l">
+            {% for post in recent_post %}
+                <li>
+                    <div class="b-l__block">
+                        <div class="b-l__date">
+
+                            <span>{{ post.created_at|show_datetime }}</span>
+                            <span class="b-l__h">
+
+                                                        <a href="blog-detail.html">Life is an extraordinary Adventure</a></span>
+
+                            <span class="b-l__p">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</span>
+                        </div>
+                </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+</div>

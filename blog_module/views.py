@@ -30,4 +30,7 @@ def blog_categories_component(request: HttpRequest):
     main_categories = BlogCategory.objects.annotate(blog_count=Count('blogs')).filter(is_active=True,parent=None).prefetch_related(Prefetch('children',queryset=BlogCategory.objects.filter(is_active=True)))
     context={'main_categories':main_categories}
     return render(request,'blog_module/component/blog_categories_component.html',context)
-
+def blog_recent_post_component(request: HttpRequest):
+    recent_post=Blog.objects.filter(is_active=True).order_by('-created_at')[:3]
+    context={'recent_post':recent_post}
+    return render(request,'blog_module/component/blog_recent_post_component.html',context)
