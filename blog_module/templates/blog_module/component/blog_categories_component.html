@@ -14,7 +14,7 @@
                     {% if main_category.children.exists %}
                         <li class="has-list">
 
-                            <a href="{% url 'product-category-list-view' cat=main_category.slug %}">{{ main_category.title }}</a>
+                            <a href="{% url 'blog-category-list-view' cat=main_category.slug %}">{{ main_category.title }}</a>
 
                             <span class="category-list__text u-s-m-l-6">({{ main_category.blog_count }})</span>
 
@@ -23,7 +23,7 @@
                                 {% for sub_category in main_category.children.all %}
 
                                     <li class="has-list">
-                                        <a href="{% url 'product-category-list-view' cat=sub_category.slug %}">{{ sub_category.title }}</a>
+                                        <a href="{% url 'blog-category-list-view' cat=sub_category.slug %}">{{ sub_category.title }}</a>
                                     </li>
 
 
@@ -32,7 +32,7 @@
                             {% else %}
                         <li>
 
-                            <a href="{% url 'product-category-list-view' cat=main_category.slug %}">{{ main_category.title }}</a>
+                            <a href="{% url 'blog-category-list-view' cat=main_category.slug %}">{{ main_category.title }}</a>
 
                             <span class="category-list__text u-s-m-l-6">({{ main_category.blog_count }})</span>
                         </li>

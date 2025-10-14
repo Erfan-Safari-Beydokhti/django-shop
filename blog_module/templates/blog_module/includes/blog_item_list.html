@@ -46,7 +46,7 @@
                                                 <span class="bp__category">
 
                                                     {% for category in blog.selected_categories.all %}
-                                                        <a href="blog-right-sidebar.html">{{ category.title }}</a>
+                                                        <a href="{% url 'blog-category-list-view' cat=category.slug %}">{{ category.title }}</a>
                                                     {% endfor %}
 
 
