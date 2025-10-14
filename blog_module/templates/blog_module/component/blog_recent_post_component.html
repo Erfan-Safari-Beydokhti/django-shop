@@ -12,9 +12,9 @@
                             <span>{{ post.created_at|show_datetime }}</span>
                             <span class="b-l__h">
 
-                                                        <a href="blog-detail.html">Life is an extraordinary Adventure</a></span>
+                                                        <a href="blog-detail.html">{{ post.title}}</a></span>
 
-                            <span class="b-l__p">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.</span>
+                            <span class="b-l__p">{{ post.short_description}}</span>
                         </div>
                 </li>
             {% endfor %}
