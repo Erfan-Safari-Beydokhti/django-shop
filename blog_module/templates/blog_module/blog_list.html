@@ -53,12 +53,12 @@
                                     <div class="blog-w">
 
                                         <span class="blog-w__h">SEARCH</span>
-                                        <form class="blog-search-form">
+                                        <form class="blog-search-form" method="get" action="{% url 'blog_list' %}">
 
                                             <label for="post-search"></label>
 
                                             <input class="input-text input-text--primary-style" type="text"
-                                                   id="post-search" placeholder="Search">
+                                                   id="post-search" placeholder="Search" name="search">
 
                                             <button class="btn btn--icon fas fa-search" type="submit"></button>
                                         </form>
