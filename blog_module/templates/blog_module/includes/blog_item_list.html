@@ -25,7 +25,7 @@
 
                                                     <a href="blog-right-sidebar.html">
 
-                                                        <span>{{ blog.created_at}}</span></a></span></span>
+                                                        <span>{{ blog.created_at }}</span></a></span></span>
 
                 <span class="bp__stat-wrap">
 
@@ -46,7 +46,7 @@
                                                 <span class="bp__category">
 
                                                     {% for category in blog.selected_categories.all %}
-                                                    	<a href="blog-right-sidebar.html">{{ category.title }}</a>
+                                                        <a href="blog-right-sidebar.html">{{ category.title }}</a>
                                                     {% endfor %}
 
 
@@ -54,20 +54,18 @@
 
             <span class="bp__h1">
 
-                                            <a href="blog-detail.html">{{ blog.title}}</a></span>
+                                            <a href="blog-detail.html">{{ blog.title }}</a></span>
 
 
             <div class="blog-t-w">
 
-                <a class="gl-tag btn--e-transparent-hover-brand-b-2"
-                   href="blog-right-sidebar.html">Travel</a>
+                {% for tag in blog.tag.all %}
+                    <a class="gl-tag btn--e-transparent-hover-brand-b-2"
+                       href="blog-right-sidebar.html">{{ tag.title }}</a>
+                {% endfor %}
 
-                <a class="gl-tag btn--e-transparent-hover-brand-b-2"
-                   href="blog-right-sidebar.html">Culture</a>
-
-                <a class="gl-tag btn--e-transparent-hover-brand-b-2"
-                   href="blog-right-sidebar.html">Place</a></div>
-            <p class="bp__p">{{ blog.short_description}}</p>
+            </div>
+            <p class="bp__p">{{ blog.short_description }}</p>
             <div class="gl-l-r">
                 <div>
 
