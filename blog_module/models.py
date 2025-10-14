@@ -60,3 +60,10 @@ class BlogComment(models.Model):
     def __str__(self):
         return f"{self.user}: {self.blog}"
 
+class BlogTag(models.Model):
+    title = models.CharField(max_length=200, verbose_name='Title',unique=True)
+    slug = models.SlugField(max_length=200, unique=True, verbose_name='Slug',db_index=True,default='',blank=True)
+    is_active = models.BooleanField(default=True, verbose_name='Is active')
+
+
+
