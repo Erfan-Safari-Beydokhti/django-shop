@@ -44,5 +44,8 @@ def blog_recent_post_component(request: HttpRequest):
     context = {'recent_post': recent_post}
     return render(request, 'blog_module/component/blog_recent_post_component.html', context)
 
-
+def blog_tags_component(request: HttpRequest):
+    tags = BlogTag.objects.filter(is_active=True)
+    context = {'tags': tags}
+    return render(request, 'blog_module/component/blog_tags_component.html', context)
 
