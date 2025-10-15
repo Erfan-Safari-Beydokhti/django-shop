@@ -21,11 +21,13 @@ class BlogListView(ListView):
         query = super(BlogListView, self).get_queryset()
         category_name = self.kwargs.get('cat')
         search = self.request.GET.get('search')
+        tag_name = self.kwargs.get('tag')
         if category_name is not None:
             query = query.filter(selected_categories__slug__iexact=category_name)
         if search is not None:
             query = query.filter(title__icontains=search)
-
+        if tag_name is not None:
+            query = query.filter(tag__title__iexact=tag_name)
 
         query = query.filter(is_active=True).prefetch_related('selected_categories', 'author')
         return query
