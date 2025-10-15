@@ -61,7 +61,7 @@
 
                 {% for tag in blog.tag.all %}
                     <a class="gl-tag btn--e-transparent-hover-brand-b-2"
-                       href="blog-right-sidebar.html">{{ tag.title }}</a>
+                       href="{% url 'blog-tag-list-view' tag=tag.slug %}">{{ tag.title }}</a>
                 {% endfor %}
 
             </div>

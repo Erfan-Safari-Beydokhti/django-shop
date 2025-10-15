@@ -27,10 +27,14 @@ class BlogListView(ListView):
         if search is not None:
             query = query.filter(title__icontains=search)
         if tag_name is not None:
-            query = query.filter(tag__title__iexact=tag_name)
+            query = query.filter(tag__slug__iexact=tag_name)
 
-        query = query.filter(is_active=True).prefetch_related('selected_categories', 'author')
+        query = query.filter(is_active=True).select_related('author').prefetch_related('selected_categories')
         return query
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = BlogTag.objects.filter(is_active=True)
+        return context
 
 
 class BlogDetailView(DetailView):
@@ -67,7 +71,7 @@ def blog_recent_post_component(request: HttpRequest):
     return render(request, 'blog_module/component/blog_recent_post_component.html', context)
 
 
-def blog_tags_component(request: HttpRequest):
-    tags = BlogTag.objects.filter(is_active=True)
-    context = {'tags': tags}
-    return render(request, 'blog_module/component/blog_tags_component.html', context)
+# def blog_tags_component(request: HttpRequest):
+#     tags = BlogTag.objects.filter(is_active=True)
+#     context = {'tags': tags}
+#     return render(request, 'blog_module/component/blog_tags.html', context)
