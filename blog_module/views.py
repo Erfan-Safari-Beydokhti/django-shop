@@ -38,6 +38,20 @@ class BlogDetailView(DetailView):
     context_object_name = 'blog'
     template_name = "blog_module/blog_detail.html"
 
+    def get_context_data(self, **kwargs):
+        context = super(BlogDetailView, self).get_context_data(**kwargs)
+        blog = self.get_object()
+
+        context["next_post"] = Blog.objects.filter(
+            created_at__gt=blog.created_at, selected_categories__in=blog.selected_categories.all(), is_active=True
+        ).exclude(id=blog.id).distinct().order_by("created_at").first()
+
+        context["previous_post"] = Blog.objects.filter(created_at__lt=blog.created_at,
+                                                       selected_categories__in=blog.selected_categories.all(),
+                                                       is_active=True).exclude(id=blog.id).distinct().order_by(
+            "-created_at").first()
+        return context
+
 
 def blog_categories_component(request: HttpRequest):
     main_categories = BlogCategory.objects.annotate(blog_count=Count('blogs')).filter(is_active=True,
@@ -52,8 +66,8 @@ def blog_recent_post_component(request: HttpRequest):
     context = {'recent_post': recent_post}
     return render(request, 'blog_module/component/blog_recent_post_component.html', context)
 
+
 def blog_tags_component(request: HttpRequest):
     tags = BlogTag.objects.filter(is_active=True)
     context = {'tags': tags}
     return render(request, 'blog_module/component/blog_tags_component.html', context)
-

@@ -94,10 +94,14 @@
                             <div class="gl-l-r bp-detail__postnp">
                                 <div>
 
-                                    <a href="blog-detail.html">Previous Post</a></div>
+                                    {% if previous_post %}
+                                    	<a href="{% url 'blog-detail' slug=previous_post.slug %}">Previous Post</a>
+                                    {% endif %} </div>
                                 <div>
 
-                                    <a href="blog-detail.html">Next Post</a></div>
+                                    {% if next_post %}
+                                    	<a href="{% url 'blog-detail' slug=next_post.slug %}">Next Post</a>
+                                    {% endif %} </div>
                             </div>
                         </div>
                     </div>
