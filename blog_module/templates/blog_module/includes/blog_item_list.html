@@ -6,7 +6,7 @@
             <!--====== Image Code ======-->
 
             <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block"
-               href="blog-detail.html">
+               href="{% url 'blog-detail' slug=blog.slug %}">
 
                 {% thumbnail blog.image "1366x768" as im %}
                     <img class="aspect__img" src="{{ im.url }}"
@@ -54,7 +54,7 @@
 
             <span class="bp__h1">
 
-                                            <a href="blog-detail.html">{{ blog.title }}</a></span>
+                                            <a href="{% url 'blog-detail' slug=blog.slug %}">{{ blog.title }}</a></span>
 
 
             <div class="blog-t-w">
@@ -71,7 +71,7 @@
 
                                                 <span class="bp__read-more">
 
-                                                    <a href="blog-detail.html">READ MORE</a></span></div>
+                                                    <a href="{% url 'blog-detail' slug=blog.slug %}">READ MORE</a></span></div>
                 <ul class="bp__social-list">
                     <li>
 
