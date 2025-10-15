@@ -2,7 +2,7 @@ from lib2to3.fixes.fix_input import context
 
 from django.http import HttpRequest
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.db.models import Prefetch, Count
 from blog_module.models import Blog, BlogCategory, BlogTag
 
@@ -31,6 +31,12 @@ class BlogListView(ListView):
 
         query = query.filter(is_active=True).prefetch_related('selected_categories', 'author')
         return query
+
+
+class BlogDetailView(DetailView):
+    model = Blog
+    context_object_name = 'blog'
+    template_name = "blog_module/blog_detail.html"
 
 
 def blog_categories_component(request: HttpRequest):
