@@ -32,6 +32,7 @@ class BlogListView(ListView):
 
         query = query.filter(is_active=True).select_related('author').prefetch_related('selected_categories')
         return query
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tags'] = BlogTag.objects.filter(is_active=True)
@@ -71,14 +72,21 @@ def blog_recent_post_component(request: HttpRequest):
     context = {'recent_post': recent_post}
     return render(request, 'blog_module/component/blog_recent_post_component.html', context)
 
+
 def add_blog_comment(request: HttpRequest):
-    blog_comment=request.GET.get('blog_comment')
-    blog_id=request.POST.get('blog_id')
-    parent_id=request.POST.get('parent_id')
+    blog_comment = request.GET.get('blog_comment')
+    blog_id = request.POST.get('blog_id')
+    parent_id = request.POST.get('parent_id')
     if parent_id:
-        parent_id=BlogComment.objects.filter(id=parent_id).first()
+        parent_id = BlogComment.objects.filter(id=parent_id).first()
     else:
-        parent_id=None
-    save_comment=BlogComment(blog_id=blog_id,text=blog_comment,parent_id=parent_id,user=request.user)
+        parent_id = None
+    save_comment = BlogComment(blog_id=blog_id, text=blog_comment, parent_id=parent_id, user=request.user)
     save_comment.save()
+    context = {
+        'comments': BlogComment.objects.filter(blog_id=blog_id, parent_id=None).order_by(
+            '-created_at').prefetch_related('comments').annotate(comment_count=Count('comments'))
+
+    }
+    return render(request, 'blog_module/includes/blog_comment_partial.html', context)
     return HttpResponse("res")
