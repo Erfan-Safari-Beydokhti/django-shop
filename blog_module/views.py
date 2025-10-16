@@ -2,7 +2,7 @@ from http.client import HTTPResponse
 from lib2to3.fixes.fix_input import context
 
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.db.models import Prefetch, Count
 from blog_module.models import Blog, BlogCategory, BlogTag, BlogComment
@@ -56,6 +56,10 @@ class BlogDetailView(DetailView):
                                                        selected_categories__in=blog.selected_categories.all(),
                                                        is_active=True).exclude(id=blog.id).distinct().order_by(
             "-created_at").first()
+
+        comments=BlogComment.objects.filter(blog_id=blog.id,parent_id=None).prefetch_related('comments')
+        context["comments"] = comments
+        context['comment_count']=comments.count()
         return context
 
 
@@ -74,19 +78,31 @@ def blog_recent_post_component(request: HttpRequest):
 
 
 def add_blog_comment(request: HttpRequest):
+    print('add_blog_comment called ✅')
     blog_comment = request.GET.get('blog_comment')
     blog_id = request.GET.get('blog_id')
     parent_id = request.GET.get('parent_id')
-    if parent_id:
-        parent_id = BlogComment.objects.filter(id=parent_id).first()
-    else:
-        parent_id = None
-    save_comment = BlogComment(blog_id=blog_id, text=blog_comment, parent_id=parent_id, user=request.user)
-    save_comment.save()
-    context = {
-        'comments': BlogComment.objects.filter(blog_id=blog_id, parent_id=None).order_by(
-            '-created_at').annotate(comment_count=Count('comments'))
 
+    blog = get_object_or_404(Blog, id=blog_id)
+
+    if parent_id:
+        parent = BlogComment.objects.filter(id=parent_id).first()
+    else:
+        parent = None
+
+    BlogComment.objects.create(
+        blog=blog,
+        text=blog_comment,
+        parent=parent,
+        user=request.user
+    )
+
+    comments = blog.comments.filter(is_accepted=True, parent__isnull=True).prefetch_related('comments', 'user')
+
+    context = {
+        'comments': comments,
+        'comment_count': comments.count()
     }
+
+
     return render(request, 'blog_module/includes/blog_comment_partial.html', context)
-    return HttpResponse("res")
