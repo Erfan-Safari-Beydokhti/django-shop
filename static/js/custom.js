@@ -19,3 +19,13 @@ window.SortProductList = function () {
         })
         .catch(err => console.error("Error sorting:", err));
 }
+
+function AddBlogComment(blog_id){
+    var comment=$('#comment').val();
+    var parentId=$('#parent_id').val();
+    $.get("/blogs/add-blog-comment",{
+        blog_comment:comment,
+        blog_id:blog_id,
+        parent_id:parentId
+    })
+}
