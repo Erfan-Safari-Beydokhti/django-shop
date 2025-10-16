@@ -75,8 +75,8 @@ def blog_recent_post_component(request: HttpRequest):
 
 def add_blog_comment(request: HttpRequest):
     blog_comment = request.GET.get('blog_comment')
-    blog_id = request.POST.get('blog_id')
-    parent_id = request.POST.get('parent_id')
+    blog_id = request.GET.get('blog_id')
+    parent_id = request.GET.get('parent_id')
     if parent_id:
         parent_id = BlogComment.objects.filter(id=parent_id).first()
     else:
@@ -85,7 +85,7 @@ def add_blog_comment(request: HttpRequest):
     save_comment.save()
     context = {
         'comments': BlogComment.objects.filter(blog_id=blog_id, parent_id=None).order_by(
-            '-created_at').prefetch_related('comments').annotate(comment_count=Count('comments'))
+            '-created_at').annotate(comment_count=Count('comments'))
 
     }
     return render(request, 'blog_module/includes/blog_comment_partial.html', context)

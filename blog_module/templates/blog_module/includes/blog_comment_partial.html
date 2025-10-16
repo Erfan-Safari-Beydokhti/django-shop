@@ -1,71 +1,74 @@
 <span class="d-meta__text u-s-m-b-36">6 thoughts on "Wait till is open"</span>
 <div class="d-meta__comments u-s-m-b-30">
     <ol>
-        <li>
+        {% for comment in comments %}
+            <li>
 
-            <!--====== Comment ======-->
-            <div class="d-meta__p-comment">
-                <div class="p-comment__wrap1">
-                    <div class="aspect aspect--square p-comment__img-wrap">
+                <!--====== Comment ======-->
+                <div class="d-meta__p-comment">
+                    <div class="p-comment__wrap1">
+                        <div class="aspect aspect--square p-comment__img-wrap">
 
-                        <img src="images/blog/avatar.jpg" alt=""></div>
-                </div>
-                <div class="p-comment__wrap2">
+                            <img src="images/blog/avatar.jpg" alt=""></div>
+                    </div>
+                    <div class="p-comment__wrap2">
 
-                    <span class="p-comment__author">Dayle</span>
+                        <span class="p-comment__author">Dayle</span>
 
-                    <span class="p-comment__timestamp">
+                        <span class="p-comment__timestamp">
 
                                                             <a href="#">
 
                                                                 <span>25 March 2015 at 3:55pm</span></a></span>
-                    <p class="p-comment__paragraph">Lorem Ipsum is simply dummy text
-                        of
-                        the printing and typesetting industry. Lorem Ipsum has been
-                        the
-                        industry's standard dummy text ever since the 1500s, when an
-                        unknown printer took a galley of type and scrambled it to
-                        make a
-                        type specimen book.</p>
+                        <p class="p-comment__paragraph">Lorem Ipsum is simply dummy text
+                            of
+                            the printing and typesetting industry. Lorem Ipsum has been
+                            the
+                            industry's standard dummy text ever since the 1500s, when an
+                            unknown printer took a galley of type and scrambled it to
+                            make a
+                            type specimen book.</p>
 
-                    <a class="p-comment__reply" href="#" >Reply</a>
+                        <a class="p-comment__reply" href="#">Reply</a>
+                    </div>
                 </div>
-            </div>
-            <!--====== End - Comment ======-->
-            <ol class="comment-children">
-                <li>
+                <!--====== End - Comment ======-->
+                <ol class="comment-children">
+                    <li>
 
-                    <!--====== Comment ======-->
-                    <div class="d-meta__p-comment">
-                        <div class="p-comment__wrap1">
-                            <div class="aspect aspect--square p-comment__img-wrap">
+                        <!--====== Comment ======-->
+                        <div class="d-meta__p-comment">
+                            <div class="p-comment__wrap1">
+                                <div class="aspect aspect--square p-comment__img-wrap">
 
-                                <img src="images/blog/avatar-2.jpg" alt=""></div>
-                        </div>
-                        <div class="p-comment__wrap2">
+                                    <img src="images/blog/avatar-2.jpg" alt=""></div>
+                            </div>
+                            <div class="p-comment__wrap2">
 
-                            <span class="p-comment__author">Dayle</span>
+                                <span class="p-comment__author">Dayle</span>
 
-                            <span class="p-comment__timestamp">
+                                <span class="p-comment__timestamp">
 
                                                                     <a href="#">
 
                                                                         <span>25 March 2015 at 3:55pm</span></a></span>
-                            <p class="p-comment__paragraph">Lorem Ipsum is simply
-                                dummy
-                                text of the printing and typesetting industry. Lorem
-                                Ipsum has been the industry's standard dummy text
-                                ever
-                                since the 1500s, when an unknown printer took a
-                                galley
-                                of type and scrambled it to make a type specimen
-                                book.</p>
+                                <p class="p-comment__paragraph">Lorem Ipsum is simply
+                                    dummy
+                                    text of the printing and typesetting industry. Lorem
+                                    Ipsum has been the industry's standard dummy text
+                                    ever
+                                    since the 1500s, when an unknown printer took a
+                                    galley
+                                    of type and scrambled it to make a type specimen
+                                    book.</p>
+                            </div>
                         </div>
-                    </div>
-                    <!--====== End - Comment ======-->
+                        <!--====== End - Comment ======-->
 
-                </li>
-            </ol>
-        </li>
+                    </li>
+                </ol>
+            </li>
+        {% endfor %}
+
     </ol>
 </div>
