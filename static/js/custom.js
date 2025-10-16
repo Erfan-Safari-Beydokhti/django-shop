@@ -33,3 +33,8 @@ function AddBlogComment(blog_id){
         $("#comment").val('');
     })
 }
+
+function FillParentComment(parentId){
+    $('#parent_id').val(parentId);
+    document.getElementById('comment').focus();
+}
