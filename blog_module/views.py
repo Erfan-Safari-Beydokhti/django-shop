@@ -1,10 +1,11 @@
+from http.client import HTTPResponse
 from lib2to3.fixes.fix_input import context
 
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.db.models import Prefetch, Count
-from blog_module.models import Blog, BlogCategory, BlogTag
+from blog_module.models import Blog, BlogCategory, BlogTag, BlogComment
 
 
 # Create your views here.
@@ -71,4 +72,13 @@ def blog_recent_post_component(request: HttpRequest):
     return render(request, 'blog_module/component/blog_recent_post_component.html', context)
 
 def add_blog_comment(request: HttpRequest):
-    pass
+    blog_comment=request.GET.get('blog_comment')
+    blog_id=request.POST.get('blog_id')
+    parent_id=request.POST.get('parent_id')
+    if parent_id:
+        parent_id=BlogComment.objects.filter(id=parent_id).first()
+    else:
+        parent_id=None
+    save_comment=BlogComment(blog_id=blog_id,text=blog_comment,parent_id=parent_id,user=request.user)
+    save_comment.save()
+    return HttpResponse("res")
