@@ -27,5 +27,9 @@ function AddBlogComment(blog_id){
         blog_comment:comment,
         blog_id:blog_id,
         parent_id:parentId
+    }).then(res=>{
+        $("#comment_area").html(res);
+        $("#parent_id").val('');
+        $("#comment").val('');
     })
 }
