@@ -1,3 +1,5 @@
+{% load thumbnail %}
+{% load static %}
 <span class="d-meta__text u-s-m-b-36">{{ comment_count }} thoughts on "Wait till is open"</span>
 <div class="d-meta__comments u-s-m-b-30">
     <ol>
@@ -9,65 +11,68 @@
                 <div class="d-meta__p-comment">
                     <div class="p-comment__wrap1">
                         <div class="aspect aspect--square p-comment__img-wrap">
-
-                            <img src="images/blog/avatar.jpg" alt=""></div>
+                            {% if comment.user.avatar %}
+                                {% thumbnail comment.user.avatar "80x80" as im %}
+                                    <img class="aspect__img" src="{{ im.url }}" alt="{{ comment.user.username }}">
+                                {% endthumbnail %}
+                            {% else %}
+                                <img class="aspect__img" src="{% static 'images/blog/avatar.jpg' %}"
+                                     alt="Default avatar">
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="p-comment__wrap2">
 
-                        <span class="p-comment__author">Dayle</span>
+                        <span class="p-comment__author">{{ comment.user }}</span>
 
                         <span class="p-comment__timestamp">
 
                                                             <a href="#">
 
-                                                                <span>25 March 2015 at 3:55pm</span></a></span>
-                        <p class="p-comment__paragraph">Lorem Ipsum is simply dummy text
-                            of
-                            the printing and typesetting industry. Lorem Ipsum has been
-                            the
-                            industry's standard dummy text ever since the 1500s, when an
-                            unknown printer took a galley of type and scrambled it to
-                            make a
-                            type specimen book.</p>
+                                                                <span>{{ comment.created_at }}</span></a></span>
+                        <p class="p-comment__paragraph">{{ comment.text }}</p>
 
                         <a class="p-comment__reply" href="#">Reply</a>
                     </div>
                 </div>
                 <!--====== End - Comment ======-->
-                <ol class="comment-children">
-                    <li>
+                {% for sub_comment in comment.comments.all %}
+                    <ol class="comment-children">
+                        <li>
 
-                        <!--====== Comment ======-->
-                        <div class="d-meta__p-comment">
-                            <div class="p-comment__wrap1">
-                                <div class="aspect aspect--square p-comment__img-wrap">
+                            <!--====== Comment ======-->
+                            <div class="d-meta__p-comment">
+                                <div class="p-comment__wrap1">
+                                    <div class="aspect aspect--square p-comment__img-wrap">
+                                        {% if sub_comment.user.avatar %}
+                                            {% thumbnail sub_comment.user.avatar "80x80" as im %}
+                                                <img class="aspect__img" src="{{ im.url }}"
+                                                     alt="{{ comment.user.username }}">
+                                            {% endthumbnail %}
+                                        {% else %}
+                                            <img class="aspect__img" src="{% static 'images/blog/avatar.jpg' %}"
+                                                 alt="Default avatar">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="p-comment__wrap2">
 
-                                    <img src="images/blog/avatar-2.jpg" alt=""></div>
-                            </div>
-                            <div class="p-comment__wrap2">
+                                    <span class="p-comment__author">{{ sub_comment.user }}</span>
 
-                                <span class="p-comment__author">Dayle</span>
-
-                                <span class="p-comment__timestamp">
+                                    <span class="p-comment__timestamp">
 
                                                                     <a href="#">
 
-                                                                        <span>25 March 2015 at 3:55pm</span></a></span>
-                                <p class="p-comment__paragraph">Lorem Ipsum is simply
-                                    dummy
-                                    text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text
-                                    ever
-                                    since the 1500s, when an unknown printer took a
-                                    galley
-                                    of type and scrambled it to make a type specimen
-                                    book.</p>
+                                                                        <span>{{ sub_comment.created_at}}</span></a></span>
+                                    <p class="p-comment__paragraph">{{ sub_comment.text}}</p>
+                                </div>
                             </div>
-                        </div>
-                        <!--====== End - Comment ======-->
+                            <!--====== End - Comment ======-->
 
-                    </li>
-                </ol>
+                        </li>
+                    </ol>
+                {% endfor %}
+
             </li>
         {% endfor %}
 
