@@ -1,3 +1,5 @@
+from importlib.metadata import requires
+
 from django.db import models
 
 from account_module.models import User
