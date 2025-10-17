@@ -1,6 +1,6 @@
 {% load thumbnail %}
 {% load static %}
-<span class="d-meta__text u-s-m-b-36">{{ comment_count }} thoughts on "Wait till is open"</span>
+<span class="d-meta__text u-s-m-b-36">{{ comments_count }} thoughts on "Wait till is open"</span>
 <div class="d-meta__comments u-s-m-b-30">
     <ol>
         {% for comment in comments %}
@@ -11,6 +11,7 @@
                 <div class="d-meta__p-comment">
                     <div class="p-comment__wrap1">
                         <div class="aspect aspect--square p-comment__img-wrap">
+
                             {% if comment.user.avatar %}
                                 {% thumbnail comment.user.avatar "80x80" as im %}
                                     <img class="aspect__img" src="{{ im.url }}" alt="{{ comment.user.username }}">

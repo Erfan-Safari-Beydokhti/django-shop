@@ -57,9 +57,9 @@ class BlogDetailView(DetailView):
                                                        is_active=True).exclude(id=blog.id).distinct().order_by(
             "-created_at").first()
 
-        comments=BlogComment.objects.filter(blog_id=blog.id,parent_id=None).prefetch_related('comments')
-        context["comments"] = comments
-        context['comment_count']=comments.count()
+
+        context["comments"] = BlogComment.objects.filter(blog_id=blog.id,parent_id=None).prefetch_related('comments').order_by('-created_at')[:10]#is_accepted=True
+        context["comments_count"]=BlogComment.objects.filter(blog_id=blog.id).count()
         return context
 
 
@@ -97,7 +97,7 @@ def add_blog_comment(request: HttpRequest):
         user=request.user
     )
 
-    comments = blog.comments.filter(is_accepted=True, parent__isnull=True).prefetch_related('comments', 'user')
+    comments = blog.comments.filter(parent__isnull=True).prefetch_related('comments', 'user')[:10]#is_accepted=True
 
     context = {
         'comments': comments,
