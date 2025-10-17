@@ -37,4 +37,5 @@ function AddBlogComment(blog_id){
 function FillParentComment(parentId){
     $('#parent_id').val(parentId);
     document.getElementById('comment').focus();
+    document.getElementById('scroll_comment').scrollIntoView({behavior:"smooth"});
 }

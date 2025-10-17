@@ -33,7 +33,7 @@
                                                                 <span>{{ comment.created_at }}</span></a></span>
                         <p class="p-comment__paragraph">{{ comment.text }}</p>
 
-                        <a class="p-comment__reply" href="#">Reply</a>
+                        <a class="p-comment__reply" onclick="FillParentComment({{ comment.id }})">Reply</a>
                     </div>
                 </div>
                 <!--====== End - Comment ======-->

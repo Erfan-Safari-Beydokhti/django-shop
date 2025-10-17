@@ -101,7 +101,7 @@ def add_blog_comment(request: HttpRequest):
 
     context = {
         'comments': comments,
-        'comment_count': comments.count()
+        'comments_count': blog.comments.count()
     }
 
 
