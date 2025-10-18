@@ -56,3 +56,9 @@ function FillParentComment(parentId){
     document.getElementById('comment').focus();
     document.getElementById('scroll_comment').scrollIntoView({behavior:"smooth"});
 }
+
+
+let commentOffset=10
+function LoadMoreComments(blog_id){
+
+}
