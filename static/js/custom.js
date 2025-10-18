@@ -21,18 +21,35 @@ window.SortProductList = function () {
 }
 
 function AddBlogComment(blog_id){
-    var comment=$('#comment').val();
-    var parentId=$('#parent_id').val();
-    $.get("/blogs/add-blog-comment",{
-        blog_comment:comment,
-        blog_id:blog_id,
-        parent_id:parentId
-    }).then(res=>{
+    var comment = $('#comment').val();
+    var parentId = $('#parent_id').val();
+
+    $.get("/blogs/add-blog-comment", {
+        blog_comment: comment,
+        blog_id: blog_id,
+        parent_id: parentId
+    }).then(res => {
         $("#comment_area").html(res);
-        $("#parent_id").val('');
-        $("#comment").val('');
-    })
+
+
+        if (res.includes("Your comment has been submitted successfully")) {
+            $("#comment").val('');
+            $("#parent_id").val('');
+        }
+
+
+        bindAlertClose();
+    });
 }
+
+
+function bindAlertClose() {
+    $(".js-dismiss-alert").off("click").on("click", function() {
+        $(this).closest(".gl-alert").fadeOut(300);
+    });
+}
+$(document).ready(bindAlertClose);
+
 
 function FillParentComment(parentId){
     $('#parent_id').val(parentId);

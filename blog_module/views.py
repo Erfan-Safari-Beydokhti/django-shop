@@ -1,7 +1,8 @@
+from dbm import error
 from http.client import HTTPResponse
 from lib2to3.fixes.fix_input import context
 
-from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse, HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView
@@ -90,13 +91,19 @@ def add_blog_comment(request: HttpRequest):
         parent = BlogComment.objects.filter(id=parent_id).first()
     else:
         parent = None
+    if not request.user.is_authenticated:
+        messages.error(request, "You must be logged in to post a comment.")
+    elif not blog_comment:
+        messages.warning(request, "Comment text cannot be empty.")
+    else:
+        BlogComment.objects.create(
+            blog=blog,
+            text=blog_comment,
+            parent=parent,
+            user=request.user
+        )
+        messages.success(request, "Your comment has been submitted successfully.")
 
-    BlogComment.objects.create(
-        blog=blog,
-        text=blog_comment,
-        parent=parent,
-        user=request.user
-    )
     comments = blog.comments.filter(parent__isnull=True).prefetch_related('comments', 'user')[:10]  # is_accepted=True
     context = {
         'comments': comments,

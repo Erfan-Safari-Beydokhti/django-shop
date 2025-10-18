@@ -1,7 +1,9 @@
 {% load thumbnail %}
 {% load static %}
+
 <span class="d-meta__text u-s-m-b-36">{{ comments_count }} thoughts on "Wait till is open"</span>
 <div class="d-meta__comments u-s-m-b-30">
+
     <ol>
         {% for comment in comments %}
 
@@ -64,8 +66,8 @@
 
                                                                     <a href="#">
 
-                                                                        <span>{{ sub_comment.created_at}}</span></a></span>
-                                    <p class="p-comment__paragraph">{{ sub_comment.text}}</p>
+                                                                        <span>{{ sub_comment.created_at }}</span></a></span>
+                                    <p class="p-comment__paragraph">{{ sub_comment.text }}</p>
                                 </div>
                             </div>
                             <!--====== End - Comment ======-->
@@ -76,6 +78,6 @@
 
             </li>
         {% endfor %}
-
     </ol>
+    {% include 'messages.html' %}
 </div>
