@@ -104,9 +104,9 @@ def add_blog_comment(request: HttpRequest):
         )
         messages.success(request, "Your comment has been submitted successfully.")
 
-    comments = blog.comments.filter(parent__isnull=True).prefetch_related('comments', 'user')[:10]  # is_accepted=True
+    comments = blog.comments.filter(parent__isnull=True).order_by('-created_at')[:10]  # is_accepted=True
     context = {
-        'comments': comments,
+        'comments': comments.prefetch_related('comments', 'user'),
         'comments_count': blog.comments.count()
     }
     return render(request, 'blog_module/includes/blog_comment_partial.html', context)
