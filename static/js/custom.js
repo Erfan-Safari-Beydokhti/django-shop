@@ -60,5 +60,15 @@ function FillParentComment(parentId){
 
 let commentOffset=10
 function LoadMoreComments(blog_id){
+$.get("/blogs/load-more-comment",{
+    blog_id:blog_id,
+    offset:commentOffset
+}).then(res=>{
+    $("#comment_area").append(res);
+    commentOffset+=10;
+    if (!res.includes("data-has-more")) {
+            $("#load_more_btn").hide();
+    }
 
+})
 }
