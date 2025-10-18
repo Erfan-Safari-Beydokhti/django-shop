@@ -7,4 +7,5 @@ urlpatterns = [
     path('tag/<str:tag>', BlogListView.as_view(), name='blog-tag-list-view'),
     path('add-blog-comment' ,add_blog_comment, name='add-blog-comment'),
     path('<slug:slug>' , BlogDetailView.as_view(), name='blog-detail'),
+    path('load-more-comment' , load_more_comment, name='load-more-comment'),
 ]
