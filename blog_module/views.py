@@ -110,3 +110,7 @@ def add_blog_comment(request: HttpRequest):
         'comments_count': blog.comments.count()
     }
     return render(request, 'blog_module/includes/blog_comment_partial.html', context)
+
+
+def load_more_comment(request: HttpRequest):
+    pass
