@@ -112,5 +112,18 @@ def add_blog_comment(request: HttpRequest):
     return render(request, 'blog_module/includes/blog_comment_partial.html', context)
 
 
-def load_more_comment(request: HttpRequest):
-    pass
+def load_more_comment(request):
+    blog_id = request.GET.get('blog_id')
+    offset = int(request.GET.get('offset', 0))
+
+    blog = get_object_or_404(Blog, id=blog_id)
+    comments_qs = blog.comments.filter(parent__isnull=True).prefetch_related('comments', 'user')
+
+    comments = comments_qs[offset:offset + 10]
+    load_more = comments_qs.count() > offset + 10
+
+    context = {
+        'comments': comments,
+        'load_more': load_more,
+    }
+    return render(request, 'blog_module/includes/blog_comment_more_partial.html', context)

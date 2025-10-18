@@ -64,7 +64,7 @@ $.get("/blogs/load-more-comment",{
     blog_id:blog_id,
     offset:commentOffset
 }).then(res=>{
-    $("#comment_area").append(res);
+    $("#comment_more").append(res);
     commentOffset+=10;
     if (!res.includes("data-has-more")) {
             $("#load_more_btn").hide();

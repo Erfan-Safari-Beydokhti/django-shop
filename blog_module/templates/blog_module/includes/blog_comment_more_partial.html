@@ -1,0 +1,81 @@
+{% load thumbnail %}
+{% load static %}
+
+<ol>
+    {% for comment in comments %}
+
+        <li>
+            <!--====== Comment ======-->
+            <div class="d-meta__p-comment">
+                <div class="p-comment__wrap1">
+                    <div class="aspect aspect--square p-comment__img-wrap">
+
+                        {% if comment.user.avatar %}
+                            {% thumbnail comment.user.avatar "80x80" as im %}
+                                <img class="aspect__img" src="{{ im.url }}" alt="{{ comment.user.username }}">
+                            {% endthumbnail %}
+                        {% else %}
+                            <img class="aspect__img" src="{% static 'images/blog/avatar.jpg' %}"
+                                 alt="Default avatar">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="p-comment__wrap2">
+
+                    <span class="p-comment__author">{{ comment.user }}</span>
+
+                    <span class="p-comment__timestamp">
+
+                                                            <a href="#">
+
+                                                                <span>{{ comment.created_at }}</span></a></span>
+                    <p class="p-comment__paragraph">{{ comment.text }}</p>
+
+                    <a class="p-comment__reply" onclick="FillParentComment({{ comment.id }})">Reply</a>
+                </div>
+            </div>
+            <!--====== End - Comment ======-->
+            {% for sub_comment in comment.comments.all %}
+                <ol class="comment-children">
+                    <li>
+
+                        <!--====== Comment ======-->
+                        <div class="d-meta__p-comment">
+                            <div class="p-comment__wrap1">
+                                <div class="aspect aspect--square p-comment__img-wrap">
+                                    {% if sub_comment.user.avatar %}
+                                        {% thumbnail sub_comment.user.avatar "80x80" as im %}
+                                            <img class="aspect__img" src="{{ im.url }}"
+                                                 alt="{{ comment.user.username }}">
+                                        {% endthumbnail %}
+                                    {% else %}
+                                        <img class="aspect__img" src="{% static 'images/blog/avatar.jpg' %}"
+                                             alt="Default avatar">
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="p-comment__wrap2">
+
+                                <span class="p-comment__author">{{ sub_comment.user }}</span>
+
+                                <span class="p-comment__timestamp">
+
+                                                                    <a href="#">
+
+                                                                        <span>{{ sub_comment.created_at }}</span></a></span>
+                                <p class="p-comment__paragraph">{{ sub_comment.text }}</p>
+                            </div>
+                        </div>
+                        <!--====== End - Comment ======-->
+
+                    </li>
+                </ol>
+            {% endfor %}
+
+        </li>
+    {% endfor %}
+</ol>
+
+{% if load_more %}
+    <div data-has-more="true"></div>
+{% endif %}
