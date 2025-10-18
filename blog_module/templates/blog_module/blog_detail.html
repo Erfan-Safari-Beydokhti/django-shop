@@ -119,6 +119,13 @@
                                 <div class="d-meta__comment-arena" id="comment_area">
                                     {% include 'blog_module/includes/blog_comment_partial.html' %}
                                 </div>
+                                {% if comments_count > 10 %}
+                                    <div class="text-center mt-3">
+                                        <button class="btn btn--e-brand-shadow" id="load_more_btn"
+                                                onclick="LoadMoreComments({{ blog.id }})">Load More Comments
+                                        </button>
+                                    </div>
+                                {% endif %}
 
                                 <span class="d-meta__text-2 u-s-m-b-6" id="scroll_comment">Join the Conversation</span>
 
