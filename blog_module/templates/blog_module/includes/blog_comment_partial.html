@@ -1,6 +1,8 @@
 {% load thumbnail %}
 {% load static %}
-
+<div id="d_messages">
+    {% include 'messages.html' %}
+</div>
 <span class="d-meta__text u-s-m-b-36">{{ comments_count }} thoughts on "Wait till is open"</span>
 <div class="d-meta__comments u-s-m-b-30">
 
@@ -79,5 +81,5 @@
             </li>
         {% endfor %}
     </ol>
-    {% include 'messages.html' %}
+
 </div>

@@ -36,7 +36,7 @@ function AddBlogComment(blog_id){
             $("#comment").val('');
             $("#parent_id").val('');
         }
-
+        document.getElementById('d_messages').scrollIntoView({behavior:"smooth"});
 
         bindAlertClose();
     });
@@ -64,7 +64,7 @@ $.get("/blogs/load-more-comment",{
     blog_id:blog_id,
     offset:commentOffset
 }).then(res=>{
-    $("#comment_more").append(res);
+   $("#load_more_btn").before(res);
     commentOffset+=10;
     if (!res.includes("data-has-more")) {
             $("#load_more_btn").hide();
