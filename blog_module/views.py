@@ -34,7 +34,7 @@ class BlogListView(ListView):
         if tag_name is not None:
             query = query.filter(tag__slug__iexact=tag_name)
 
-        query = query.filter(is_active=True).select_related('author').prefetch_related('selected_categories')
+        query = query.filter(is_active=True).annotate(comments_count=Count("comments")).select_related('author').prefetch_related('selected_categories')
         return query
 
     def get_context_data(self, **kwargs):
