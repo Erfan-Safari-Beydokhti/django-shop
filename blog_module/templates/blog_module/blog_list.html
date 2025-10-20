@@ -68,60 +68,7 @@
 
 
                                 {% render_partial "blog_module.views.blog_recent_post_component" %}
-                                <div class="u-s-m-b-60">
-                                    <div class="blog-w">
-
-                                        <span class="blog-w__h">RECENT COMMENTS</span>
-                                        <ul class="blog-w__b-l-2">
-                                            <li>
-                                                <div class="b-l__block">
-
-                                                    <span class="b-l__text">admin</span>
-
-                                                    <span class="b-l__text">on</span>
-
-                                                    <span class="b-l__h-2">
-
-                                                        <a href="blog-detail.html">Life is all about opportunity</a></span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="b-l__block">
-
-                                                    <span class="b-l__text">admin</span>
-
-                                                    <span class="b-l__text">on</span>
-
-                                                    <span class="b-l__h-2">
-
-                                                        <a href="blog-detail.html">Be More Confident in 30 Seconds</a></span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="b-l__block">
-
-                                                    <span class="b-l__text">admin</span>
-
-                                                    <span class="b-l__text">on</span>
-
-                                                    <span class="b-l__h-2">
-
-                                                        <a href="blog-detail.html">Bury A Body With Me</a></span></div>
-                                            </li>
-                                            <li>
-                                                <div class="b-l__block">
-
-                                                    <span class="b-l__text">admin</span>
-
-                                                    <span class="b-l__text">on</span>
-
-                                                    <span class="b-l__h-2">
-
-                                                        <a href="blog-detail.html">Everything Must Die</a></span></div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                {% render_partial "blog_module.views.blog_recent_comments_component" %}
                                 {% include 'blog_module/includes/blog_tags.html' %}
                             </div>
                         </div>

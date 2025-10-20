@@ -77,7 +77,7 @@ def blog_categories_component(request: HttpRequest):
 def blog_recent_comments_component(request: HttpRequest):
     recent_comments = BlogComment.objects.filter(is_accepted=True,parent=None).order_by('-created_at')[:5]
     context = {'recent_comments': recent_comments}
-
+    return render(request, 'blog_module/component/blog_recent_comments_component.html', context)
 def blog_recent_post_component(request: HttpRequest):
     recent_post = Blog.objects.filter(is_active=True).order_by('-created_at')[:3]
     context = {'recent_post': recent_post}
