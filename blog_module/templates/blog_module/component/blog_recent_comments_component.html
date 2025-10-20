@@ -3,52 +3,21 @@
 
         <span class="blog-w__h">RECENT COMMENTS</span>
         <ul class="blog-w__b-l-2">
-            <li>
+            {% for recent_comment in recent_comments %}
+            	<li>
                 <div class="b-l__block">
 
-                    <span class="b-l__text">admin</span>
+                    <span class="b-l__text">{{ recent_comment.user }}</span>
 
                     <span class="b-l__text">on</span>
 
                     <span class="b-l__h-2">
 
-                                                        <a href="blog-detail.html">Life is all about opportunity</a></span>
+                                                        <a href="{% url 'blog-detail' slug=recent_comment.blog.slug %}">{{ recent_comment.text}}</a></span>
                 </div>
             </li>
-            <li>
-                <div class="b-l__block">
+            {% endfor %}
 
-                    <span class="b-l__text">admin</span>
-
-                    <span class="b-l__text">on</span>
-
-                    <span class="b-l__h-2">
-
-                                                        <a href="blog-detail.html">Be More Confident in 30 Seconds</a></span>
-                </div>
-            </li>
-            <li>
-                <div class="b-l__block">
-
-                    <span class="b-l__text">admin</span>
-
-                    <span class="b-l__text">on</span>
-
-                    <span class="b-l__h-2">
-
-                                                        <a href="blog-detail.html">Bury A Body With Me</a></span></div>
-            </li>
-            <li>
-                <div class="b-l__block">
-
-                    <span class="b-l__text">admin</span>
-
-                    <span class="b-l__text">on</span>
-
-                    <span class="b-l__h-2">
-
-                                                        <a href="blog-detail.html">Everything Must Die</a></span></div>
-            </li>
         </ul>
     </div>
 </div>
