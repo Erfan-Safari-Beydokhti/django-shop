@@ -12,10 +12,11 @@
                             <span>{{ post.created_at|show_datetime }}</span>
                             <span class="b-l__h">
 
-                                                        <a href="blog-detail.html">{{ post.title}}</a></span>
+                                                        <a href="{% url 'blog-detail' slug=post.slug %}">{{ post.title}}</a></span>
 
                             <span class="b-l__p">{{ post.short_description}}</span>
                         </div>
+                    </div>
                 </li>
             {% endfor %}
 
