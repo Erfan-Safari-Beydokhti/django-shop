@@ -29,3 +29,12 @@ class TeamMember(models.Model):
     class Meta:
         verbose_name = 'Team Member'
         verbose_name_plural = 'Team Members'
+
+class ClientsFeedback(models.Model):
+    author=models.CharField(max_length=100,verbose_name='Author')
+    image=models.ImageField(upload_to='images/clients_feedback',verbose_name='Image')
+    text=models.TextField(verbose_name='Text')
+    company=models.CharField(max_length=100,verbose_name='Company',blank=True,null=True)
+
+
+
