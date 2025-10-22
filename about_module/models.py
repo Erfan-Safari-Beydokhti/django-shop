@@ -1,10 +1,11 @@
 from django.db import models
 
+
 # Create your models here.
 
 
 class About(models.Model):
-    title = models.CharField(max_length=100,verbose_name='Title')
+    title = models.CharField(max_length=100, verbose_name='Title')
     description = models.TextField(verbose_name='Description')
 
     def __str__(self):
@@ -14,14 +15,15 @@ class About(models.Model):
         verbose_name = 'About'
         verbose_name_plural = 'About'
 
+
 class TeamMember(models.Model):
-    name = models.CharField(max_length=100,verbose_name='Name')
-    job_title = models.CharField(max_length=100,verbose_name='Job Title')
-    image=models.ImageField(upload_to='images/team_member',verbose_name='Image')
-    twitter=models.URLField(verbose_name='Twitter',blank=True,null=True)
-    instagram=models.URLField(verbose_name='Instagram',blank=True,null=True)
-    linkedin=models.URLField(verbose_name='Linkedin',blank=True,null=True)
-    facebook=models.URLField(verbose_name='Facebook',blank=True,null=True)
+    name = models.CharField(max_length=100, verbose_name='Name')
+    job_title = models.CharField(max_length=100, verbose_name='Job Title')
+    image = models.ImageField(upload_to='images/team_member', verbose_name='Image')
+    twitter = models.URLField(verbose_name='Twitter', blank=True, null=True)
+    instagram = models.URLField(verbose_name='Instagram', blank=True, null=True)
+    linkedin = models.URLField(verbose_name='Linkedin', blank=True, null=True)
+    facebook = models.URLField(verbose_name='Facebook', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -30,11 +32,16 @@ class TeamMember(models.Model):
         verbose_name = 'Team Member'
         verbose_name_plural = 'Team Members'
 
+
 class ClientsFeedback(models.Model):
-    author=models.CharField(max_length=100,verbose_name='Author')
-    image=models.ImageField(upload_to='images/clients_feedback',verbose_name='Image')
-    text=models.TextField(verbose_name='Text')
-    company=models.CharField(max_length=100,verbose_name='Company',blank=True,null=True)
+    author = models.CharField(max_length=100, verbose_name='Author')
+    image = models.ImageField(upload_to='images/clients_feedback', verbose_name='Image')
+    text = models.TextField(verbose_name='Text')
+    company = models.CharField(max_length=100, verbose_name='Company', blank=True, null=True)
 
+    def __str__(self):
+        return f"{self.author} ({self.company})" if self.company else self.author
 
-
+    class Meta:
+        verbose_name = 'Clients Feedback'
+        verbose_name_plural = 'Clients Feedback'
