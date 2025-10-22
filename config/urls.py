@@ -27,6 +27,7 @@ urlpatterns = [
     path('', include('account_module.urls'), name='account-page'),
     path('products/', include('product_module.urls'), name='product-page'),
     path('blogs/', include('blog_module.urls'), name='blog-page'),
+    path('about/', include('about_module.urls'), name='about-page'),
 
 ]
 if settings.DEBUG:
