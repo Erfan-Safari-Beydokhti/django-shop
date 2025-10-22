@@ -23,3 +23,9 @@ class TeamMember(models.Model):
     linkedin=models.URLField(verbose_name='Linkedin',blank=True,null=True)
     facebook=models.URLField(verbose_name='Facebook',blank=True,null=True)
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Team Member'
+        verbose_name_plural = 'Team Members'
