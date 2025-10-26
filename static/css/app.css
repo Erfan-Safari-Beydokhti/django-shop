@@ -6463,14 +6463,57 @@ body.config, #app {
     opacity: 1;
 }
 
-/* رنگ‌ها متناسب با استایل برند */
+
 .gl-alert--success { background: #00b894; }
 .gl-alert--error { background: #d63031; }
 .gl-alert--warning { background: #fdcb6e; color: #222; }
 .gl-alert--info { background: #0984e3; }
 
-/* افکت ورود */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
+
+.testimonial {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    padding: 30px;
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 350px;
+    overflow: hidden;
+}
+
+.testimonial__content-wrap {
+    max-width: 800px;
+    margin-top: 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    text-align: center;
+}
+
+.testimonial__block-quote {
+    margin: 15px auto;
+    text-align: center;
+    display: inline-block;
+}
+
+.testimonial__block-quote p {
+    font-style: italic;
+    line-height: 1.6;
+    font-size: 15px;
+    color: #555;
+    text-align: center;
+    word-break: break-word;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.testimonial__author {
+    display: block;
+    margin-top: 10px;
+    font-weight: 600;
+    color: #222;
 }

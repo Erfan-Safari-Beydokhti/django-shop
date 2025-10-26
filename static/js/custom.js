@@ -11,16 +11,16 @@ window.SortProductReviews = function (product_id) {
 window.SortProductList = function () {
     var sort = $("#sort_product").val();
 
-    $.get('/products/products-sort/partial/', { sort: sort })
+    $.get('/products/products-sort/partial/', {sort: sort})
         .then(res => {
             $("#products_list").html(res.html);
             document.getElementById("related_product")
-                .scrollIntoView({ behavior: "smooth" });
+                .scrollIntoView({behavior: "smooth"});
         })
         .catch(err => console.error("Error sorting:", err));
 }
 
-function AddBlogComment(blog_id){
+function AddBlogComment(blog_id) {
     var comment = $('#comment').val();
     var parentId = $('#parent_id').val();
 
@@ -36,7 +36,7 @@ function AddBlogComment(blog_id){
             $("#comment").val('');
             $("#parent_id").val('');
         }
-        document.getElementById('d_messages').scrollIntoView({behavior:"smooth"});
+        document.getElementById('d_messages').scrollIntoView({behavior: "smooth"});
 
         bindAlertClose();
     });
@@ -44,31 +44,33 @@ function AddBlogComment(blog_id){
 
 
 function bindAlertClose() {
-    $(".js-dismiss-alert").off("click").on("click", function() {
+    $(".js-dismiss-alert").off("click").on("click", function () {
         $(this).closest(".gl-alert").fadeOut(300);
     });
 }
+
 $(document).ready(bindAlertClose);
 
 
-function FillParentComment(parentId){
+function FillParentComment(parentId) {
     $('#parent_id').val(parentId);
     document.getElementById('comment').focus();
-    document.getElementById('scroll_comment').scrollIntoView({behavior:"smooth"});
+    document.getElementById('scroll_comment').scrollIntoView({behavior: "smooth"});
 }
 
 
-let commentOffset=10
-function LoadMoreComments(blog_id){
-$.get("/blogs/load-more-comment",{
-    blog_id:blog_id,
-    offset:commentOffset
-}).then(res=>{
-   $("#load_more_btn").before(res);
-    commentOffset+=10;
-    if (!res.includes("data-has-more")) {
-            $("#load_more_btn").hide();
-    }
+let commentOffset = 10
 
-})
+function LoadMoreComments(blog_id) {
+    $.get("/blogs/load-more-comment", {
+        blog_id: blog_id,
+        offset: commentOffset
+    }).then(res => {
+        $("#load_more_btn").before(res);
+        commentOffset += 10;
+        if (!res.includes("data-has-more")) {
+            $("#load_more_btn").hide();
+        }
+
+    })
 }

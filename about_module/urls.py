@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import about
+from .views import AboutView
 urlpatterns=[
-    path('',about,name='about'),
+    path('',AboutView.as_view(),name='about'),
 ]
