@@ -10,7 +10,7 @@
                             <div class="product-o__wrap">
 
                                 <a class="aspect aspect--bg-grey aspect--square u-d-block"
-                                   href="product-detail.html">
+                                   href="{% url 'product-detail-view' slug=related_product.slug %}">
 
                                     {% if related_product.image %}
                                         {% thumbnail related_product.image "600x600" as im %}
@@ -49,7 +49,7 @@
 
                             <span class="product-o__name">
 
-                                            <a href="product-detail.html">{{ related_product.title }}</a></span>
+                                            <a href="{% url 'product-detail-view' slug=related_product.slug %}">{{ related_product.title }}</a></span>
                             <div class="product-m__rating gl-rating-style">
                                 {% for star in related_product.rating_ranges.0 %}
                                     <i
