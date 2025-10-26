@@ -8,6 +8,8 @@ from django.http import HttpRequest, request, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView
+from unicodedata import category
+
 from product_module.models import Product, ProductCategory, ProductBrand, WishList, ProductReview, ProductVisit
 from utils.http_service import get_user_ip
 from utils.review_service import ReviewService
@@ -84,7 +86,8 @@ class ProductDetailView(DetailView):
         if not has_been_visit:
             new_visit = ProductVisit(product_id=product.id, ip=user_ip, user_id=user_id)
             new_visit.save()
-
+        categories=product.category.all()
+        context['related_products']=Product.objects.annotate(reviews_count=Count('reviews')).filter(category__in=categories).exclude(id=product.id).distinct()[:10]
         return context
 
 
