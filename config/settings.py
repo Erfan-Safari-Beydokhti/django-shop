@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'polls',
     'blog_module',
     'about_module',
-    'contact_module'
+    'contact_module',
 
 
     'django_render_partial',
