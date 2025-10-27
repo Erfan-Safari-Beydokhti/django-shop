@@ -28,6 +28,7 @@ urlpatterns = [
     path('products/', include('product_module.urls'), name='product-page'),
     path('blogs/', include('blog_module.urls'), name='blog-page'),
     path('about/', include('about_module.urls'), name='about-page'),
+    path('contact-us/', include('contact_module.urls'), name='contact-page'),
 
 ]
 if settings.DEBUG:
