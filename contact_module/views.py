@@ -11,6 +11,9 @@ class ContactView(FormView):
     form_class = ContactForm
     success_url = reverse_lazy('contact-us')
 
+    def form_valid(self, form):
+        contact=form.save(commit=False)
+        contact.user=self.request.user
+        contact.save()
+        return super(ContactView, self).form_valid(form)
 
-def form_valid(self, form):
-    contact=form.save(commit=False)
