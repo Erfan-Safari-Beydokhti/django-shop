@@ -20,6 +20,5 @@ def send_email(subject, to, context, template_name):
             html_message=html_message,
             fail_silently=False
         )
-        print("5555555555555555555555555555555555555")
     except Exception as e:
         logger.error(f"Failed to send email to {to}: {e}")

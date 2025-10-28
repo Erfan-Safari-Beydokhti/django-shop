@@ -1,22 +1,14 @@
+from django.contrib.auth import login
+
 import datetime
-from lib2to3.fixes.fix_input import context
 
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.crypto import get_random_string
-from django.views.generic import View
-
-from account_module.forms import RegisterForm, LoginForm, ForgotPasswordForm, ResetPasswordForm
-from account_module.models import User
-from utils.email import send_email
-
-import datetime
-from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.utils.crypto import get_random_string
 from django.views import View
 
+from account_module.forms import LoginForm, ForgotPasswordForm, ResetPasswordForm
 from account_module.forms import RegisterForm
 from account_module.models import User
 from utils.email import send_email
