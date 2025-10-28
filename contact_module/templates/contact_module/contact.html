@@ -1,6 +1,6 @@
 {% extends 'shared/layout.html' %}
 {% block title %}
-	contact-us
+    contact-us
 {% endblock %}
 {% block content %}
     <!--====== Main App ======-->
@@ -123,19 +123,18 @@
                                             <div class="col-lg-6 col-md-6 u-h-100">
 
                                                 <div class="u-s-m-b-30">
-
-                                                    <label for="c-subject"></label>
-
-                                                    <input class="input-text input-text--border-radius input-text--primary-style" type="text" id="c-subject" placeholder="Subject (Required)" required></div>
+                                                    {{ form.subject }}
+                                                </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6 u-h-100">
                                                 <div class="u-s-m-b-30">
-
-                                                    <label for="c-message"></label><textarea class="text-area text-area--border-radius text-area--primary-style" id="c-message" placeholder="Compose a Message (Required)" required></textarea></div>
+                                                    {{ form.message }}
+                                                </div>
                                             </div>
                                             <div class="col-lg-12">
 
-                                                <button class="btn btn--e-brand-b-2" type="submit">Send Message</button></div>
+                                                <button class="btn btn--e-brand-b-2" type="submit">Send Message</button>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
