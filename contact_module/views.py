@@ -10,3 +10,7 @@ class ContactView(FormView):
     template_name = 'contact_module/contact.html'
     form_class = ContactForm
     success_url = reverse_lazy('contact-us')
+
+
+def form_valid(self, form):
+    contact=form.save(commit=False)
