@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'blog_module',
     'about_module',
     'contact_module',
-
+    'dashboard_module',
 
     'django_render_partial',
     'sorl.thumbnail',

@@ -29,6 +29,7 @@ urlpatterns = [
     path('blogs/', include('blog_module.urls'), name='blog-page'),
     path('about/', include('about_module.urls'), name='about-page'),
     path('contact-us/', include('contact_module.urls'), name='contact-page'),
+    path('dashboard/', include('dashboard_module.urls'), name='dashboard-page'),
 
 ]
 if settings.DEBUG:
