@@ -1,5 +1,8 @@
 from django.db import models
 from account_module.models import User
+from product_module.models import Product
+
+
 # Create your models here.
 
 class Cart(models.Model):
@@ -11,3 +14,13 @@ class Cart(models.Model):
         return f"{self.id} , {self.user}"
 
 
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE,verbose_name='Cart',related_name='items')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE,verbose_name='Product',related_name='items')
+    quantity = models.PositiveIntegerField(verbose_name='Quantity',default=1)
+
+    def __str__(self):
+        return f"{self.quantity} x {self.quantity}"
+
+    def total_price(self):
+        return self.product.price  self.quantity
