@@ -21,3 +21,10 @@ def add_to_cart(request, product_id):
         cart_item.save()
 
 
+def cart_detail(request):
+    pass
+
+def remove_from_cart(request, item_id):
+    pass
+
+
