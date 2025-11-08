@@ -2,9 +2,8 @@ from gc import get_objects
 
 from django.shortcuts import render
 from django.contrib.auth.views import login_required
-from django.shortcuts import get_object_or_404
-
-from cart_module.models import Cart
+from django.shortcuts import get_object_or_404,redirect
+from cart_module.models import Cart, CartItem
 from product_module.models import Product
 
 
@@ -19,12 +18,17 @@ def add_to_cart(request, product_id):
     if created:
         cart_item.quantity += 1
         cart_item.save()
-
+    return redirect('cart_detail')
 
 def cart_detail(request):
-    pass
+    cart,created = Cart.objects.get_or_create(user=request.user)
+    return render(request,'cart_module/cart.html',{'cart':cart})
+
 
 def remove_from_cart(request, item_id):
-    pass
+    item = get_object_or_404(CartItem, id=item_id,cart__user=request.user)
+    item.delete()
+    return redirect('cart_detail')
+
 
 
