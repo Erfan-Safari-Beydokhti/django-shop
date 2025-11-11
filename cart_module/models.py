@@ -22,7 +22,7 @@ class CartItem(models.Model):
     quantity = models.PositiveIntegerField(verbose_name='Quantity',default=1)
 
     def __str__(self):
-        return f"{self.quantity} x {self.quantity}"
+        return f"{self.product} x {self.quantity}"
 
     def total_price(self):
         return self.product.price * self.quantity
