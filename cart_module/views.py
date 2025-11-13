@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 from cart_module.models import Cart, CartItem
 from product_module.models import Product
-
+from django.contrib import messages
 
 # Create your views here.
 
@@ -12,13 +12,17 @@ from product_module.models import Product
 def add_to_cart(request, product_id):
     product=get_object_or_404(Product, id=product_id)
     cart,created = Cart.objects.get_or_create(user=request.user)
-    print('qq')
     cart_item,created = CartItem.objects.get_or_create(product=product,cart=cart)
-    print('gg')
+    quantity=int(request.POST.get('quantity',1))
     if not created:
-        cart_item.quantity += 1
-        cart_item.save()
-    return redirect('cart_detail')
+        cart_item.quantity += quantity
+    else:
+        cart_item.quantity = quantity
+    cart_item.save()
+    messages.success(request, 'Your cart has been updated')
+    return redirect('product-detail-view', slug=product.slug)
+
+
 @login_required()
 def cart_detail(request):
     cart,created = Cart.objects.get_or_create(user=request.user)
