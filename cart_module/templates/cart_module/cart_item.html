@@ -1,0 +1,61 @@
+{% load thumbnail %}
+<div class="table-responsive">
+    <table class="table-p">
+        <tbody>
+        {% for item in cart_items %}
+            <!--====== Row ======-->
+            <tr>
+                <td>
+                    <div class="table-p__box">
+                        <div class="table-p__img-wrap">
+
+                            {% thumbnail item.product.image "600x600" as im %}
+                                <div class="pd-o-img-wrap" data-src="{{ im.url }}">
+                                    <img class="u-img-fluid"
+                                         src="{{ im.url }}"
+                                         width="{{ im.width }}" height="{{ im.height }}"
+                                         data-zoom-image="{{ im.url }}"
+                                         alt="{{ item.title }}">
+                                </div>
+                            {% endthumbnail %}</div>
+                        <div class="table-p__info">
+
+                                                            <span class="table-p__name">
+
+                                                                <a href="{% url 'product-detail-view' slug=item.product.slug %}">{{ item.product.title }}</a></span>
+
+                            <span class="table-p__category">
+                        </div>
+                    </div>
+                </td>
+                <td>
+
+                    <span class="table-p__price">${{ item.total_price }}</span></td>
+                <td>
+                    <div class="table-p__input-counter-wrap">
+
+                        <!--====== Input Counter ======-->
+                        <div class="input-counter">
+
+                            <span class="input-counter__minus fas fa-minus"></span>
+
+                            <input class="input-counter__text input-counter--text-primary-style"
+                                   type="text" value="{{ item.quantity }}" data-min="1" data-max="1000">
+
+                            <span class="input-counter__plus fas fa-plus"></span></div>
+                        <!--====== End - Input Counter ======-->
+                    </div>
+                </td>
+                <td>
+                    <div class="table-p__del-wrap">
+
+                        <a class="far fa-trash-alt table-p__delete-link" href="#"></a>
+                    </div>
+                </td>
+            </tr>
+            <!--====== End - Row ======-->
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>

@@ -1,3 +1,5 @@
+from lib2to3.fixes.fix_input import context
+
 from django.contrib.auth.views import login_required
 from django.shortcuts import get_object_or_404, redirect
 from django.shortcuts import render
@@ -26,7 +28,12 @@ def add_to_cart(request, product_id):
 @login_required()
 def cart_detail(request):
     cart,created = Cart.objects.get_or_create(user=request.user)
-    return render(request,'cart_module/cart.html',{'cart':cart})
+    cart_items = CartItem.objects.filter(cart=cart)
+    context={
+        'cart':cart,
+        'cart_items':cart_items,
+    }
+    return render(request,'cart_module/cart.html',context)
 
 @login_required()
 def remove_from_cart(request, item_id):
