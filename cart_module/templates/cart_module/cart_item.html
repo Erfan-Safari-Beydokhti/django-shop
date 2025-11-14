@@ -23,8 +23,6 @@
                                                             <span class="table-p__name">
 
                                                                 <a href="{% url 'product-detail-view' slug=item.product.slug %}">{{ item.product.title }}</a></span>
-
-                            <span class="table-p__category">
                         </div>
                     </div>
                 </td>
@@ -37,12 +35,12 @@
                         <!--====== Input Counter ======-->
                         <div class="input-counter">
 
-                            <span class="input-counter__minus fas fa-minus"></span>
+                            <span class="input-counter__minus fas fa-minus" onclick="changeQuantity({{ item.id }},'decrease')"></span>
 
                             <input class="input-counter__text input-counter--text-primary-style"
                                    type="text" value="{{ item.quantity }}" data-min="1" data-max="1000">
 
-                            <span class="input-counter__plus fas fa-plus"></span></div>
+                            <span class="input-counter__plus fas fa-plus" onclick="changeQuantity({{ item.id }},'increase')"></span></div>
                         <!--====== End - Input Counter ======-->
                     </div>
                 </td>

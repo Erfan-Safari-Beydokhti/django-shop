@@ -74,3 +74,14 @@ function LoadMoreComments(blog_id) {
 
     })
 }
+
+
+function changeQuantity(itemId, operation) {
+
+    $.get("/cart/change-cart-detail?item_id=" + itemId + "&state=" + operation).then(res=>{
+        if (res.status==="success"){
+            $("#cart-item-content").html(res.data);
+        }
+    })
+
+}
