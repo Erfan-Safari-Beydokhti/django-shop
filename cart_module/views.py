@@ -1,3 +1,4 @@
+from http.client import HTTPResponse
 from lib2to3.fixes.fix_input import context
 
 from django.contrib.auth.views import login_required
@@ -5,7 +6,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.shortcuts import render
 from django.template.loader import render_to_string
-
+from django.contrib import messages
 from cart_module.models import Cart, CartItem
 from product_module.models import Product
 from django.contrib import messages
@@ -17,9 +18,9 @@ from django.contrib import messages
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     cart, created = Cart.objects.get_or_create(user=request.user)
-    cart_item, created = CartItem.objects.get_or_create(product=product, cart=cart)
+    cart_item, item_created = CartItem.objects.get_or_create(product=product, cart=cart)
     quantity = int(request.POST.get('quantity', 1))
-    if not created:
+    if not item_created:
         cart_item.quantity += quantity
     else:
         cart_item.quantity = quantity
@@ -31,7 +32,7 @@ def add_to_cart(request, product_id):
 @login_required()
 def cart_detail(request):
     cart, created = Cart.objects.get_or_create(user=request.user)
-    cart_items = CartItem.objects.filter(cart=cart)
+    cart_items = existitems(request, cart)
     context = {
         'cart': cart,
         'cart_items': cart_items,
@@ -45,20 +46,21 @@ def remove_from_cart(request):
     if not item_id:
         return JsonResponse({'status': 'not_found_item_id'})
 
-    remove_count,remove=CartItem.objects.filter(id=item_id,cart__user=request.user).delete()
+    remove_count, remove = CartItem.objects.filter(id=item_id, cart__user=request.user).delete()
     if not remove_count:
         return JsonResponse({'status': 'not_found_item_id'})
     cart, created = Cart.objects.get_or_create(user=request.user)
     cart_items = CartItem.objects.filter(cart=cart)
 
-    context={
+    context = {
         'cart': cart,
         'cart_items': cart_items,
     }
     return JsonResponse({
         'status': 'success',
-        'data':render_to_string('cart_module/cart_item.html',context),
+        'data': render_to_string('cart_module/cart_item.html', context),
     })
+
 
 @login_required()
 def change_cart_detail(request):
@@ -97,3 +99,16 @@ def change_cart_detail(request):
          'data': render_to_string('cart_module/cart_item.html', context),
          }
     )
+
+
+def clear_cart(request):
+    cart = get_object_or_404(Cart, user=request.user)
+    cart.items.all().delete()
+    return redirect(cart_detail)
+
+
+def existitems(request, cart):
+    if cart.items.exists():
+        return CartItem.objects.filter(cart=cart, cart__user=request.user)
+    else:
+        messages.error(request, 'No cart items')
