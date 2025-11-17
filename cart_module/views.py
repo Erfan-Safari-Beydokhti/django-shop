@@ -112,3 +112,33 @@ def existitems(request, cart):
         return CartItem.objects.filter(cart=cart, cart__user=request.user)
     else:
         messages.error(request, 'No cart items')
+
+def calculateshopping(request):
+    if request.method!= 'POST':
+        messages.error(request, 'Only POST method is allowed')
+        return redirect('cart_detail')
+    country=request.POST.get('country')
+    state=request.POST.get('state')
+    zipcode=request.POST.get('zipcode')
+    if not country or not state or not zipcode:
+        messages.error(request, 'Please fill in all fields')
+
+
+    shipping_rates = {
+        "us": 6,
+        "uk": 10,
+        "uae": 12,
+    }
+    cart = get_object_or_404(Cart, user=request.user)
+    shipping_cost = shipping_rates.get(country, 15)
+    tax = float(round(shipping_cost * 0.05, 2))
+    sub_total =float(cart.total_price())
+    grand_total = sub_total + tax + shipping_cost
+    return JsonResponse({
+        "shipping": shipping_cost,
+        "tax": tax,
+        "sub_total": sub_total,
+        "grand_total": grand_total,
+    })
+
+

@@ -93,3 +93,13 @@ function removeCartItem(itemId){
         }
     })
 }
+
+function calculateShopping() {
+    $.post('/cart/calculate-shipping', $(".f-cart").serialize())
+    .then(res => {
+        $("#shipping-value").text("$" + res.shipping);
+        $("#tax-value").text("$" + res.tax);
+        $("#subtotal-value").text("$" + res.sub_total);
+        $("#grand-value").text("$" + res.grand_total);
+    });
+}
