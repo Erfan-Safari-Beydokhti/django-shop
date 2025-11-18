@@ -11,7 +11,6 @@ from cart_module.models import Cart, CartItem
 from product_module.models import Product
 from django.contrib import messages
 
-
 # Create your views here.
 
 @login_required()
@@ -33,9 +32,17 @@ def add_to_cart(request, product_id):
 def cart_detail(request):
     cart, created = Cart.objects.get_or_create(user=request.user)
     cart_items = existitems(request, cart)
+    sub_total=float(cart.total_price())
+    tax=round(sub_total*0.0005,2)
+    grand_total=sub_total+tax
     context = {
         'cart': cart,
         'cart_items': cart_items,
+        'sub_total': sub_total,
+        'tax': tax,
+        'grand_total': grand_total,
+
+
     }
     return render(request, 'cart_module/cart.html', context)
 
@@ -113,32 +120,6 @@ def existitems(request, cart):
     else:
         messages.error(request, 'No cart items')
 
-def calculateshopping(request):
-    if request.method!= 'POST':
-        messages.error(request, 'Only POST method is allowed')
-        return redirect('cart_detail')
-    country=request.POST.get('country')
-    state=request.POST.get('state')
-    zipcode=request.POST.get('zipcode')
-    if not country or not state or not zipcode:
-        messages.error(request, 'Please fill in all fields')
 
-
-    shipping_rates = {
-        "us": 6,
-        "uk": 10,
-        "uae": 12,
-    }
-    cart = get_object_or_404(Cart, user=request.user)
-    shipping_cost = shipping_rates.get(country, 15)
-    tax = float(round(shipping_cost * 0.05, 2))
-    sub_total =float(cart.total_price())
-    grand_total = sub_total + tax + shipping_cost
-    return JsonResponse({
-        "shipping": shipping_cost,
-        "tax": tax,
-        "sub_total": sub_total,
-        "grand_total": grand_total,
-    })
 
 
