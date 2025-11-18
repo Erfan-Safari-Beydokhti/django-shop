@@ -81,6 +81,7 @@ function changeQuantity(itemId, operation) {
     $.get("/cart/change-cart-item?item_id=" + itemId + "&state=" + operation).then(res=>{
         if (res.status==="success"){
             $("#cart-item-content").html(res.data);
+            $("#cart-table").html(res.table);
         }
     })
 

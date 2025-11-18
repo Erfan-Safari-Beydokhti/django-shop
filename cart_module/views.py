@@ -97,13 +97,15 @@ def change_cart_detail(request):
         })
     cart, created = Cart.objects.get_or_create(user=request.user)
     cart_items = CartItem.objects.filter(cart=cart)
-    context = {
-        'cart': cart,
-        'cart_items': cart_items,
-    }
+    sub_total = float(cart.total_price())
+    tax = round(sub_total * 0.0005, 2)
+    grand_total = sub_total + tax
     return JsonResponse(
         {'status': 'success',
-         'data': render_to_string('cart_module/cart_item.html', context),
+         'data': render_to_string('cart_module/cart_item.html', {'cart': cart,
+        'cart_items': cart_items,}),
+         'table':render_to_string('cart_module/cart_table.html',{'tax':tax,
+        'sub_total': sub_total,'grand_total':grand_total})
          }
     )
 

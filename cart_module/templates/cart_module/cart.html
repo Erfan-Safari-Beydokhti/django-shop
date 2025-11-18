@@ -93,39 +93,10 @@
                     <div class="section__content">
                         <div class="container">
                             <div class="row">
-
-                                <!-- LEFT COLUMN: Shipping Form -->
                                 <div class="col-lg-4 col-md-6 col-sm-12 u-s-m-b-30">
+                                    <div class="f-cart__pad-box" id="cart-table">
+                                       {% include 'cart_module/cart_table.html' %}
 
-
-                                    <!-- MIDDLE COLUMN: Note -->
-
-
-                                    <!-- RIGHT COLUMN: Summary -->
-
-                                    <div class="f-cart__pad-box">
-                                        <div class="u-s-m-b-30">
-                                            <table class="f-cart__table">
-                                                <tbody>
-
-                                                <tr>
-                                                    <td>TAX</td>
-                                                    <td id="tax-value">${{ tax }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>SUBTOTAL</td>
-                                                    <td id="subtotal-value">${{ sub_total }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>GRAND TOTAL</td>
-                                                    <td id="grand-value">${{ grand_total }}</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                        <a class="mini-link btn--e-brand-b-2" href="/">PROCEED TO
-                                            CHECKOUT</a>
                                     </div>
                                 </div>
 
