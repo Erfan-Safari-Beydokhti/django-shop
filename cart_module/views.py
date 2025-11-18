@@ -1,4 +1,5 @@
 from http.client import HTTPResponse
+from importlib import reload
 from lib2to3.fixes.fix_input import context
 
 from django.contrib.auth.views import login_required
@@ -95,13 +96,14 @@ def change_cart_detail(request):
         return JsonResponse({
             'status': 'not_found_detail_id_or_state'
         })
+
     cart, created = Cart.objects.get_or_create(user=request.user)
-    cart_items = CartItem.objects.filter(cart=cart)
+    cart_items = CartItem.objects.filter(cart=cart, cart__user=request.user)
     sub_total = float(cart.total_price())
     tax = round(sub_total * 0.0005, 2)
     grand_total = sub_total + tax
     return JsonResponse(
-        {'status': 'success',
+        {'status': 'success' if cart_items else 'error',
          'data': render_to_string('cart_module/cart_item.html', {'cart': cart,
         'cart_items': cart_items,}),
          'table':render_to_string('cart_module/cart_table.html',{'tax':tax,

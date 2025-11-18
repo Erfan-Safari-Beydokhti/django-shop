@@ -82,7 +82,11 @@ function changeQuantity(itemId, operation) {
         if (res.status==="success"){
             $("#cart-item-content").html(res.data);
             $("#cart-table").html(res.table);
+
         }
+        if(res.status==="error"){
+                location.reload()
+            }
     })
 
 }
@@ -91,6 +95,7 @@ function removeCartItem(itemId){
     $.get('/cart/remove-cart-item?item_id='+itemId).then(res=>{
         if(res.status==='success'){
             $("#cart-item-content").html(res.data);
+            location.reload()
         }
     })
 }
