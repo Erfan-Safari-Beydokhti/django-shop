@@ -1,7 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import request
+
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, UpdateView
+
+from account_module.models import User
+from dashboard_module.forms import AddPhoneForm
 
 
 # Create your views here.
@@ -39,3 +43,11 @@ class MyProfileView(LoginRequiredMixin, TemplateView):
 
 def dash_track_order(request):
     return render(request,'dashboard_module/dash_track_order.html')
+
+class AddPhoneView(LoginRequiredMixin, UpdateView):
+    model = User
+    template_name = 'dashboard_module/add_phone_number.html'
+    form_class = AddPhoneForm
+    success_url = reverse_lazy("dash-my-profile")
+    def get_object(self):
+        return self.request.user

@@ -12,6 +12,7 @@ class User(AbstractUser):
     active_email_code=models.CharField(max_length=100,verbose_name='Email Code')
     about_user=models.TextField(null=True,blank=True,verbose_name='About User')
     birth_date=models.DateField(verbose_name='Date of Birth')
+    phone=models.CharField(max_length=20,null=True,blank=True,verbose_name='Phone Number')
     gender=models.CharField(max_length=10,verbose_name='Gender',choices=GENDER_CHOICES)
 
     class Meta:

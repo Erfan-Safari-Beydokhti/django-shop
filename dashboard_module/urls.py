@@ -2,8 +2,7 @@ from django.urls import path
 
 from .views import dash_address_book, dash_address_edit, dash_address_add, dash_edit_profile, MyProfileView \
     , dash_cancellation, dash_my_order, dash_manage_order, dash_track_order, dash_address_make_default, \
-    dashboard
-
+    dashboard, AddPhoneView
 urlpatterns = [
     path('', dashboard, name='dashboard'),
     path('dash-address-book/', dash_address_book, name='dash-address-book'),
@@ -16,5 +15,7 @@ urlpatterns = [
     path('dash-track-order/', dash_track_order, name='dash-track-order'),
     path('dash-address-make-default/', dash_address_make_default, name='dash-address-make-default'),
     path('dash-manage-order/', dash_manage_order, name='dash-manage-order'),
+    path('add-phone-number/', AddPhoneView.as_view(), name='add-phone-number'),
+
 
 ]
