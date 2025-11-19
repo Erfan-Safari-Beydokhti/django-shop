@@ -1,4 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import request
 from django.shortcuts import render
+from django.views.generic import TemplateView
+
 
 # Create your views here.
 def dashboard(request):
@@ -19,7 +23,19 @@ def dash_manage_order(request):
     return render(request,'dashboard_module/dash_manage_order.html')
 def dash_my_order(request):
     return render(request,'dashboard_module/dash_my_order.html')
-def dash_my_profile(request):
-    return render(request,'dashboard_module/dash_my_profile.html')
+class MyProfileView(LoginRequiredMixin, TemplateView):
+    template_name = "dashboard_module/dash_my_profile.html"
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        user=self.request.user
+        context["full_name"]=user.get_full_name()
+        context["email"]=user.email
+        context["phone"]=getattr(user,"phone",'empty')
+        context["birthday"]=getattr(user,"birthday",'empty')
+        gen=user.gender
+        context["gender"]= 'Male' if gen=='M' else 'Female' if gen=='F' else None
+        return context
+
+
 def dash_track_order(request):
     return render(request,'dashboard_module/dash_track_order.html')
