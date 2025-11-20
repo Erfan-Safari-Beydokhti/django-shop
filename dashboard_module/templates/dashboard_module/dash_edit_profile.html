@@ -3,6 +3,7 @@
     Edit Profile
 {% endblock %}
 {% block content %}
+
     <!--====== Main App ======-->
     <div id="app">
         <!--====== App Content ======-->
@@ -19,10 +20,10 @@
                                 <ul class="breadcrumb__list">
                                     <li class="has-separator">
 
-                                        <a href="index.html">Home</a></li>
+                                        <a href="{% url 'home' %}">Home</a></li>
                                     <li class="is-marked">
 
-                                        <a href="dash-edit-profile.html">My Account</a></li>
+                                        <a href="{% url 'dash-my-profile' %}">My Account</a></li>
                                 </ul>
                             </div>
                         </div>

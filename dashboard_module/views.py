@@ -1,9 +1,9 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, UpdateView
-
 from account_module.models import User
 from dashboard_module.forms import AddPhoneForm, EditProfileForm
 
@@ -29,6 +29,11 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
+
+    def form_valid(self, form):
+        messages.success(self.request, "Your profile has been updated.")
+        return super().form_valid(form)
+
 def dash_manage_order(request):
     return render(request,'dashboard_module/dash_manage_order.html')
 def dash_my_order(request):
@@ -40,10 +45,11 @@ class MyProfileView(LoginRequiredMixin, TemplateView):
         user=self.request.user
         context["full_name"]=user.get_full_name()
         context["email"]=user.email
-        context["phone"]=getattr(user,"phone",'empty')
-        context["birthday"]=getattr(user,"birthday",'empty')
+        context["phone"]=getattr(user,"phone",'Please enter your mobile')
+        context["birthday"]=getattr(user,"birthday",'Please enter your Birthday')
         gen=user.gender
         context["gender"]= 'Male' if gen=='M' else 'Female' if gen=='F' else None
+
         return context
 
 
