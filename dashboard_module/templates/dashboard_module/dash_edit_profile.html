@@ -34,7 +34,6 @@
 
             <!--====== Section 2 ======-->
             <div class="u-s-p-b-60">
-
                 <!--====== Section Content ======-->
                 <div class="section__content">
                     <div class="dash">
@@ -123,23 +122,23 @@
                                                     Newsletter</a></div>
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <form class="dash-edit-p">
+                                                    <form class="dash-edit-p" method="post">
+                                                        {% csrf_token %}
+                                                        {{ form.non_field_errors }}
                                                         <div class="gl-inline">
                                                             <div class="u-s-m-b-30">
 
-                                                                <label class="gl-label" for="reg-fname">FIRST NAME
+                                                                <label class="gl-label">FIRST NAME
                                                                     *</label>
-
-                                                                <input class="input-text input-text--primary-style"
-                                                                       type="text" id="reg-fname" placeholder="John">
+                                                                {{ form.first_name }}
+                                                                {{ form.first_name.errors }}
                                                             </div>
                                                             <div class="u-s-m-b-30">
 
-                                                                <label class="gl-label" for="reg-lname">LAST NAME
+                                                                <label class="gl-label">LAST NAME
                                                                     *</label>
-
-                                                                <input class="input-text input-text--primary-style"
-                                                                       type="text" id="reg-lname" placeholder="Doe">
+                                                                {{ form.last_name }}
+                                                                {{ form.last_name.errors }}
                                                             </div>
                                                         </div>
                                                         <div class="gl-inline">
@@ -148,57 +147,31 @@
                                                                 <!--====== Date of Birth Select-Box ======-->
 
                                                                 <span class="gl-label">BIRTHDAY</span>
-                                                                <div class="gl-dob"><select
-                                                                        class="select-box select-box--primary-style">
-                                                                    <option selected>Month</option>
-                                                                    <option value="male">January</option>
-                                                                    <option value="male">February</option>
-                                                                    <option value="male">March</option>
-                                                                    <option value="male">April</option>
-                                                                </select><select
-                                                                        class="select-box select-box--primary-style">
-                                                                    <option selected>Day</option>
-                                                                    <option value="01">01</option>
-                                                                    <option value="02">02</option>
-                                                                    <option value="03">03</option>
-                                                                    <option value="04">04</option>
-                                                                </select><select
-                                                                        class="select-box select-box--primary-style">
-                                                                    <option selected>Year</option>
-                                                                    <option value="1991">1991</option>
-                                                                    <option value="1992">1992</option>
-                                                                    <option value="1993">1993</option>
-                                                                    <option value="1994">1994</option>
-                                                                </select></div>
+                                                                {{ form.birth_date }}
+                                                                {{ form.birth_date.errors }}
                                                                 <!--====== End - Date of Birth Select-Box ======-->
                                                             </div>
                                                             <div class="u-s-m-b-30">
 
                                                                 <label class="gl-label"
-                                                                       for="gender">GENDER</label><select
-                                                                    class="select-box select-box--primary-style u-w-100"
-                                                                    id="gender">
-                                                                <option selected>Select</option>
-                                                                <option value="male">Male</option>
-                                                                <option value="male">Female</option>
-                                                            </select></div>
+                                                                >GENDER</label>
+                                                                {{ form.gender }}
+                                                                {{ form.gender.errors }}
+                                                            </div>
                                                         </div>
                                                         <div class="gl-inline">
                                                             <div class="u-s-m-b-30">
-                                                                <h2 class="dash__h2 u-s-m-b-8">E-mail</h2>
-
-                                                                <span class="dash__text">johndoe@domain.com</span>
-                                                                <div class="dash__link dash__link--secondary">
-
-                                                                    <a href="#">Change</a></div>
-                                                            </div>
-                                                            <div class="u-s-m-b-30">
                                                                 <h2 class="dash__h2 u-s-m-b-8">Phone</h2>
 
-                                                                <span class="dash__text">Please enter your mobile</span>
+                                                                <span class="dash__text">{% if user.phone %}
+                                                                	{{ user.phone }}
+                                                                    {% else %}
+                                                                    Please enter your mobile
+                                                                {% endif %} </span>
                                                                 <div class="dash__link dash__link--secondary">
 
-                                                                    <a href="{% url "add-phone-number" %}">Add / Change</a></div>
+                                                                    <a href="{% url "add-phone-number" %}">Add /
+                                                                        Change</a></div>
                                                             </div>
                                                         </div>
 

@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, UpdateView
 
 from account_module.models import User
-from dashboard_module.forms import AddPhoneForm
+from dashboard_module.forms import AddPhoneForm, EditProfileForm
 
 
 # Create your views here.
@@ -21,8 +21,14 @@ def dash_address_make_default(request):
     return render(request,'dashboard_module/dash_address_make_default.html')
 def dash_cancellation(request):
     return render(request,'dashboard_module/dash_cancellation.html')
-def dash_edit_profile(request):
-    return render(request,'dashboard_module/dash_edit_profile.html')
+class EditProfileView(LoginRequiredMixin, UpdateView):
+    model = User
+    template_name = 'dashboard_module/dash_edit_profile.html'
+    form_class = EditProfileForm
+    success_url = reverse_lazy('dash-my-profile')
+
+    def get_object(self):
+        return self.request.user
 def dash_manage_order(request):
     return render(request,'dashboard_module/dash_manage_order.html')
 def dash_my_order(request):
