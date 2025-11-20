@@ -3,6 +3,7 @@
     Edit Profile
 {% endblock %}
 {% block content %}
+        {% include 'messages.html' %}
 
     <!--====== Main App ======-->
     <div id="app">
@@ -129,17 +130,17 @@
                                                         <div class="gl-inline">
                                                             <div class="u-s-m-b-30">
 
+
                                                                 <label class="gl-label">FIRST NAME
                                                                     *</label>
                                                                 {{ form.first_name }}
-                                                                {{ form.first_name.errors }}
                                                             </div>
                                                             <div class="u-s-m-b-30">
 
                                                                 <label class="gl-label">LAST NAME
+
                                                                     *</label>
                                                                 {{ form.last_name }}
-                                                                {{ form.last_name.errors }}
                                                             </div>
                                                         </div>
                                                         <div class="gl-inline">
@@ -149,7 +150,7 @@
 
                                                                 <span class="gl-label">BIRTHDAY</span>
                                                                 {{ form.birth_date }}
-                                                                {{ form.birth_date.errors }}
+
                                                                 <!--====== End - Date of Birth Select-Box ======-->
                                                             </div>
                                                             <div class="u-s-m-b-30">
@@ -157,7 +158,6 @@
                                                                 <label class="gl-label"
                                                                 >GENDER</label>
                                                                 {{ form.gender }}
-                                                                {{ form.gender.errors }}
                                                             </div>
                                                         </div>
                                                         <div class="gl-inline">
