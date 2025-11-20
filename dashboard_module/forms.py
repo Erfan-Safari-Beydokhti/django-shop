@@ -25,24 +25,8 @@ class EditProfileForm(forms.ModelForm):
             'gender': forms.Select(attrs={'class': 'select-box select-box--primary-style',}),
         }
         error_messages = {
-            'first_name': {
-                'required': "Please enter your first name.",
-                'max_length': "First name is too long.",
-            },
-            'last_name': {
-                'required': "Please enter your last name.",
-                'max_length': "Last name is too long.",
-            },
-            'birth_date': {
-                'required': "Please select your date of birth.",
-                'invalid': "Please enter a valid date.",
-            },
-            'gender': {
-                'required': "Please select your gender.",
-                'invalid_choice': "Invalid gender selection.",
-            },
+            'gender': {'required': 'Gender is required.'},
         }
-
     def clean_first_name(self):
         fname = self.cleaned_data.get("first_name")
         if not fname or fname.strip() == "":
@@ -54,8 +38,3 @@ class EditProfileForm(forms.ModelForm):
         if not lname or lname.strip() == "":
             raise forms.ValidationError("Please enter your last name.")
         return lname
-    def clean_gender(self):
-        g = self.cleaned_data.get("gender")
-        if not g or g.strip() == "":
-            raise forms.ValidationError("Please enter your gender.")
-        return g

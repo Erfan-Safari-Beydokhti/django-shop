@@ -52,7 +52,7 @@ class MyProfileView(LoginRequiredMixin, TemplateView):
         context["full_name"]=user.get_full_name()
         context["email"]=user.email
         context["phone"]=getattr(user,"phone",'Please enter your mobile')
-        context["birthday"]=getattr(user,"birthday",'Please enter your Birthday')
+        context["birthday"]=getattr(user,"birth_date",'Please enter your Birthday')
         gen=user.gender
         context["gender"]= 'Male' if gen=='M' else 'Female' if gen=='F' else None
 
