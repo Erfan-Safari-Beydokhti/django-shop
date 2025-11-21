@@ -2,9 +2,9 @@ from django.urls import path
 
 from .views import dash_address_book, dash_address_edit, dash_address_add,EditProfileView, MyProfileView \
     , dash_cancellation, dash_my_order, dash_manage_order, dash_track_order, dash_address_make_default, \
-    dashboard, AddPhoneView , dash_payment_option
+    DashboardView, AddPhoneView , dash_payment_option
 urlpatterns = [
-    path('', dashboard, name='dashboard'),
+    path('', DashboardView.as_view(), name='dashboard'),
     path('dash-address-book/', dash_address_book, name='dash-address-book'),
     path('dash-address-edit/', dash_address_edit, name='dash-address-edit'),
     path('dash-address-add/', dash_address_add, name='dash-address-add'),

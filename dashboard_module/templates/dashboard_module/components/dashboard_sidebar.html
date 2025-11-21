@@ -9,8 +9,9 @@
                 <li><a class="{% if request.path == '/dashboard/' %}dash-active{% endif %}"
                        href="{% url 'dashboard' %}">Manage My Account</a></li>
 
-                <li><a class="{% if request.path == '/dashboard/dash-my-profile/' %}dash-active{% endif %}" href="{% url 'dash-my-profile' %}"
-                      >My Profile</a></li>
+                <li><a class="{% if request.path == '/dashboard/dash-my-profile/' %}dash-active{% endif %}"
+                       href="{% url 'dash-my-profile' %}"
+                >My Profile</a></li>
 
                 <li><a class="{% if request.path == '/dashboard/address-book/' %}dash-active{% endif %}"
                        href="{% url 'dash-address-book' %}">Address Book</a></li>
@@ -21,7 +22,9 @@
                 <li><a class="{% if request.path == '/dashboard/my-order/' %}dash-active{% endif %}"
                        href="{% url 'dash-my-order' %}">My Orders</a></li>
 
-                <li><a href="javascript:void(0)">My Payment Options</a></li>
+                <li>
+                    <a class="{% if request.path == '/dashboard/dash-payment-option/' %}dash-active{% endif %}" href="{% url 'dash-payment-option' %}">My
+                    Payment Options</a></li>
 
                 <li><a href="{% url 'dash-cancellation' %}">My Returns & Cancellations</a></li>
             </ul>

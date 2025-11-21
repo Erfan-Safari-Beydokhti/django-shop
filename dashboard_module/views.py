@@ -1,3 +1,5 @@
+from lib2to3.fixes.fix_input import context
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
@@ -9,8 +11,16 @@ from dashboard_module.forms import AddPhoneForm, EditProfileForm
 
 
 # Create your views here.
-def dashboard(request):
-    return render(request, 'dashboard_module/dashboard.html')
+class DashboardView(LoginRequiredMixin, TemplateView):
+    template_name = 'dashboard_module/dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        user = self.request.user
+        context["full_name"]=user.get_full_name()
+        context["email"]=user.email
+
+        return context
 
 
 def dash_address_add(request):
