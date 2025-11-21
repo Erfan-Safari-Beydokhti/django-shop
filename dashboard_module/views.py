@@ -60,6 +60,8 @@ def dash_manage_order(request):
 def dash_my_order(request):
     return render(request, 'dashboard_module/dash_my_order.html')
 
+def dash_payment_option(request):
+    return render(request, 'dashboard_module/dash_payment_option.html')
 
 class MyProfileView(LoginRequiredMixin, TemplateView):
     template_name = "dashboard_module/dash_my_profile.html"
