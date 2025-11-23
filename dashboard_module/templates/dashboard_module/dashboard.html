@@ -114,9 +114,10 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>3054231326</td>
-                                                        <td>26/13/2016</td>
+                                                    {% for recent_order in recent_orders %}
+                                                    	<tr>
+                                                        <td>{{ recent_order.id }}</td>
+                                                        <td>{{ recent_order.created }}</td>
                                                         <td>
                                                             <div class="dash__table-img-wrap">
 
@@ -125,13 +126,15 @@
                                                         <td>
                                                             <div class="dash__table-total">
 
-                                                                <span>$126.00</span>
+                                                                <span>${{ recent_order.total_price }}</span>
                                                                 <div class="dash__link dash__link--brand">
 
                                                                     <a href="dash-manage-order.html">MANAGE</a></div>
                                                             </div>
                                                         </td>
                                                     </tr>
+                                                    {% endfor %}
+
                                                 </tbody>
                                             </table>
                                         </div>

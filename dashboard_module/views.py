@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, UpdateView
 
 from account_module.models import User
+from cart_module.models import Cart
 from dashboard_module.forms import AddPhoneForm, EditProfileForm
 
 
@@ -19,7 +20,6 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         user = self.request.user
         context["full_name"]=user.get_full_name()
         context["email"]=user.email
-
         return context
 
 
