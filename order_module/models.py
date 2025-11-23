@@ -33,12 +33,12 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items', verbose_name='order')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='items', verbose_name='product')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='order_items', verbose_name='product')
     quantity = models.PositiveIntegerField(verbose_name='quantity', default=1)
     price_at_purchase = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name='price at purchase')
 
     def __str__(self):
-        return f"{self.product.name} - {self.quantity}"
+        return f"{self.product.title} - {self.quantity}"
 
     class Meta:
         verbose_name = 'Order item'

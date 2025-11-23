@@ -30,6 +30,8 @@ urlpatterns = [
     path('contact-us/', include('contact_module.urls'), name='contact-page'),
     path('dashboard/', include('dashboard_module.urls'), name='dashboard-page'),
     path('cart/', include('cart_module.urls'), name='cart-page'),
+    path('order/', include('order_module.urls'), name='order-page'),
+
 
 ]
 if settings.DEBUG:

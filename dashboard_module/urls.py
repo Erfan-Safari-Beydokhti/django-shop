@@ -1,8 +1,9 @@
 from django.urls import path
 
 from .views import dash_address_book, dash_address_edit, dash_address_add,EditProfileView, MyProfileView \
-    , dash_cancellation, dash_my_order, dash_manage_order, dash_track_order, dash_address_make_default, \
+    , dash_cancellation, dash_address_make_default, \
     DashboardView, AddPhoneView , dash_payment_option
+# dash_my_order, dash_manage_order, dash_track_order
 urlpatterns = [
     path('', DashboardView.as_view(), name='dashboard'),
     path('dash-address-book/', dash_address_book, name='dash-address-book'),
@@ -12,10 +13,10 @@ urlpatterns = [
     path('dash-my-profile/', MyProfileView.as_view(), name='dash-my-profile'),
     path('dash-payment-option/', dash_payment_option, name='dash-payment-option'),
     path('dash-cancellation/', dash_cancellation, name='dash-cancellation'),
-    path('dash-my-order/', dash_my_order, name='dash-my-order'),
-    path('dash-track-order/', dash_track_order, name='dash-track-order'),
+    # path('dash-my-order/', dash_my_order, name='dash-my-order'),
+    # path('dash-track-order/', dash_track_order, name='dash-track-order'),
     path('dash-address-make-default/', dash_address_make_default, name='dash-address-make-default'),
-    path('dash-manage-order/', dash_manage_order, name='dash-manage-order'),
+    # path('dash-manage-order/', dash_manage_order, name='dash-manage-order'),
     path('add-phone-number/', AddPhoneView.as_view(), name='add-phone-number'),
 
 

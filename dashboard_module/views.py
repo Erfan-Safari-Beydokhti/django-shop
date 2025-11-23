@@ -1,13 +1,9 @@
-from lib2to3.fixes.fix_input import context
-
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, UpdateView
-
 from account_module.models import User
-from cart_module.models import Cart
 from dashboard_module.forms import AddPhoneForm, EditProfileForm
 
 
@@ -63,12 +59,12 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
         return super().form_invalid(form)
 
 
-def dash_manage_order(request):
-    return render(request, 'dashboard_module/dash_manage_order.html')
+# def dash_manage_order(request):
+#     return render(request, 'dashboard_module/dash_manage_order.html')
 
 
-def dash_my_order(request):
-    return render(request, 'dashboard_module/dash_my_order.html')
+# def dash_my_order(request):
+#     return render(request, 'dashboard_module/dash_my_order.html')
 
 def dash_payment_option(request):
     return render(request, 'dashboard_module/dash_payment_option.html')
@@ -89,8 +85,8 @@ class MyProfileView(LoginRequiredMixin, TemplateView):
         return context
 
 
-def dash_track_order(request):
-    return render(request, 'dashboard_module/dash_track_order.html')
+# def dash_track_order(request):
+#     return render(request, 'dashboard_module/dash_track_order.html')
 
 
 class AddPhoneView(LoginRequiredMixin, UpdateView):

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'contact_module',
     'dashboard_module',
     'cart_module',
+    'order_module',
 
     'django_render_partial',
     'sorl.thumbnail',
