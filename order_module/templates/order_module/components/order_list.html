@@ -1,0 +1,59 @@
+{% for order in orders %}
+    <div class="m-order__list">
+        <div class="m-order__get">
+            <div class="manage-o__header u-s-m-b-30">
+                <div class="dash-l-r">
+                    <div>
+                        <div class="manage-o__text-2 u-c-secondary">Order
+                            #{{ order.payment_tracking_code }}
+                        </div>
+                        <div class="manage-o__text u-c-silver">Placed
+                            on {{ order.created }}
+                        </div>
+                    </div>
+                    <div>
+                        <div class="dash__link dash__link--brand">
+
+                            <a href="{% url 'order-detail' order.id %}">MANAGE</a>
+                        </div>
+                    </div>
+                    <div>
+
+                        <span class="manage-o__badge badge--processing">{{ order.status }}</span>
+                    </div>
+                </div>
+            </div>
+            {% for item in order.items.all %}
+                <div class="manage-o__description">
+                    <div class="description__container">
+                        <div class="description__img-wrap">
+
+                            <img class="u-img-fluid"
+                                 src="{{ item.product.image.url }}"
+                                 alt=""></div>
+                        <div class="description-title">{{ item.product.title }}
+                        </div>
+                    </div>
+                    <div class="description__info-wrap">
+
+                        <div>
+
+                                                                <span class="manage-o__text-2 u-c-silver">Quantity:
+
+                                                                    <span class="manage-o__text-2 u-c-secondary">{{ item.quantity }}</span></span>
+                        </div>
+                        <div>
+
+                                                                <span class="manage-o__text-2 u-c-silver">Total:
+
+                                                                    <span class="manage-o__text-2 u-c-secondary">${{ item.total_price }}</span></span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+
+
+    </div>
+{% endfor %}

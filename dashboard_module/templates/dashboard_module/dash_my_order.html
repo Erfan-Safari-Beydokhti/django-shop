@@ -41,82 +41,16 @@
                         <div class="container">
                             <div class="row">
                                 <!--====== Dashboard Features ======-->
-                                    {% include 'dashboard_module/components/dashboard_sidebar.html' %}
-                                    <!--====== End - Dashboard Features ======-->
+                                {% include 'dashboard_module/components/dashboard_sidebar.html' %}
+                                <!--====== End - Dashboard Features ======-->
                                 <div class="col-lg-9 col-md-12">
                                     <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
                                         <div class="dash__pad-2">
                                             <h1 class="dash__h1 u-s-m-b-14">My Orders</h1>
 
                                             <span class="dash__text u-s-m-b-30">Here you can see all products that have been delivered.</span>
-                                            <form class="m-order u-s-m-b-30">
-                                                <div class="m-order__select-wrapper">
-
-                                                    <label class="u-s-m-r-8" for="my-order-sort">Show:</label><select
-                                                        class="select-box select-box--primary-style" id="my-order-sort" name="sorted_orders">
-                                                    <option selected>Last 5 orders</option>
-                                                    <option>Last 15 days</option>
-                                                    <option>Last 30 days</option>
-                                                    <option>Last 6 months</option>
-                                                    <option>All Orders</option>
-                                                </select></div>
-                                            </form>
-                                            <div class="m-order__list">
-                                                {% for order in orders %}
-                                                	<div class="m-order__get">
-                                                    <div class="manage-o__header u-s-m-b-30">
-                                                        <div class="dash-l-r">
-                                                            <div>
-                                                                <div class="manage-o__text-2 u-c-secondary">Order
-                                                                    #{{ order.payment_tracking_code}}
-                                                                </div>
-                                                                <div class="manage-o__text u-c-silver">Placed on {{ order.created}}
-                                                                </div>
-                                                            </div>
-                                                            <div>
-                                                                <div class="dash__link dash__link--brand">
-
-                                                                    <a href="{% url 'order-detail' order.id %}">MANAGE</a></div>
-                                                            </div>
-                                                            <div>
-
-                                                                <span class="manage-o__badge badge--processing">{{ order.status }}</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {% for item in order.items.all %}
-                                                    	<div class="manage-o__description">
-                                                        <div class="description__container">
-                                                            <div class="description__img-wrap">
-
-                                                                <img class="u-img-fluid"
-                                                                     src="{{ item.product.image.url}}"
-                                                                     alt=""></div>
-                                                            <div class="description-title">{{ item.product.title}}
-                                                            </div>
-                                                        </div>
-                                                        <div class="description__info-wrap">
-
-                                                            <div>
-
-                                                                <span class="manage-o__text-2 u-c-silver">Quantity:
-
-                                                                    <span class="manage-o__text-2 u-c-secondary">{{ item.quantity }}</span></span>
-                                                            </div>
-                                                            <div>
-
-                                                                <span class="manage-o__text-2 u-c-silver">Total:
-
-                                                                    <span class="manage-o__text-2 u-c-secondary">${{ item.total_price }}</span></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {% endfor %}
-
-                                                </div>
-                                                {% endfor %}
-
-                                            </div>
+                                            {% include 'order_module/includes/order_filter.html' %}
+                                            {% include 'order_module/components/order_list.html' %}
                                         </div>
                                     </div>
                                 </div>
