@@ -16,11 +16,11 @@
                 <li><a class="{% if request.path == '/dashboard/address-book/' %}dash-active{% endif %}"
                        href="{% url 'dash-address-book' %}">Address Book</a></li>
 
-                <li><a class="{% if request.path == '/dashboard/track-order/' %}dash-active{% endif %}"
-                       href="{% url 'dash-track-order' %}">Track Order</a></li>
+                <li><a class="{% if request.path == '/track-order/' %}dash-active{% endif %}"
+                       href="{% url 'track-order' %}">Track Order</a></li>
 
-                <li><a class="{% if request.path == '/dashboard/my-order/' %}dash-active{% endif %}"
-                       href="{% url 'dash-my-order' %}">My Orders</a></li>
+                <li><a class="{% if request.path == '/order/' %}dash-active{% endif %}"
+                       href="{% url 'my-orders' %}">My Orders</a></li>
 
                 <li>
                     <a class="{% if request.path == '/dashboard/dash-payment-option/' %}dash-active{% endif %}" href="{% url 'dash-payment-option' %}">My

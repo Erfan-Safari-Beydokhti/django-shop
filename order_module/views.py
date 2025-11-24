@@ -13,16 +13,16 @@ class OrderListView(LoginRequiredMixin,ListView):
     context_object_name = 'orders'
     template_name = 'dashboard_module/dash_my_order.html'
     def get_queryset(self):
-        return Order.objects.filter(user=self.request.user).order_by('-created')
+        return Order.objects.filter(user=self.request.user).prefetch_related("items__product").order_by('-created')
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
     model = Order
     template_name = "dashboard_module/dash_manage_order.html"
-    slug_field = "order_id"
-    slug_url_kwarg = "order_id"
     context_object_name = "order"
 
+    def get_object(self):
+        return Order.objects.get(id=self.kwargs["id"], user=self.request.user)
 
 class TrackOrderView(TemplateView):
     template_name = "dashboard_module/dash_track_order.html"
