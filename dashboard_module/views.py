@@ -1,10 +1,18 @@
+from datetime import timezone
+from venv import create
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, UpdateView
 from account_module.models import User
 from dashboard_module.forms import AddPhoneForm, EditProfileForm
+from django.utils import timezone
+
+from order_module.models import Order
 
 
 # Create your views here.
@@ -97,3 +105,20 @@ class AddPhoneView(LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
+
+def filter_order(request,user_id):
+    filter=request.GET.get('filter','last_5_orders')
+    orders=Order.objects.filter(user_id=user_id).order_by('-created')
+    if filter=="last_5_orders":
+        orders=Order.objects.filter(user_id=user_id).order_by('-created')[:5]
+    elif filter=="last_15_days":
+        days=timezone.now()-timezone.timedelta(days=15)
+        orders=Order.objects.filter(user_id=user_id,created__gte=days).order_by('-created')
+    elif filter=="last_30_days":
+        days = timezone.now() - timezone.timedelta(days=30)
+        orders = Order.objects.filter(user_id=user_id, created__gte= days).order_by('-created')
+    elif filter=="last_6_months":
+        days = timezone.now() - timezone.timedelta(days=186)
+        orders = Order.objects.filter(user_id=user_id, created__gte= days).order_by('-created')
+    html = render_to_string("dashboard_module/components/order_list.html",{"orders":orders})
+    return JsonResponse({"html":html})

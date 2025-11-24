@@ -49,8 +49,10 @@
                                             <h1 class="dash__h1 u-s-m-b-14">My Orders</h1>
 
                                             <span class="dash__text u-s-m-b-30">Here you can see all products that have been delivered.</span>
-                                            {% include 'order_module/includes/order_filter.html' %}
-                                            {% include 'order_module/components/order_list.html' %}
+                                            {% include 'dashboard_module/includes/order_filter.html' %}
+                                            <div id="orders_list">
+                                                {% include 'dashboard_module/components/order_list.html' %}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -1,3 +1,5 @@
+{% load thumbnail %}
+
 {% for order in orders %}
     <div class="m-order__list">
         <div class="m-order__get">
@@ -28,9 +30,14 @@
                     <div class="description__container">
                         <div class="description__img-wrap">
 
-                            <img class="u-img-fluid"
-                                 src="{{ item.product.image.url }}"
-                                 alt=""></div>
+                            {% thumbnail item.product.image "90x90" crop="center" as im %}
+                                <div>
+                                    <img class="u-img-fluid"
+                                         src="{{ im.url }}"
+                                         width="{{ im.width }}" height="{{ im.height }}"
+                                         alt="{{ product.title }}">
+                                </div>
+                            {% endthumbnail %}</div>
                         <div class="description-title">{{ item.product.title }}
                         </div>
                     </div>

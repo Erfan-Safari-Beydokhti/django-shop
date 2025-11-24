@@ -78,24 +78,32 @@ function LoadMoreComments(blog_id) {
 
 function changeQuantity(itemId, operation) {
 
-    $.get("/cart/change-cart-item?item_id=" + itemId + "&state=" + operation).then(res=>{
-        if (res.status==="success"){
+    $.get("/cart/change-cart-item?item_id=" + itemId + "&state=" + operation).then(res => {
+        if (res.status === "success") {
             $("#cart-item-content").html(res.data);
             $("#cart-table").html(res.table);
 
         }
-        if(res.status==="error"){
-                location.reload()
-            }
+        if (res.status === "error") {
+            location.reload()
+        }
     })
 
 }
 
-function removeCartItem(itemId){
-    $.get('/cart/remove-cart-item?item_id='+itemId).then(res=>{
-        if(res.status==='success'){
+function removeCartItem(itemId) {
+    $.get('/cart/remove-cart-item?item_id=' + itemId).then(res => {
+        if (res.status === 'success') {
             $("#cart-item-content").html(res.data);
             location.reload()
         }
+    })
+}
+
+function filterOrder(user_id) {
+    var filter = $("#my-order-sort").val();
+    $.get(`/dashboard/${user_id}/filter-order/`, {filter: filter}).then(res => {
+        $("#orders_list").html(res.html)
+
     })
 }
