@@ -4,12 +4,12 @@
         <label class="u-s-m-r-8" for="my-order-sort">Show:</label><select
             class="select-box select-box--primary-style" id="my-order-sort"
             name="filter_orders" onchange="filterOrder({{ user.id }})">
+        <option value="all_orders" {% if filter_orders == "all_orders" %}selected{% endif %}>All Orders</option>
         <option value="last_5_orders" {% if sorted_orders == "last_5_orders" %}selected{% endif %}>Last 5 orders
         </option>
         <option value="last_15_days" {% if filter_orders == "last_15_days" %}selected{% endif %}>Last 15 days</option>
         <option value="last_30_days" {% if filter_orders == "last_30_days" %}selected{% endif %}>Last 30 days</option>
         <option value="last_6_months" {% if filter_orders == "last_6_months" %}selected{% endif %}>Last 6 months
         </option>
-        <option value="all_orders" {% if filter_orders == "all_orders" %}selected{% endif %}>All Orders</option>
     </select></div>
 </form>

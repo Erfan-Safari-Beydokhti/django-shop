@@ -108,7 +108,7 @@ class AddPhoneView(LoginRequiredMixin, UpdateView):
 
 def filter_order(request,user_id):
     filter=request.GET.get('filter','last_5_orders')
-    orders=Order.objects.filter(user_id=user_id).order_by('-created')
+    orders=Order.objects.filter(user_id=user_id).order_by("-created")
     if filter=="last_5_orders":
         orders=Order.objects.filter(user_id=user_id).order_by('-created')[:5]
     elif filter=="last_15_days":
