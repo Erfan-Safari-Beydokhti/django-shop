@@ -19,10 +19,10 @@
                                 <ul class="breadcrumb__list">
                                     <li class="has-separator">
 
-                                        <a href="index.html">Home</a></li>
+                                        <a href="{% url 'home' %}">Home</a></li>
                                     <li class="is-marked">
 
-                                        <a href="dashboard.html">My Account</a></li>
+                                        <a href="">My Account</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -116,12 +116,14 @@
                                                 <tbody>
                                                     {% for recent_order in recent_orders %}
                                                     	<tr>
-                                                        <td>{{ recent_order.id }}</td>
+                                                        <td>{{ recent_order.payment_tracking_code}}</td>
                                                         <td>{{ recent_order.created }}</td>
                                                         <td>
                                                             <div class="dash__table-img-wrap">
 
-                                                                <img class="u-img-fluid" src="images/product/electronic/product3.jpg" alt=""></div>
+                                                                {% with first_item=recent_order.items.first %}
+                                                                	<img class="u-img-fluid" src="{{ first_item.product.image.url }}" alt=""></div>
+                                                                {% endwith %}
                                                         </td>
                                                         <td>
                                                             <div class="dash__table-total">
@@ -129,7 +131,7 @@
                                                                 <span>${{ recent_order.total_price }}</span>
                                                                 <div class="dash__link dash__link--brand">
 
-                                                                    <a href="dash-manage-order.html">MANAGE</a></div>
+                                                                    <a href="{% url 'order-detail' id=recent_order.id %}">MANAGE</a></div>
                                                             </div>
                                                         </td>
                                                     </tr>

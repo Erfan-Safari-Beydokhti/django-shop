@@ -24,6 +24,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         user = self.request.user
         context["full_name"]=user.get_full_name()
         context["email"]=user.email
+        context["recent_orders"]=Order.objects.filter(user=user).order_by('-created')[:5]
         return context
 
 
