@@ -1,6 +1,4 @@
 from datetime import timezone
-from venv import create
-
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
@@ -11,8 +9,8 @@ from django.views.generic import TemplateView, UpdateView
 from account_module.models import User
 from dashboard_module.forms import AddPhoneForm, EditProfileForm
 from django.utils import timezone
-
 from order_module.models import Order
+from product_module.models import WishList
 
 
 # Create your views here.
@@ -68,8 +66,7 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
         return super().form_invalid(form)
 
 
-# def dash_manage_order(request):
-#     return render(request, 'dashboard_module/dash_manage_order.html')
+
 
 
 # def dash_my_order(request):
@@ -123,3 +120,7 @@ def filter_order(request,user_id):
         orders = Order.objects.filter(user_id=user_id, created__gte= days).order_by('-created')
     html = render_to_string("dashboard_module/components/order_list.html",{"orders":orders})
     return JsonResponse({"html":html})
+
+def wishlist_count(request):
+    count = WishList.objects.filter(user=request.user).count()
+    return render(request,'dashboard_module/components/dashboard_sidebar.html',{"wish_count":count})

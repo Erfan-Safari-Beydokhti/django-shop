@@ -49,13 +49,13 @@
                                         <div class="dash__pad-2">
                                             <div class="dash-l-r">
                                                 <div>
-                                                    <div class="manage-o__text-2 u-c-secondary">Order #305423126</div>
-                                                    <div class="manage-o__text u-c-silver">Placed on 26 Oct 2016 09:08:37</div>
+                                                    <div class="manage-o__text-2 u-c-secondary">Order #{{ order.payment_tracking_code }}</div>
+                                                    <div class="manage-o__text u-c-silver">Placed on {{ order.created}}</div>
                                                 </div>
                                                 <div>
                                                     <div class="manage-o__text-2 u-c-silver">Total:
 
-                                                        <span class="manage-o__text-2 u-c-secondary">$16.00</span></div>
+                                                        <span class="manage-o__text-2 u-c-secondary">${{ order.total_price }}</span></div>
                                                 </div>
                                             </div>
                                         </div>
