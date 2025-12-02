@@ -1,3 +1,5 @@
+from lib2to3.fixes.fix_input import context
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
@@ -24,6 +26,16 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 
     def get_object(self):
         return Order.objects.get(id=self.kwargs["id"], user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order = self.get_object()
+
+        context['sub_total'] = order.get_total_price()
+        shipping_fee = 0
+        context['shipping_fee'] = shipping_fee
+        context['total'] = shipping_fee + context['sub_total']
+        return context
 
 
 class TrackOrderView(LoginRequiredMixin, TemplateView):
