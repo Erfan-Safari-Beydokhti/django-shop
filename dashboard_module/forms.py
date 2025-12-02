@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
+from dashboard_module.models import AddressBook
+
 User = get_user_model()
 
 
@@ -38,3 +40,20 @@ class EditProfileForm(forms.ModelForm):
         if not lname or lname.strip() == "":
             raise forms.ValidationError("Please enter your last name.")
         return lname
+
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = AddressBook
+        exclude = ['user']
+
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'input-text input-text--primary-style','placeholder': 'Enter your first name.', }, ),
+            'last_name': forms.TextInput(attrs={'class': 'input-text input-text--primary-style','placeholder': 'Enter your last name.', }, ),
+            'street_address': forms.TextInput(attrs={'class': 'input-text input-text--primary-style','placeholder': 'Enter your street address.', }, ),
+            'city': forms.TextInput(attrs={'class': 'input-text input-text--primary-style','placeholder': 'Enter your city.', }, ),
+            'zip_code': forms.TextInput(attrs={'class': 'input-text input-text--primary-style','placeholder': 'Enter your zip code.', }, ),
+            'phone_number': forms.TextInput(attrs={'class': 'input-text input-text--primary-style','placeholder': 'Enter your phone number.', }, ),
+
+            'country': forms.Select(attrs={'class': 'select-box select-box--primary-style','placeholder': 'Select your country.', }, ),
+            'state': forms.Select(attrs={'class': 'select-box select-box--primary-style','placeholder': 'Select your state.', }, ),
+        }

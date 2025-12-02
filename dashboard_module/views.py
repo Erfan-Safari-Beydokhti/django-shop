@@ -5,10 +5,12 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, UpdateView
+from django.views.generic import TemplateView, UpdateView, CreateView
 from account_module.models import User
-from dashboard_module.forms import AddPhoneForm, EditProfileForm
+from dashboard_module.forms import AddPhoneForm, EditProfileForm, AddressForm
 from django.utils import timezone
+
+from dashboard_module.models import AddressBook
 from order_module.models import Order
 from product_module.models import WishList
 
@@ -26,12 +28,26 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         return context
 
 
-def dash_address_add(request):
-    return render(request, 'dashboard_module/dash_address_add.html')
+class AddressCreateView(LoginRequiredMixin, CreateView):
+    model = AddressBook
+    form_class = AddressForm
+    template_name = 'dashboard_module/dash_address_add.html'
+    success_url = reverse_lazy('dash-address-book')
+    def form_valid(self, form):
+        form.instance.user=self.request.user
+        return super().form_valid(form)
 
 
-def dash_address_edit(request):
-    return render(request, 'dashboard_module/dash_address_edit.html')
+
+
+class AddressUpdateView(LoginRequiredMixin, UpdateView):
+    model = AddressBook
+    form_class = AddressForm
+    template_name = 'dashboard_module/dash_address_edit.html'
+    success_url = reverse_lazy('dash-address-book')
+
+    def get_context_data(self, **kwargs):
+        return AddressBook.objects.filter(user=self.request.user)
 
 
 def dash_address_book(request):
