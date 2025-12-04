@@ -25,6 +25,8 @@ class AddressBook(models.Model):
     city = models.CharField(max_length=50,verbose_name="City")
     zip_code = models.CharField(max_length=50,verbose_name="Zip Code")
 
+    is_default_shipping = models.BooleanField(default=False)
+
     def __str__(self):
         return self.first_name
 

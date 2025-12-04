@@ -1,13 +1,13 @@
 from django.urls import path
 
 from .models import AddressBook
-from .views import dash_address_book, AddressCreateView,EditProfileView, MyProfileView \
+from .views import AddressListView, AddressCreateView, EditProfileView, MyProfileView \
     , dash_cancellation, dash_address_make_default, \
-    DashboardView, AddPhoneView , dash_payment_option,filter_order,AddressUpdateView
+    DashboardView, AddPhoneView, dash_payment_option, filter_order, AddressUpdateView, make_default_shipping
 # dash_my_order, dash_manage_order, dash_track_order
 urlpatterns = [
     path('', DashboardView.as_view(), name='dashboard'),
-    path('dash-address-book/', dash_address_book, name='dash-address-book'),
+    path('dash-address-book/', AddressListView.as_view(), name='dash-address-book'),
     path('dash-address-edit/<int:pk>', AddressUpdateView.as_view(), name='dash-address-edit'),
     path('dash-address-add/', AddressCreateView.as_view(), name='dash-address-add'),
     path('dash-edit-profile/', EditProfileView.as_view(), name='dash-edit-profile'),
@@ -20,4 +20,6 @@ urlpatterns = [
     # path('dash-manage-order/', dash_manage_order, name='dash-manage-order'),
     path('add-phone-number/', AddPhoneView.as_view(), name='add-phone-number'),
     path('<int:user_id>/filter-order/',filter_order, name='filter-order'),
+
+    path('make-default_shipping/<int:pk>',make_default_shipping, name='make-default-shipping'),
 ]

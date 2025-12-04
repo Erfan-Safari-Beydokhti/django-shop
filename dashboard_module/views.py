@@ -2,17 +2,15 @@ from datetime import timezone
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, UpdateView, CreateView
+from django.utils import timezone
+from django.views.generic import TemplateView, UpdateView, CreateView, ListView
 from account_module.models import User
 from dashboard_module.forms import AddPhoneForm, EditProfileForm, AddressForm
-from django.utils import timezone
-
 from dashboard_module.models import AddressBook
 from order_module.models import Order
-from product_module.models import WishList
 
 
 # Create your views here.
@@ -46,12 +44,18 @@ class AddressUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'dashboard_module/dash_address_edit.html'
     success_url = reverse_lazy('dash-address-book')
 
-    def get_context_data(self, **kwargs):
+    def get_queryset(self, **kwargs):
         return AddressBook.objects.filter(user=self.request.user)
 
 
-def dash_address_book(request):
-    return render(request, 'dashboard_module/dash_address_book.html')
+class AddressListView(LoginRequiredMixin, ListView):
+    model = AddressBook
+    template_name = 'dashboard_module/dash_address_book.html'
+    context_object_name = 'addresses'
+    def get_queryset(self):
+        return AddressBook.objects.filter(user=self.request.user).order_by('-id')
+
+
 
 
 def dash_address_make_default(request):
@@ -137,6 +141,11 @@ def filter_order(request,user_id):
     html = render_to_string("dashboard_module/components/order_list.html",{"orders":orders})
     return JsonResponse({"html":html})
 
-def wishlist_count(request):
-    count = WishList.objects.filter(user=request.user).count()
-    return render(request,'dashboard_module/components/dashboard_sidebar.html',{"wish_count":count})
+
+def make_default_shipping(request,pk):
+    address = get_object_or_404(AddressBook,pk=pk,user=request.user)
+    AddressBook.objects.filter(user=request.user).update(is_default_shipping=False)
+    address.is_default_shipping = True
+    address.save()
+    return redirect('dash_address-book')
+
