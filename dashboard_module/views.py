@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.views.generic import TemplateView, UpdateView, CreateView, ListView
+from django.views.generic import TemplateView, UpdateView, CreateView, ListView, View
 from account_module.models import User
 from dashboard_module.forms import AddPhoneForm, EditProfileForm, AddressForm
 from dashboard_module.models import AddressBook
@@ -18,11 +18,11 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard_module/dashboard.html'
 
     def get_context_data(self, **kwargs):
-        context=super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         user = self.request.user
-        context["full_name"]=user.get_full_name()
-        context["email"]=user.email
-        context["recent_orders"]=Order.objects.filter(user=user).order_by('-created')[:5]
+        context["full_name"] = user.get_full_name()
+        context["email"] = user.email
+        context["recent_orders"] = Order.objects.filter(user=user).order_by('-created')[:5]
         return context
 
 
@@ -31,11 +31,10 @@ class AddressCreateView(LoginRequiredMixin, CreateView):
     form_class = AddressForm
     template_name = 'dashboard_module/dash_address_add.html'
     success_url = reverse_lazy('dash-address-book')
+
     def form_valid(self, form):
-        form.instance.user=self.request.user
+        form.instance.user = self.request.user
         return super().form_valid(form)
-
-
 
 
 class AddressUpdateView(LoginRequiredMixin, UpdateView):
@@ -52,14 +51,28 @@ class AddressListView(LoginRequiredMixin, ListView):
     model = AddressBook
     template_name = 'dashboard_module/dash_address_book.html'
     context_object_name = 'addresses'
+
     def get_queryset(self):
         return AddressBook.objects.filter(user=self.request.user).order_by('-id')
 
 
+class AddressDefaultUpdateView(LoginRequiredMixin, View):
+    template_name = 'dashboard_module/dash_address_make_default.html'
 
+    def get(self, request, *args, **kwargs):
+        addresses = request.user.addresses.all()
+        return render(request, self.template_name, {'addresses': addresses})
 
-def dash_address_make_default(request):
-    return render(request, 'dashboard_module/dash_address_make_default.html')
+    def post(self, request, *args, **kwargs):
+        select_id = request.POST.get('default-address')
+
+        if not select_id:
+            return redirect('dash-address-make-default')
+
+        request.user.addresses.update(is_default_shipping=False)
+
+        AddressBook.objects.filter(user=request.user, id=select_id).update(is_default_shipping=True)
+        return redirect('dash-address-book')
 
 
 def dash_cancellation(request):
@@ -86,14 +99,12 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
         return super().form_invalid(form)
 
 
-
-
-
 # def dash_my_order(request):
 #     return render(request, 'dashboard_module/dash_my_order.html')
 
 def dash_payment_option(request):
     return render(request, 'dashboard_module/dash_payment_option.html')
+
 
 class MyProfileView(LoginRequiredMixin, TemplateView):
     template_name = "dashboard_module/dash_my_profile.html"
@@ -124,28 +135,28 @@ class AddPhoneView(LoginRequiredMixin, UpdateView):
     def get_object(self):
         return self.request.user
 
-def filter_order(request,user_id):
-    filter=request.GET.get('filter','last_5_orders')
-    orders=Order.objects.filter(user_id=user_id).order_by("-created")
-    if filter=="last_5_orders":
-        orders=Order.objects.filter(user_id=user_id).order_by('-created')[:5]
-    elif filter=="last_15_days":
-        days=timezone.now()-timezone.timedelta(days=15)
-        orders=Order.objects.filter(user_id=user_id,created__gte=days).order_by('-created')
-    elif filter=="last_30_days":
+
+def filter_order(request, user_id):
+    filter = request.GET.get('filter', 'last_5_orders')
+    orders = Order.objects.filter(user_id=user_id).order_by("-created")
+    if filter == "last_5_orders":
+        orders = Order.objects.filter(user_id=user_id).order_by('-created')[:5]
+    elif filter == "last_15_days":
+        days = timezone.now() - timezone.timedelta(days=15)
+        orders = Order.objects.filter(user_id=user_id, created__gte=days).order_by('-created')
+    elif filter == "last_30_days":
         days = timezone.now() - timezone.timedelta(days=30)
-        orders = Order.objects.filter(user_id=user_id, created__gte= days).order_by('-created')
-    elif filter=="last_6_months":
+        orders = Order.objects.filter(user_id=user_id, created__gte=days).order_by('-created')
+    elif filter == "last_6_months":
         days = timezone.now() - timezone.timedelta(days=186)
-        orders = Order.objects.filter(user_id=user_id, created__gte= days).order_by('-created')
-    html = render_to_string("dashboard_module/components/order_list.html",{"orders":orders})
-    return JsonResponse({"html":html})
+        orders = Order.objects.filter(user_id=user_id, created__gte=days).order_by('-created')
+    html = render_to_string("dashboard_module/components/order_list.html", {"orders": orders})
+    return JsonResponse({"html": html})
 
 
-def make_default_shipping(request,pk):
-    address = get_object_or_404(AddressBook,pk=pk,user=request.user)
+def make_default_shipping(request, pk):
+    address = get_object_or_404(AddressBook, pk=pk, user=request.user)
     AddressBook.objects.filter(user=request.user).update(is_default_shipping=False)
     address.is_default_shipping = True
     address.save()
     return redirect('dash_address-book')
-

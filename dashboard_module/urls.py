@@ -2,7 +2,7 @@ from django.urls import path
 
 from .models import AddressBook
 from .views import AddressListView, AddressCreateView, EditProfileView, MyProfileView \
-    , dash_cancellation, dash_address_make_default, \
+    , dash_cancellation, AddressDefaultUpdateView, \
     DashboardView, AddPhoneView, dash_payment_option, filter_order, AddressUpdateView, make_default_shipping
 # dash_my_order, dash_manage_order, dash_track_order
 urlpatterns = [
@@ -16,7 +16,7 @@ urlpatterns = [
     path('dash-cancellation/', dash_cancellation, name='dash-cancellation'),
     # path('dash-my-order/', dash_my_order, name='dash-my-order'),
     # path('dash-track-order/', dash_track_order, name='dash-track-order'),
-    path('dash-address-make-default/', dash_address_make_default, name='dash-address-make-default'),
+    path('dash-address-make-default/', AddressDefaultUpdateView.as_view(), name='dash-address-make-default'),
     # path('dash-manage-order/', dash_manage_order, name='dash-manage-order'),
     path('add-phone-number/', AddPhoneView.as_view(), name='add-phone-number'),
     path('<int:user_id>/filter-order/',filter_order, name='filter-order'),

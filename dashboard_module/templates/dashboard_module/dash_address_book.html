@@ -51,7 +51,7 @@
                                                 <div>
                                                     <span class="dash__link dash__link--black u-s-m-r-8">
 
-                                                        <a href="dash-address-make-default.html">Make default shipping address</a></span>
+                                                        <a href="{% url 'dash-address-make-default' %}">Make default shipping address</a></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -75,18 +75,17 @@
                                                         <td>
 
                                                             <a class="address-book-edit btn--e-transparent-platinum-b-2"
-                                                               href="{% url 'dash-address-edit' address.id %}">Edit</a></td>
+                                                               href="{% url 'dash-address-edit' address.id %}">Edit</a>
+                                                        </td>
                                                         <td>{{ address.first_name }} {{ address.last_name }}</td>
                                                         <td>{{ address.street_address }} {{ address.city }} {{ address.state }} {{ address.zip_code }} {{ address.country }}</td>
                                                         <td>{{ address.state }} {{ address.zip_code }}</td>
                                                         <td>{{ address.phone_number }}</td>
                                                         <td>
                                                             {% if address.is_default_shipping %}
-                                                                <b><span class="gl-text">This is your default shipping address.
-</span></b>
-                                                                {% else %}
-                                                                <span class="gl-text">This address is not currently set as default.
-</span>
+                                                                <span class="gl-text">Default Shipping Address</span>
+                                                            {% else %}
+                                                                <span class="gl-text">Not default</span>
                                                             {% endif %}
                                                         </td>
                                                     </tr>
