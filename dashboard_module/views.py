@@ -23,6 +23,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         context["full_name"] = user.get_full_name()
         context["email"] = user.email
         context["recent_orders"] = Order.objects.filter(user=user).order_by('-created')[:5]
+        context["default_address"] = AddressBook.objects.filter(user=user,is_default_shipping=True).first()
         return context
 
 
