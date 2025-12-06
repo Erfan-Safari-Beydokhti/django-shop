@@ -1,13 +1,10 @@
 from django.contrib.auth import login
-
 import datetime
-
-from django.contrib.auth import login
+from django.contrib.auth import login,logout
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.views import View
-
 from account_module.forms import LoginForm, ForgotPasswordForm, ResetPasswordForm
 from account_module.forms import RegisterForm
 from account_module.models import User
@@ -144,3 +141,6 @@ class ResetPasswordView(View):
             return redirect(reverse("login_view"))
         return render(request, self.template_name, {'form': form})
 
+def logout_view(request):
+    logout(request)
+    return redirect(reverse("login_view"))

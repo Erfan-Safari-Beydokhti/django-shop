@@ -78,6 +78,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'dashboard_module.context_processors.dashboard_sidebar_context',
+                'config.context_processors.header_categories'
             ],
         },
     },
