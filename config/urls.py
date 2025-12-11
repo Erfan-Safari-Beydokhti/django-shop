@@ -31,6 +31,8 @@ urlpatterns = [
     path('dashboard/', include('dashboard_module.urls'), name='dashboard-page'),
     path('cart/', include('cart_module.urls'), name='cart-page'),
     path('order/', include('order_module.urls'), name='order-page'),
+    path('wishlist/', include('wishlist_module.urls'), name='wishlist-page'),
+    path('faq/', include('faq_module.urls'), name='faq-page'),
 
 
 ]
