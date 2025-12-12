@@ -107,3 +107,9 @@ function filterOrder(user_id) {
 
     })
 }
+
+function removeWishItem(wishId){
+    $.get('/wishlist/remove-wish-item?wish_id='+ wishId).then(res=>{
+        $('#wish_items').html(res.data);
+    })
+}

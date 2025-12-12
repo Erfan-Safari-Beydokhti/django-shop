@@ -1,0 +1,42 @@
+{% load thumbnail %}
+{% for wishlist in wishlists %}
+    <!--====== Wishlist Product ======-->
+    <div class="w-r u-s-m-b-30">
+        <div class="w-r__container">
+            <div class="w-r__wrap-1">
+
+
+                {% thumbnail wishlist.product.image "100x100" as im %}
+                    <div>
+                        <img class="w-r__img-wrap"
+                             src="{{ im.url }}"
+                             width="{{ im.width }}" height="{{ im.height }}"
+                             alt="{{ product.title }}">
+                    </div>
+                {% endthumbnail %}
+                <div class="w-r__info">
+
+                                                <span class="w-r__name">
+
+                                                    <a href="{% url 'product-detail-view' wishlist.product.slug %}">{{ wishlist.product.title }}</a></span>
+
+                    <span class="w-r__category">
+
+                                                    <a href="{% url 'product-category-list-view' wishlist.product.category.first.slug %}">{{ wishlist.product.category.first }}</a></span>
+
+                    <span class="w-r__price">${{ wishlist.product.price }}
+
+                                                    </span></div>
+            </div>
+            <div class="w-r__wrap-2">
+
+
+                <a class="w-r__link btn--e-transparent-platinum-b-2"
+                   href="{% url 'product-detail-view' wishlist.product.slug %}">VIEW</a>
+
+                <a class="w-r__link btn--e-brand-b-2" href="#" onclick="removeWishItem({{ wishlist.id }})">REMOVE</a>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Wishlist Product ======-->
+{% endfor %}

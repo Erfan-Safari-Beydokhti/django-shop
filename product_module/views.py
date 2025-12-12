@@ -1,19 +1,14 @@
-from itertools import product
-from lib2to3.fixes.fix_input import context
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Prefetch, Count
-from django.http import HttpRequest, request, JsonResponse
+from django.http import HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
-from django.template.loader import render_to_string
 from django.views.generic import ListView, DetailView
-from unicodedata import category
-
-from product_module.models import Product, ProductCategory, ProductBrand, WishList, ProductReview, ProductVisit
+from product_module.models import Product, ProductCategory, ProductBrand, ProductReview, ProductVisit
 from utils.http_service import get_user_ip
-from utils.review_service import ReviewService
 from utils.product_sort_service import ProductSortService
+from utils.review_service import ReviewService
+from wishlist_module.models import WishList
 
 
 # Create your views here.
@@ -25,7 +20,6 @@ class ProductListView(ListView):
     context_object_name = 'products'
     paginate_by = 4
 
-
     def get_queryset(self):
         query = super(ProductListView, self).get_queryset()
         category_name = self.kwargs.get('cat')
@@ -33,7 +27,7 @@ class ProductListView(ListView):
         price_min = self.request.GET.get('price_min')
         price_max = self.request.GET.get('price_max')
         sort = self.request.GET.get('sort')
-        search=self.request.GET.get('search')
+        search = self.request.GET.get('search')
         if category_name is not None:
             query = query.filter(category__slug__iexact=category_name)
         if brand_name is not None:
@@ -45,7 +39,7 @@ class ProductListView(ListView):
         if sort:
             query = ProductSortService.get_product_context(query, sort)
         if search:
-            query=query.filter(title__icontains=search)
+            query = query.filter(title__icontains=search)
         return query
 
     def get_context_data(self, **kwargs):
@@ -56,11 +50,12 @@ class ProductListView(ListView):
         price_min = self.request.GET.get('price_min')
         price_max = self.request.GET.get('price_max')
         search = self.request.GET.get('search')
-        has_filter = any([category_name, brand_name, price_min, price_max,search])
+        has_filter = any([category_name, brand_name, price_min, price_max, search])
         context['has_filter'] = has_filter
 
         if search:
-            related_product=Product.objects.filter(title__icontains=search).values_list('brand__title', flat=True).distinct()[:5]
+            related_product = Product.objects.filter(title__icontains=search).values_list('brand__title',
+                                                                                          flat=True).distinct()[:5]
             context['related_products'] = related_product
         return context
 
@@ -86,8 +81,9 @@ class ProductDetailView(DetailView):
         if not has_been_visit:
             new_visit = ProductVisit(product_id=product.id, ip=user_ip, user_id=user_id)
             new_visit.save()
-        categories=product.category.all()
-        context['related_products']=Product.objects.annotate(reviews_count=Count('reviews')).filter(category__in=categories).exclude(id=product.id).distinct()[:10]
+        categories = product.category.all()
+        context['related_products'] = Product.objects.annotate(reviews_count=Count('reviews')).filter(
+            category__in=categories).exclude(id=product.id).distinct()[:10]
         return context
 
 

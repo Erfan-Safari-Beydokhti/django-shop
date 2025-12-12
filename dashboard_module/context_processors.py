@@ -1,5 +1,5 @@
 from order_module.models import Order
-from product_module.models import WishList
+from wishlist_module.models import WishList
 
 
 def dashboard_sidebar_context(request):

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from product_module.models import Product, ProductCategory, ProductVisit, ProductTag, ProductGallery, ProductBrand, \
-    WishList, ProductReview
+     ProductReview
 
 # Register your models here.
 
@@ -11,5 +11,4 @@ admin.site.register(ProductVisit)
 admin.site.register(ProductTag)
 admin.site.register(ProductGallery)
 admin.site.register(ProductBrand)
-admin.site.register(WishList)
 admin.site.register(ProductReview)
