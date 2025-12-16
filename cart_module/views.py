@@ -1,16 +1,13 @@
-from http.client import HTTPResponse
-from importlib import reload
-from lib2to3.fixes.fix_input import context
-
+from django.contrib import messages
 from django.contrib.auth.views import login_required
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.shortcuts import render
 from django.template.loader import render_to_string
-from django.contrib import messages
+
 from cart_module.models import Cart, CartItem
 from product_module.models import Product
-from django.contrib import messages
+
 
 # Create your views here.
 
@@ -123,7 +120,3 @@ def existitems(request, cart):
         return CartItem.objects.filter(cart=cart, cart__user=request.user)
     else:
         messages.error(request, 'No cart items')
-
-
-
-

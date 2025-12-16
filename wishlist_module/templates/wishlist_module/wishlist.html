@@ -10,7 +10,7 @@
     <div id="app">
         <!--====== App Content ======-->
         <div class="app-content">
-
+            {% if wishlists %}
             <!--====== Section 1 ======-->
             <div class="u-s-p-y-60">
 
@@ -35,7 +35,8 @@
             <!--====== End - Section 1 ======-->
 
 
-            <!--====== Section 2 ======-->
+
+            	<!--====== Section 2 ======-->
             <div class="u-s-p-b-60">
 
                 <!--====== Section Intro ======-->
@@ -64,14 +65,14 @@
                                 <div class="route-box">
                                     <div class="route-box__g">
 
-                                        <a class="route-box__link" href="shop-side-version-2.html"><i
+                                        <a class="route-box__link" href="{% url 'product-list-view' %}"><i
                                                 class="fas fa-long-arrow-alt-left"></i>
 
                                             <span>CONTINUE SHOPPING</span></a></div>
                                     <div class="route-box__g">
 
-                                        <a class="route-box__link" href="wishlist.html"><i class="fas fa-trash"></i>
-
+                                        <a class="route-box__link" href="{% url 'clear-wish-list' %}"><i
+                                                class="fas fa-trash"></i>
                                             <span>CLEAR WISHLIST</span></a></div>
                                 </div>
                             </div>
@@ -81,6 +82,9 @@
                 <!--====== End - Section Content ======-->
             </div>
             <!--====== End - Section 2 ======-->
+            {% else %}
+                {% include 'messages.html' %}
+            {% endif %}
         </div>
         <!--====== End - App Content ======-->
     </div>
