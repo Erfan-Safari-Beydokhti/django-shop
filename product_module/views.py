@@ -84,6 +84,7 @@ class ProductDetailView(DetailView):
         categories = product.category.all()
         context['related_products'] = Product.objects.annotate(reviews_count=Count('reviews')).filter(
             category__in=categories).exclude(id=product.id).distinct()[:10]
+        context['wishlists']= WishList.objects.filter(product=product).count()
         return context
 
 
