@@ -1,2 +1,7 @@
+from django.urls import path
 
-urlpatterns = []
+from faq_module.views import FAQView
+
+urlpatterns = [
+    path('',FAQView.as_view(),name='faq-temp'),
+]
