@@ -1,18 +1,32 @@
-from django.contrib import messages
+from django.db.models import Sum
 
-from cart_module.models import CartItem, Cart
+from cart_module.models import Cart
 from product_module.models import ProductCategory
 
 
 def header_categories(request):
-    cart = Cart.objects.get(user=request.user)
+    categories = ProductCategory.objects.filter(
+        is_active=True,
+        is_delete=False,
+        parent__isnull=True
+    )
+
+    if not request.user.is_authenticated:
+        return {
+            'categories': categories,
+            'cart_items_count': 0,
+            'sub_total': 0
+        }
+
+    cart, created = Cart.objects.get_or_create(user=request.user)
+
+    cart_items_count = cart.items.aggregate(
+        total=Sum('quantity')
+    )['total'] or 0
+
     return {
-        'categories':ProductCategory.objects.filter(is_active=True,is_delete=False,parent__isnull=True),
-        'cart_items' : existitems(request, cart),
-        'sub_total':float(cart.total_price())
+        'categories': categories,
+        'items': cart.items.all(),
+        'cart_items_count': cart_items_count,
+        'sub_total': float(cart.total_price())
     }
-def existitems(request, cart):
-    if cart.items.exists():
-        return CartItem.objects.filter(cart=cart, cart__user=request.user)
-    else:
-        messages.error(request, 'No cart items')

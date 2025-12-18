@@ -336,7 +336,7 @@
                             <ul class="ah-list ah-list--design1 ah-list--link-color-white">
                                 <li>
 
-                                    <a href="{% url 'home' %}"><i class="fas fa-    home u-c-brand"></i></a></li>
+                                    <a href="{% url 'home' %}"><i class="fas fa-home u-c-brand"></i></a></li>
                                 <li>
 
                                     <a href="{% url 'wishlist' %}"><i class="far fa-heart"></i></a></li>
@@ -344,7 +344,7 @@
 
                                     <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
 
-                                        <span class="total-item-round">2</span></a>
+                                        <span class="total-item-round">{{ cart_items_count }}</span></a>
 
                                     <!--====== Dropdown ======-->
 
@@ -354,7 +354,7 @@
                                         <!--====== Mini Product Container ======-->
                                         <div class="mini-product-container gl-scroll u-s-m-b-15">
 
-                                            {% for item in cart_items %}
+                                            {% for item in items %}
                                                 <!--====== Card for mini cart ======-->
                                                 <div class="card-mini-product">
                                                     <div class="mini-product">
@@ -373,7 +373,7 @@
 
                                                         <span class="mini-product__name">
 
-                                                                <a href="{% url 'product-detail-view' item.product.slug %}">{{ item.product.title }}</a></span>
+                                                                <a href="{% url "product-detail-view" item.product.slug %}">{{ item.product.title }}</a></span>
 
                                                             <span class="mini-product__quantity">{{ item.quantity }} x</span>
 
