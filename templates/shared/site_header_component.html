@@ -1,3 +1,4 @@
+{% load thumbnail %}
 <header class="header--style-1">
     <header class="header--style-2">
 
@@ -10,7 +11,7 @@
 
                     <!--====== Main Logo ======-->
 
-                    <a class="main-logo" href="index-2.html">
+                    <a class="main-logo" href="{% url 'home' %}">
 
                         <img src="/static/images/logo/logo-2.png" alt=""></a>
                     <!--====== End - Main Logo ======-->
@@ -197,7 +198,7 @@
 
                             <!--====== List ======-->
                             <ul class="ah-list ah-list--design2 ah-list--link-color-white">
-                               
+
                                 <li class="has-dropdown">
 
                                     <a>PAGES<i class="fas fa-angle-down u-s-m-l-6"></i></a>
@@ -206,9 +207,9 @@
 
                                     <span class="js-menu-toggle"></span>
                                     <ul style="width:170px">
-                                        <li class="has-dropdown has-dropdown--ul-left-100">
+                                        <li>
 
-                                            <a>Home<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
+                                            <a href="{% url 'home' %}">Home</a>
                                         </li>
                                         <li class="has-dropdown has-dropdown--ul-left-100">
 
@@ -220,53 +221,34 @@
                                             <ul style="width:200px">
                                                 <li>
 
-                                                    <a href="signin.html">Signin / Already Registered</a></li>
+                                                    <a href="{% url 'login_view' %}">Signin / Already Registered</a>
+                                                </li>
                                                 <li>
 
-                                                    <a href="signup.html">Signup / Register</a></li>
+                                                    <a href="{% url 'register_view' %}">Signup / Register</a></li>
                                                 <li>
 
-                                                    <a href="lost-password.html">Lost Password</a></li>
+                                                    <a href="{% url 'forgot_pass_view' %}">Lost Password</a></li>
                                             </ul>
                                             <!--====== End - Dropdown ======-->
                                         </li>
                                         <li class="has-dropdown has-dropdown--ul-left-100">
 
-                                            <a href="dashboard.html">Dashboard<i
+                                            <a href="{% url 'dashboard' %}">Dashboard<i
                                                     class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
 
                                             <!--====== Dropdown ======-->
 
                                             <span class="js-menu-toggle"></span>
                                             <ul style="width:200px">
-                                                <li class="has-dropdown has-dropdown--ul-left-100">
+                                                <li>
 
-                                                    <a href="dashboard.html">Manage My Account<i
-                                                            class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
-
-                                                    <!--====== Dropdown ======-->
-
-                                                    <span class="js-menu-toggle"></span>
-                                                    <ul style="width:180px">
-                                                        <li>
-
-                                                            <a href="dash-edit-profile.html">Edit Profile</a></li>
-                                                        <li>
-
-                                                            <a href="dash-address-book.html">Edit Address Book</a></li>
-                                                        <li>
-
-                                                            <a href="dash-manage-order.html">Manage Order</a></li>
-                                                    </ul>
-                                                    <!--====== End - Dropdown ======-->
+                                                    <a href="{% url 'dash-edit-profile' %}">Manage My Account</a>
                                                 </li>
                                                 <li>
 
-                                                    <a href="dash-my-profile.html">My Profile</a></li>
+                                                    <a href="{% url 'dash-my-profile' %}">My Profile</a></li>
                                                 <li class="has-dropdown has-dropdown--ul-left-100">
-
-                                                    <a href="/">Address Book<i
-                                                            class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
 
                                                     <!--====== Dropdown ======-->
 
@@ -274,29 +256,33 @@
                                                     <ul style="width:180px">
                                                         <li>
 
-                                                            <a href="dash-address-make-default.html">Address Make
+                                                            <a href="{% url 'dash-address-make-default' %}">Address Make
                                                                 Default</a></li>
                                                         <li>
 
-                                                            <a href="dash-address-add.html">Add New Address</a></li>
+                                                            <a href="{% url 'dash-address-add' %}">Add New Address</a>
+                                                        </li>
                                                         <li>
 
-                                                            <a href="dash-address-edit.html">Edit Address Book</a></li>
+                                                            <a href="{% url 'dash-address-book' %}">Edit Address
+                                                                Book</a></li>
                                                     </ul>
                                                     <!--====== End - Dropdown ======-->
                                                 </li>
                                                 <li>
 
-                                                    <a href="dash-track-order.html">Track Order</a></li>
+                                                    <a href="{% url 'track-order' %}">Track Order</a></li>
                                                 <li>
 
-                                                    <a href="dash-my-order.html">My Orders</a></li>
+                                                    <a href="{% url 'my-orders' %}">My Orders</a></li>
                                                 <li>
 
-                                                    <a href="dash-payment-option.html">My Payment Options</a></li>
+                                                    <a href="{% url 'dash-payment-option' %}">My Payment Options</a>
+                                                </li>
                                                 <li>
 
-                                                    <a href="dash-cancellation.html">My Returns & Cancellations</a></li>
+                                                    <a href="{% url 'dash-cancellation' %}">My Returns &
+                                                        Cancellations</a></li>
                                             </ul>
                                             <!--====== End - Dropdown ======-->
                                         </li>
@@ -305,60 +291,26 @@
                                         </li>
                                         <li>
 
-                                            <a href="cart.html">Cart</a></li>
+                                            <a href="{% url 'cart_detail' %}">Cart</a></li>
                                         <li>
 
-                                            <a href="wishlist.html">Wishlist</a></li>
+                                            <a href="{% url 'wishlist' %}">Wishlist</a></li>
                                         <li>
 
-                                            <a href="checkout.html">Checkout</a></li>
+                                            <a href="{% url 'faq-temp' %}">FAQ</a></li>
                                         <li>
 
-                                            <a href="faq.html">FAQ</a></li>
+                                            <a href="{% url 'about' %}">About us</a></li>
                                         <li>
 
-                                            <a href="about.html">About us</a></li>
-                                        <li>
-
-                                            <a href="contact.html">Contact</a></li>
-                                        <li>
-
-                                            <a href="404.html">404</a></li>
-                                    </ul>
-                                    <!--====== End - Dropdown ======-->
-                                </li>
-                                <li class="has-dropdown">
-
-                                    <a>BLOG<i class="fas fa-angle-down u-s-m-l-6"></i></a>
-
-                                    <!--====== Dropdown ======-->
-
-                                    <span class="js-menu-toggle"></span>
-                                    <ul style="width:200px">
-                                        <li>
-
-                                            <a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                        <li>
-
-                                            <a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                                        <li>
-
-                                            <a href="blog-sidebar-none.html">Blog Sidebar None</a></li>
-                                        <li>
-
-                                            <a href="blog-masonry.html">Blog Masonry</a></li>
-                                        <li>
-
-                                            <a href="blog-detail.html">Blog Details</a></li>
+                                            <a href="{% url 'contact-us' %}">Contact</a></li>
                                     </ul>
                                     <!--====== End - Dropdown ======-->
                                 </li>
                                 <li>
 
-                                    <a href="shop-side-version-2.html">VALUE OF THE DAY</a></li>
-                                <li>
-
-                                    <a href="shop-side-version-2.html">GIFT CARDS</a></li>
+                                    <a href="{% url 'blog_list' %}">BLOG</a>
+                                </li>
                             </ul>
                             <!--====== End - List ======-->
                         </div>
@@ -384,10 +336,10 @@
                             <ul class="ah-list ah-list--design1 ah-list--link-color-white">
                                 <li>
 
-                                    <a href="index-2.html"><i class="fas fa-home u-c-brand"></i></a></li>
+                                    <a href="{% url 'home' %}"><i class="fas fa-home u-c-brand"></i></a></li>
                                 <li>
 
-                                    <a href="wishlist.html"><i class="far fa-heart"></i></a></li>
+                                    <a href="{% url 'wishlist' %}"><i class="far fa-heart"></i></a></li>
                                 <li class="has-dropdown">
 
                                     <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
@@ -402,124 +354,39 @@
                                         <!--====== Mini Product Container ======-->
                                         <div class="mini-product-container gl-scroll u-s-m-b-15">
 
-                                            <!--====== Card for mini cart ======-->
-                                            <div class="card-mini-product">
-                                                <div class="mini-product">
-                                                    <div class="mini-product__image-wrapper">
+                                            {% for item in cart_items %}
+                                                <!--====== Card for mini cart ======-->
+                                                <div class="card-mini-product">
+                                                    <div class="mini-product">
+                                                        <div class="mini-product__image-wrapper">
 
-                                                        <a class="mini-product__link" href="product-detail.html">
-
-                                                            <img class="u-img-fluid"
-                                                                 src="/static/images/product/electronic/product3.jpg"
-                                                                 alt=""></a></div>
-                                                    <div class="mini-product__info-wrapper">
-
-                                                            <span class="mini-product__category">
-
-                                                                <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                        <span class="mini-product__name">
-
-                                                                <a href="product-detail.html">Yellow Wireless Headphone</a></span>
-
-                                                        <span class="mini-product__quantity">1 x</span>
-
-                                                        <span class="mini-product__price">$8</span></div>
-                                                </div>
-
-                                                <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                            </div>
-                                            <!--====== End - Card for mini cart ======-->
-
-
-                                            <!--====== Card for mini cart ======-->
-                                            <div class="card-mini-product">
-                                                <div class="mini-product">
-                                                    <div class="mini-product__image-wrapper">
-
-                                                        <a class="mini-product__link" href="product-detail.html">
-
-                                                            <img class="u-img-fluid"
-                                                                 src="/static/images/product/electronic/product18.jpg"
-                                                                 alt=""></a></div>
-                                                    <div class="mini-product__info-wrapper">
-
-                                                            <span class="mini-product__category">
-
-                                                                <a href="shop-side-version-2.html">Electronics</a></span>
+                                                            {% thumbnail item.product.image "60x60" as im %}
+                                                                <div class="pd-o-img-wrap" data-src="{{ im.url }}">
+                                                                    <img class="u-img-fluid"
+                                                                         src="{{ im.url }}"
+                                                                         width="{{ im.width }}" height="{{ im.height }}"
+                                                                         data-zoom-image="{{ im.url }}"
+                                                                         alt="{{ item.title }}">
+                                                                </div>
+                                                            {% endthumbnail %}</div>
+                                                        <div class="mini-product__info-wrapper">
 
                                                         <span class="mini-product__name">
 
-                                                                <a href="product-detail.html">Nikon DSLR Camera 4k</a></span>
+                                                                <a href="{% url 'product-detail-view' item.product.slug %}">{{ item.product.title }}</a></span>
 
-                                                        <span class="mini-product__quantity">1 x</span>
+                                                            <span class="mini-product__quantity">{{ item.quantity }} x</span>
 
-                                                        <span class="mini-product__price">$8</span></div>
-                                                </div>
-
-                                                <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                            </div>
-                                            <!--====== End - Card for mini cart ======-->
-
-
-                                            <!--====== Card for mini cart ======-->
-                                            <div class="card-mini-product">
-                                                <div class="mini-product">
-                                                    <div class="mini-product__image-wrapper">
-
-                                                        <a class="mini-product__link" href="product-detail.html">
-
-                                                            <img class="u-img-fluid"
-                                                                 src="/static/images/product/women/product8.jpg" alt=""></a>
+                                                            <span class="mini-product__price">${{ item.product.price }}</span>
+                                                        </div>
                                                     </div>
-                                                    <div class="mini-product__info-wrapper">
 
-                                                            <span class="mini-product__category">
 
-                                                                <a href="shop-side-version-2.html">Women Clothing</a></span>
-
-                                                        <span class="mini-product__name">
-
-                                                                <a href="product-detail.html">New Dress D Nice Elegant</a></span>
-
-                                                        <span class="mini-product__quantity">1 x</span>
-
-                                                        <span class="mini-product__price">$8</span></div>
                                                 </div>
-
-                                                <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                            </div>
-                                            <!--====== End - Card for mini cart ======-->
+                                                <!--====== End - Card for mini cart ======-->
+                                            {% endfor %}
 
 
-                                            <!--====== Card for mini cart ======-->
-                                            <div class="card-mini-product">
-                                                <div class="mini-product">
-                                                    <div class="mini-product__image-wrapper">
-
-                                                        <a class="mini-product__link" href="product-detail.html">
-
-                                                            <img class="u-img-fluid"
-                                                                 src="/static/images/product/men/product8.jpg"
-                                                                 alt=""></a></div>
-                                                    <div class="mini-product__info-wrapper">
-
-                                                            <span class="mini-product__category">
-
-                                                                <a href="shop-side-version-2.html">Men Clothing</a></span>
-
-                                                        <span class="mini-product__name">
-
-                                                                <a href="product-detail.html">New Fashion D Nice Elegant</a></span>
-
-                                                        <span class="mini-product__quantity">1 x</span>
-
-                                                        <span class="mini-product__price">$8</span></div>
-                                                </div>
-
-                                                <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                            </div>
-                                            <!--====== End - Card for mini cart ======-->
                                         </div>
                                         <!--====== End - Mini Product Container ======-->
 
@@ -530,13 +397,14 @@
 
                                                 <span class="subtotal-text">SUBTOTAL</span>
 
-                                                <span class="subtotal-value">$16</span></div>
+                                                <span class="subtotal-value">${{ sub_total }}</span></div>
                                             <div class="mini-action">
 
-                                                <a class="mini-link btn--e-brand-b-2" href="checkout.html">PROCEED TO
+                                                <a class="mini-link btn--e-brand-b-2" href="">PROCEED TO
                                                     CHECKOUT</a>
 
-                                                <a class="mini-link btn--e-transparent-secondary-b-2" href="cart.html">VIEW
+                                                <a class="mini-link btn--e-transparent-secondary-b-2"
+                                                   href="{% url 'cart_detail' %}">VIEW
                                                     CART</a></div>
                                         </div>
                                         <!--====== End - Mini Product Statistics ======-->
