@@ -15,8 +15,10 @@ class ProductCategory(models.Model):
     title = models.CharField(max_length=100, verbose_name="Title", db_index=True)
     slug = models.SlugField(max_length=100, unique=True, verbose_name="Slug", db_index=True, default="", null=True,
                             blank=True)
+    image = models.ImageField(upload_to="images/categories", verbose_name="Image", null=True, blank=True)
     is_active = models.BooleanField(default=True, verbose_name="Active")
     is_delete = models.BooleanField(default=False, verbose_name="Delete")
+    show_on_home=models.BooleanField(default=False, verbose_name="Show on home")
 
     def __str__(self):
         return self.title
