@@ -1,0 +1,43 @@
+{% load thumbnail %}
+<div class="tab-pane fade show active" id="w-b-s">
+    <div class="slider-fouc">
+        <div class="owl-carousel tab-slider" data-item="4">
+            {% for laptop in laptops %}
+                <div class="u-s-m-b-30">
+                    <div class="product-o product-o--hover-on">
+                        <div class="aspect aspect--square category-o__img-wrap">
+                            {% if laptop.image %}
+                                {% thumbnail laptop.image "600x600" as im %}
+                                    <img class="aspect__img"
+                                         src="{{ im.url }}"
+                                         width="{{ im.width }}"
+                                         height="{{ im.height }}"
+                                         loading="lazy">
+                                {% endthumbnail %}
+                            {% endif %}
+                        </div>
+
+                        <span class="product-o__category">
+
+                                                            <a href="shop-side-version-2.html">{{ laptop.category.first.title }}</a></span>
+
+                        <span class="product-o__name">
+
+                                                            <a href="product-detail.html">{{ laptop.title }}</a></span>
+                        <div class="product-o__rating gl-rating-style"><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i>
+
+                            <span class="product-o__review">(23)</span></div>
+
+                        <span class="product-o__price">${{ laptop.price }}
+                    </span>
+                    </div>
+                </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+</div>
