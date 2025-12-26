@@ -23,13 +23,16 @@
 
                         <span class="product-o__name">
 
-                                                            <a href="product-detail.html">{{ laptop.title }}</a></span>
-                        <div class="product-o__rating gl-rating-style"><i
-                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                class="fas fa-star"></i>
-
-                            <span class="product-o__review">(23)</span></div>
+                                                            <a href="{% url 'product-detail-view' laptop.slug %}">{{ laptop.title }}</a></span>
+                        <div class="product-m__rating gl-rating-style">
+                            {% for star in laptop.rating_ranges.0 %}
+                                <i
+                                        class="fas fa-star"></i>
+                            {% endfor %}
+                            {% for review in laptop.rating_ranges.1 %}
+                                <i class="far fa-star"></i>
+                            {% endfor %}
+                            </div>
 
                         <span class="product-o__price">${{ laptop.price }}
                     </span>
