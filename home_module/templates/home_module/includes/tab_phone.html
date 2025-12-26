@@ -1,45 +1,48 @@
 {% load thumbnail %}
- <div class="tab-pane fade show active" id="e-b-s">
+<div class="tab-pane fade show active" id="e-b-s">
 
 
-                                    <div class="slider-fouc">
-                                        <div class="owl-carousel tab-slider" data-item="4">
-                                            {% for phone in phones %}
-                                                <div class="u-s-m-b-30">
-                                                    <div class="product-o product-o--hover-on">
-                                                        <div class="aspect aspect--square category-o__img-wrap">
-                                                            {% if phone.image %}
-                                                                {% thumbnail phone.image "600x600" as im %}
-                                                                    <img class="aspect__img"
-                                                                         src="{{ im.url }}"
-                                                                         width="{{ im.width }}"
-                                                                         height="{{ im.height }}"
-                                                                         loading="lazy">
-                                                                {% endthumbnail %}
-                                                            {% endif %}
+    <div class="slider-fouc">
+        <div class="owl-carousel tab-slider" data-item="4">
+            {% for phone in phones %}
+                <div class="u-s-m-b-30">
+                    <div class="product-o product-o--hover-on">
+                        <div class="aspect aspect--square category-o__img-wrap">
+                            {% if phone.image %}
+                                {% thumbnail phone.image "600x600" as im %}
+                                    <img class="aspect__img"
+                                         src="{{ im.url }}"
+                                         width="{{ im.width }}"
+                                         height="{{ im.height }}"
+                                         loading="lazy">
+                                {% endthumbnail %}
+                            {% endif %}
 
-                                                        </div>
+                        </div>
 
-                                                        <span class="product-o__category">
+                        <span class="product-o__category">
 
-                                                            <a href="{% url 'product-category-list-view' phone.category.first.slug %}">{{ phone.category.first.title}}</a></span>
+                                                            <a href="{% url 'product-category-list-view' phone.category.first.slug %}">{{ phone.category.first.title }}</a></span>
 
-                                                        <span class="product-o__name">
+                        <span class="product-o__name">
 
-                                                            <a href="product-detail.html">{{ phone.title }}</a></span>
-                                                        <div class="product-o__rating gl-rating-style"><i
-                                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                                class="fas fa-star"></i>
+                                                            <a href="{% url 'product-detail-view' phone.slug %}">{{ phone.title }}</a></span>
+                        <div class="product-m__rating gl-rating-style">
+                            {% for star in phone.rating_ranges.0 %}
+                                <i
+                                        class="fas fa-star"></i>
+                            {% endfor %}
+                            {% for review in phone.rating_ranges.1 %}
+                                <i class="far fa-star"></i>
+                            {% endfor %}
+                        </div>
 
-                                                            <span class="product-o__review">(23)</span></div>
-
-                                                        <span class="product-o__price">${{ phone.price }}
+                        <span class="product-o__price">${{ phone.price }}
                                                         </span>
-                                                    </div>
-                                                </div>
-                                            {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
 
-                                        </div>
-                                    </div>
-                                </div>
+        </div>
+    </div>
+</div>
