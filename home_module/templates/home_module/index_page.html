@@ -117,20 +117,40 @@
                                     <div class="block">
 
                                         <span class="block__title">PHONE'S</span>
-                                        <ul class="nav tab-list">
-                                            <li class="nav-item">
 
-                                                <a class="nav-link btn--e-white-brand-shadow" data-toggle="tab"
-                                                   href="#e-l-p">LATEST PRODUCTS</a></li>
-                                            <li class="nav-item">
-
-                                                <a class="nav-link btn--e-white-brand-shadow active" data-toggle="tab"
-                                                   href="#e-b-s">MOST VISITED</a></li>
-                                            <li class="nav-item">
-
-                                                <a class="nav-link btn--e-white-brand-shadow" data-toggle="tab"
-                                                   href="#e-t-r">TOP RATING</a></li>
-                                        </ul>
+                                            <div class="tool-style__form-wrap">
+                                                <div class="u-s-m-b-8">
+                                                    <select
+                                                            class="select-box select-box--transparent-b-2"
+                                                            id="phone_sort"
+                                                            onchange="phoneTab()">
+                                                        <option value="Newest"
+                                                                {% if phone_sort == 'Newest' %}selected{% endif %}>
+                                                            Sort By: Newest Items
+                                                        </option>
+                                                        <option value="Latest"
+                                                                {% if phone_sort == 'Latest' %}selected{% endif %}>
+                                                            Sort By: Latest Items
+                                                        </option>
+                                                        <option value="Visit"
+                                                                {% if phone_sort == 'Visit' %}selected{% endif %}>
+                                                            Sort By: Most Visit
+                                                        </option>
+                                                        <option value="Rating"
+                                                                {% if phone_sort == 'Rating' %}selected{% endif %}>
+                                                            Sort By: Best Rating
+                                                        </option>
+                                                        <option value="Lowest_p"
+                                                                {% if phone_sort == 'Lowest_p' %}selected{% endif %}>
+                                                            Sort By: Lowest Price
+                                                        </option>
+                                                        <option value="Highest_p"
+                                                                {% if phone_sort == 'Highest_p' %}selected{% endif %}>
+                                                            Sort By: Highest Price
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -142,10 +162,10 @@
                     <!--====== Section Content ======-->
                     <div class="section__content">
                         <div class="container">
-                            <div class="tab-content">
+                            <div class="tab-content" id="phone_content">
 
                                 <!--====== Tab 2 ======-->
-                                {% include 'home_module/includes/tab_phone.html' %}
+                                {% include 'home_module/includes/tab_phone.html' with products=phones  %}
                                 <!--====== End - Tab 2 ======-->
 
                             </div>
@@ -160,7 +180,7 @@
                 <!--====== Section 4 ======-->
 
 
-                <!--====== Women Tab ======-->
+                <!--====== Laptop Tab ======-->
                 <div class="u-s-p-b-60">
 
                     <!--====== Section Intro ======-->
@@ -171,20 +191,39 @@
                                     <div class="block">
 
                                         <span class="block__title">LAPTOP'S</span>
-                                        <ul class="nav tab-list">
-                                            <li class="nav-item">
-
-                                                <a class="nav-link btn--e-white-brand-shadow" data-toggle="tab"
-                                                   href="#w-l-p">LATEST PRODUCTS</a></li>
-                                            <li class="nav-item">
-
-                                                <a class="nav-link btn--e-white-brand-shadow active" data-toggle="tab"
-                                                   href="#w-b-s">MOST VISITED</a></li>
-                                            <li class="nav-item">
-
-                                                <a class="nav-link btn--e-white-brand-shadow" data-toggle="tab"
-                                                   href="#w-t-r">TOP RATING</a></li>
-                                        </ul>
+                                        <div class="tool-style__form-wrap">
+                                                <div class="u-s-m-b-8">
+                                                    <select
+                                                            class="select-box select-box--transparent-b-2"
+                                                            id="laptop_sort"
+                                                            onchange="laptopTab()">
+                                                        <option value="Newest"
+                                                                {% if phone_sort == 'Newest' %}selected{% endif %}>
+                                                            Sort By: Newest Items
+                                                        </option>
+                                                        <option value="Latest"
+                                                                {% if phone_sort == 'Latest' %}selected{% endif %}>
+                                                            Sort By: Latest Items
+                                                        </option>
+                                                        <option value="Visit"
+                                                                {% if phone_sort == 'Visit' %}selected{% endif %}>
+                                                            Sort By: Most Visit
+                                                        </option>
+                                                        <option value="Rating"
+                                                                {% if phone_sort == 'Rating' %}selected{% endif %}>
+                                                            Sort By: Best Rating
+                                                        </option>
+                                                        <option value="Lowest_p"
+                                                                {% if phone_sort == 'Lowest_p' %}selected{% endif %}>
+                                                            Sort By: Lowest Price
+                                                        </option>
+                                                        <option value="Highest_p"
+                                                                {% if phone_sort == 'Highest_p' %}selected{% endif %}>
+                                                            Sort By: Highest Price
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -196,17 +235,16 @@
                     <!--====== Section Content ======-->
                     <div class="section__content">
                         <div class="container">
-                            <div class="tab-content">
+                            <div class="tab-content" id="laptop_content">
                                 <!--====== Tab 2 ======-->
-                                {% include 'home_module/includes/tab_laptop.html' %}
+                                {% include 'home_module/includes/tab_laptop.html' with products=laptops %}
                                 <!--====== End - Tab 2 ======-->
-
                             </div>
                         </div>
                     </div>
                     <!--====== End - Section Content ======-->
                 </div>
-                <!--====== End - Women Tab ======-->
+                <!--====== End - Laptop Tab ======-->
                 <!--====== End - Section 4 ======-->
 
                 <!--====== Section 6 ======-->
