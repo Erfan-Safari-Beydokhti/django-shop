@@ -1,5 +1,5 @@
 {% load thumbnail %}
-<div class="tab-pane fade show active" id="w-b-s">
+<div class="tab-pane fade show active" id="e-b-s">
     <div class="slider-fouc">
         <div class="owl-carousel tab-slider" data-item="4">
             {% for laptop in products %}
@@ -19,7 +19,7 @@
 
                         <span class="product-o__category">
 
-                                                            <a href="shop-side-version-2.html">{{ laptop.category.first.title }}</a></span>
+                                                            <a href="{% url 'product-category-list-view' laptop.category.first.slug %}">{{ laptop.category.first.title }}</a></span>
 
                         <span class="product-o__name">
 
@@ -32,15 +32,13 @@
                             {% for review in laptop.rating_ranges.1 %}
                                 <i class="far fa-star"></i>
                             {% endfor %}
-                            </div>
+                        </div>
 
                         <span class="product-o__price">${{ laptop.price }}
                     </span>
                     </div>
                 </div>
             {% endfor %}
-
-
         </div>
     </div>
 </div>

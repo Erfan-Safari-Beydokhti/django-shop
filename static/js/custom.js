@@ -115,26 +115,3 @@ function removeWishItem( wishId) {
         location.reload()
      });
 }
-
-function phoneTab(){
-    let sort = $('#phone_sort').val();
-
-    $.get("/ajax",{
-        category:"phone",
-        sort:sort,
-        template:'tab_phone.html'
-    }).then(res=>{
-        $('#phone_content').html(res.html);
-    })
-
-}
-function laptopTab(){
-    let sort = $("#laptop_sort").val();
-    $.get("/ajax",{
-        category:'laptop',
-        sort:sort,
-        template: 'tab_laptop.html'
-    }).then(res=>{
-        $('#laptop_content').html(res.html);
-    })
-}
