@@ -56,7 +56,7 @@
 
                 <span class="bp-mini__h1">
 
-                                                    <a href="blog-detail.html">{{ blog.title }}</a></span>
+                                                    <a href="{% url 'blog-detail' blog.slug%}">{{ blog.title }}</a></span>
                 <p class="bp-mini__p">{{ blog.short_description }}</p>
                 <div class="blog-t-w">
 
