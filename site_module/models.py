@@ -24,3 +24,25 @@ class SiteSettings(models.Model):
     class Meta:
         verbose_name = 'Site Settings'
         verbose_name_plural = 'Site Settings'
+
+class FooterLinkBox(models.Model):
+    title=models.CharField(max_length=100,verbose_name="Title")
+
+    class Meta:
+        verbose_name = 'Footer Link Box'
+        verbose_name_plural = 'Footer Link Box'
+
+    def __str__(self):
+        return self.title
+
+class FooterLink(models.Model):
+    title=models.CharField(max_length=100,verbose_name="Title")
+    url=models.URLField(max_length=300,verbose_name="URL")
+    FooterLinkBox=models.ForeignKey(to=FooterLinkBox,on_delete=models.CASCADE,verbose_name="Footer Link Box")
+
+    class Meta:
+        verbose_name = 'Footer Link'
+        verbose_name_plural = 'Footer Link'
+
+    def __str__(self):
+        return self.title
