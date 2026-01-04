@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'order_module',
     'wishlist_module',
     'faq_module',
+    'site_module',
 
 
     'django_render_partial',
@@ -81,7 +82,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'dashboard_module.context_processors.dashboard_sidebar_context',
-                'config.context_processors.header_categories'
+                'config.context_processors.header_categories',
+                'config.context_processors.site_global_context',
             ],
         },
     },

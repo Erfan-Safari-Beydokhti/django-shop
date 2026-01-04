@@ -2,6 +2,7 @@ from django.db.models import Sum
 
 from cart_module.models import Cart
 from product_module.models import ProductCategory
+from site_module.models import SiteSettings, FooterLinkBox
 
 
 def header_categories(request):
@@ -29,4 +30,10 @@ def header_categories(request):
         'items': cart.items.all(),
         'cart_items_count': cart_items_count,
         'sub_total': float(cart.total_price())
+    }
+
+def site_global_context(request):
+    return {
+        'site_setting':SiteSettings.objects.filter(active=True).first(),
+        'footer_link_boxes':FooterLinkBox.objects.prefetch_related('footerlink_set')
     }
