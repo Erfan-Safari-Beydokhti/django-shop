@@ -54,7 +54,8 @@ config/
 ├── faq_module
 ├── about_module
 ├── contact_module
-
+├── site_module
+├── polls
 --------------------------------------------------
 ⚙️ Installation & Setup
 
@@ -98,5 +99,4 @@ Special thanks to the template creator for providing a clean and professional e-
 
 🔗 Template Repository:
 https://github.com/ahmadhuss/ludus-free-premium-ecommerce-template
-├── site_module
-├── polls
+
